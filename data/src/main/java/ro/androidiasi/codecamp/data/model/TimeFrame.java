@@ -5,10 +5,10 @@ import java.util.Date;
 /**
  * Created by andrei on 06/04/16.
  */
-public class TimeFrame implements IModel {
+public final class TimeFrame extends AbstractModel {
 
-    private Date mStartTime;
-    private Date mEndTime;
+    private final Date mStartTime;
+    private final Date mEndTime;
 
     public TimeFrame(Date pStartTime, Date pEndTime) {
         mStartTime = pStartTime;
@@ -19,15 +19,8 @@ public class TimeFrame implements IModel {
         return mStartTime;
     }
 
-    public void setStartTime(Date pStartTime) {
-        mStartTime = pStartTime;
-    }
-
     public Date getEndTime() {
         return mEndTime;
     }
 
-    public void setEndTime(Date pEndTime) {
-        mEndTime = pEndTime;
-    }
 }
