@@ -1,25 +1,18 @@
-package ro.androidiasi.codecamp.data.source;
-
-import android.util.SparseArray;
+package ro.androidiasi.codecamp.data.source.remote;
 
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.model.Codecamper;
-import ro.androidiasi.codecamp.data.model.IModel;
 import ro.androidiasi.codecamp.data.model.Room;
 import ro.androidiasi.codecamp.data.model.Session;
 import ro.androidiasi.codecamp.data.model.TimeFrame;
-import ro.androidiasi.codecamp.data.source.local.AgendaLocalDataSource;
-import ro.androidiasi.codecamp.data.source.remote.AgendaRemoteDataSource;
+import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
+import ro.androidiasi.codecamp.data.source.ILoadCallback;
 
 /**
  * Created by andrei on 06/04/16.
  */
-public class AgendaRepository implements IAgendaDataSource {
-
-    private AgendaLocalDataSource mAgendaLocalDataSource;
-    private AgendaRemoteDataSource mAgendaRemoteDataSource;
-    private SparseArray<IModel> mCache;
+public class AgendaRemoteDataSource implements IAgendaDataSource {
 
     @Override public void getRoomsList(ILoadCallback<List<Room>> pLoadCallback) {
 
