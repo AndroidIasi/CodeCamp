@@ -10,7 +10,9 @@ import ro.androidiasi.codecamp.R;
  */
 @EFragment(R.layout.activity_launcher)
 public class SessionsFragment extends BaseFragment implements SessionsContract.View {
+
     public static SessionsFragment newInstance(){
         return SessionsFragment_.builder().build();
     }
+
 }

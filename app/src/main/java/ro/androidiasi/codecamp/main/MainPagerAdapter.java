@@ -1,4 +1,4 @@
-package ro.androidiasi.codecamp;
+package ro.androidiasi.codecamp.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
