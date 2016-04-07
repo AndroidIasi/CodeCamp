@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 
 import ro.androidiasi.codecamp.internal.aa.IActivityEnhanced;
@@ -15,6 +16,8 @@ import ro.androidiasi.codecamp.internal.aa.IActivityEnhanced;
  */
 @EActivity
 public abstract class BaseActivity extends AppCompatActivity implements IActivityEnhanced{
+
+    @Bean public Navigator mNavigator;
 
     @AfterExtras
     @Override public final void afterExtrasInject(){
@@ -46,4 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         //empty
     }
 
+    public Navigator getNavigator() {
+        return mNavigator;
+    }
 }

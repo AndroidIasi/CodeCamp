@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 
 import ro.androidiasi.codecamp.internal.aa.IEnhanced;
@@ -14,6 +15,8 @@ import ro.androidiasi.codecamp.internal.aa.IEnhanced;
  */
 @EFragment
 public abstract class BaseFragment extends Fragment implements IEnhanced {
+
+    @Bean public Navigator mNavigator;
 
     @AfterInject
     @Override public final void afterMembersInject(){
@@ -35,4 +38,7 @@ public abstract class BaseFragment extends Fragment implements IEnhanced {
         //empty
     }
 
+    public Navigator getNavigator() {
+        return mNavigator;
+    }
 }
