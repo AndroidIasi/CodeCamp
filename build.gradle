@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-rc3'
+        classpath 'com.android.tools.build:gradle:2.0.0'
 
         // Plugin to help with annotation processing
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -42,5 +42,8 @@ ext {
     buildToolsVersion = '23.0.3'
 
     // App dependencies
-    supportLibraryVersion = '23.2.1'
+    supportLibraryVersion = '23.3.0'
+    snappydbVersion = '0.5.2'
+    kyroVersion = '2.24.0'
+    androidAnnotationsVersion = '4.0.0'
 }

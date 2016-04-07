@@ -2,6 +2,8 @@ package ro.androidiasi.codecamp.data.source;
 
 import android.util.SparseArray;
 
+import org.androidannotations.annotations.EBean;
+
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.model.Codecamper;
@@ -15,6 +17,7 @@ import ro.androidiasi.codecamp.data.source.remote.AgendaRemoteDataSource;
 /**
  * Created by andrei on 06/04/16.
  */
+@EBean(scope = EBean.Scope.Singleton)
 public class AgendaRepository implements IAgendaDataSource {
 
     private AgendaLocalDataSource mAgendaLocalDataSource;

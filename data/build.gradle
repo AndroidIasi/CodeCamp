@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -20,6 +21,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    apt "org.androidannotations:androidannotations:$rootProject.androidAnnotationsVersion"
+    compile "org.androidannotations:androidannotations-api:$rootProject.androidAnnotationsVersion"
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.snappydb:snappydb-lib:$rootProject.snappydbVersion"
+    compile "com.esotericsoftware.kryo:kryo:$rootProject.kyroVersion"
     testCompile 'junit:junit:4.12'
 }
