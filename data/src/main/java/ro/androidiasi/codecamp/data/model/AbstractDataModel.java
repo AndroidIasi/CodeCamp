@@ -5,14 +5,14 @@ import java.util.UUID;
 /**
  * Created by andrei on 06/04/16.
  */
-public abstract class AbstractModel implements IModel {
+public abstract class AbstractDataModel implements IDataModel {
     private final int mId;
 
-    public AbstractModel(){
+    public AbstractDataModel(){
         this.mId = UUID.randomUUID().hashCode();
     }
 
-    public AbstractModel(int pId) {
+    public AbstractDataModel(int pId) {
         mId = pId;
     }
 

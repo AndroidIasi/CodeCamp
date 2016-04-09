@@ -1,4 +1,4 @@
-package ro.androidiasi.codecamp.data.model;
+package ro.androidiasi.codecamp.internal.model;
 
 /**
  * Created by andrei on 06/04/16.

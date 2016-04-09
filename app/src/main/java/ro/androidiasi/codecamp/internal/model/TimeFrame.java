@@ -1,4 +1,4 @@
-package ro.androidiasi.codecamp.data.model;
+package ro.androidiasi.codecamp.internal.model;
 
 import java.util.Date;
 

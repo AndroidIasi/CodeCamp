@@ -3,7 +3,7 @@ package ro.androidiasi.codecamp.data.model;
 /**
  * Created by andrei on 06/04/16.
  */
-public final class Codecamper extends AbstractModel{
+public final class DataCodecamper extends AbstractDataModel {
 
     private final String mFullName;
     private final String mTitle;
@@ -11,7 +11,7 @@ public final class Codecamper extends AbstractModel{
     private final String mDescription;
     private final String mPhotoUrl;
 
-    public Codecamper(String pFullName, String pTitle, String pCompany, String pDescription, String pPhotoUrl) {
+    public DataCodecamper(String pFullName, String pTitle, String pCompany, String pDescription, String pPhotoUrl) {
         mFullName = pFullName;
         mTitle = pTitle;
         mCompany = pCompany;
