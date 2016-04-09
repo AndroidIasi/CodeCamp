@@ -9,13 +9,13 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 
-import ro.androidiasi.codecamp.internal.aa.IActivityEnhanced;
+import ro.androidiasi.codecamp.internal.aa.IEnhancedActivity;
 
 /**
  * Created by andrei on 08/04/16.
  */
 @EActivity
-public abstract class BaseActivity extends AppCompatActivity implements IActivityEnhanced{
+public abstract class BaseActivity extends AppCompatActivity implements IEnhancedActivity {
 
     @Bean public Navigator mNavigator;
 

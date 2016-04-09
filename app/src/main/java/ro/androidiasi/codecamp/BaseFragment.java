@@ -8,13 +8,13 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 
-import ro.androidiasi.codecamp.internal.aa.IEnhanced;
+import ro.androidiasi.codecamp.internal.aa.IEnhancedView;
 
 /**
  * Created by andrei on 08/04/16.
  */
 @EFragment
-public abstract class BaseFragment extends Fragment implements IEnhanced {
+public abstract class BaseFragment extends Fragment implements IEnhancedView {
 
     @Bean public Navigator mNavigator;
 
