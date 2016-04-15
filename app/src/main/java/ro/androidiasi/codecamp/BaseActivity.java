@@ -9,6 +9,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 
+import ro.androidiasi.codecamp.data.DummyRepository;
+import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.internal.aa.IEnhancedActivity;
 
 /**
@@ -18,6 +20,7 @@ import ro.androidiasi.codecamp.internal.aa.IEnhancedActivity;
 public abstract class BaseActivity extends AppCompatActivity implements IEnhancedActivity {
 
     @Bean public Navigator mNavigator;
+    @Bean(DummyRepository.class) public IAgendaDataSource<Long> mRepository;
 
     @AfterExtras
     @Override public final void afterExtrasInject(){
@@ -51,5 +54,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IEnhance
 
     public Navigator getNavigator() {
         return mNavigator;
+    }
+
+    public IAgendaDataSource<Long> getRepository(){
+        return this.mRepository;
     }
 }

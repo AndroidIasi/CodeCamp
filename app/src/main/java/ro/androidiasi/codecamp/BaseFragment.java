@@ -8,6 +8,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 
+import ro.androidiasi.codecamp.data.DummyRepository;
+import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.internal.aa.IEnhancedView;
 
 /**
@@ -17,6 +19,7 @@ import ro.androidiasi.codecamp.internal.aa.IEnhancedView;
 public abstract class BaseFragment extends Fragment implements IEnhancedView {
 
     @Bean public Navigator mNavigator;
+    @Bean(DummyRepository.class) public IAgendaDataSource<Long> mRepository;
 
     @AfterInject
     @Override public final void afterMembersInject(){
@@ -40,5 +43,8 @@ public abstract class BaseFragment extends Fragment implements IEnhancedView {
 
     public Navigator getNavigator() {
         return mNavigator;
+    }
+    public IAgendaDataSource<Long> getRepository(){
+        return mRepository;
     }
 }

@@ -1,0 +1,4 @@
+<resources>
+    <string name="placeholder_loremipsum">Lorem ipsum dolor sit amet</string>
+    <string name="placeholder_loremipsum_short">Lorem ipsum</string>
+</resources>

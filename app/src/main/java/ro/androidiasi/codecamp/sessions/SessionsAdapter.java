@@ -9,6 +9,8 @@ import org.androidannotations.annotations.RootContext;
 
 import ro.androidiasi.codecamp.internal.recycler.BaseRecyclerViewAdapter;
 import ro.androidiasi.codecamp.internal.model.Session;
+import ro.androidiasi.codecamp.sessions.item.SessionItemPresenter;
+import ro.androidiasi.codecamp.sessions.item.SessionItemView;
 
 /**
  * Created by andrei on 10/04/16.
@@ -19,13 +21,12 @@ public class SessionsAdapter extends BaseRecyclerViewAdapter<Session, SessionIte
     @RootContext Context mContext;
     @Bean SessionItemPresenter mSessionItemPresenter;
 
-    @Override protected SessionItemView onCreateItemView(ViewGroup parent, int viewType) {
+    @Override protected SessionItemView getItemView(ViewGroup parent, int viewType) {
         return SessionItemView_.build(mContext);
     }
 
-    @Override protected SessionItemPresenter onCreatePresenter() {
+    @Override protected SessionItemPresenter getPresenter() {
         return mSessionItemPresenter;
     }
-
 
 }

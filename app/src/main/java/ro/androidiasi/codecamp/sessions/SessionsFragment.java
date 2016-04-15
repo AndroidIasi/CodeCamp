@@ -17,7 +17,8 @@ public class SessionsFragment extends BaseFragment implements SessionsContract.V
     @ViewById(R.id.recycler) RecyclerView mRecyclerView;
 
     public static SessionsFragment newInstance(){
-        return SessionsFragment_.builder().build();
+        return SessionsFragment_.builder()
+                .build();
     }
 
 }

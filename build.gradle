@@ -46,4 +46,5 @@ ext {
     snappydbVersion = '0.5.2'
     kyroVersion = '2.24.0'
     androidAnnotationsVersion = '4.0.0'
+    frescoVersion = '0.9.0'
 }

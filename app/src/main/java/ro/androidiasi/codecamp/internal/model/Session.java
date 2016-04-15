@@ -11,14 +11,15 @@ public final class Session extends AbstractModel {
     private final String mDescription;
     private final TimeFrame mTimeFrame;
 
-    private boolean mFavorite;
+    private final boolean mFavorite;
 
-    public Session(Codecamper pCodecamper, Room pRoom, String pName, String pDescription, TimeFrame pTimeFrame) {
+    public Session(Codecamper pCodecamper, Room pRoom, String pName, String pDescription, TimeFrame pTimeFrame, boolean pFavorite) {
         mCodecamper = pCodecamper;
         mRoom = pRoom;
         mName = pName;
         mDescription = pDescription;
         mTimeFrame = pTimeFrame;
+        mFavorite = pFavorite;
     }
 
     public Codecamper getCodecamper() {
@@ -46,7 +47,4 @@ public final class Session extends AbstractModel {
         return mFavorite;
     }
 
-    public void setFavorite(boolean pFavorite) {
-        mFavorite = pFavorite;
-    }
 }

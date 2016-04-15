@@ -14,19 +14,19 @@ import ro.androidiasi.codecamp.internal.model.IModel;
 public abstract class BaseRecyclerViewAdapter<
         Model extends IModel,
         View extends android.view.View,
-        Presenter extends IPresenter<Model, View>>
+        Presenter extends IRecyclerItemPresenter<Model, View>>
         extends RecyclerView.Adapter<ViewDecorator<View>> {
 
     private List<Model> mItems = new ArrayList<>();
 
     @Override public ViewDecorator<View> onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewDecorator<>(onCreateItemView(parent, viewType));
+        return new ViewDecorator<>(getItemView(parent, viewType));
     }
 
     @Override public void onBindViewHolder(ViewDecorator<View> holder, int position) {
         View view = holder.getView();
         Model model = this.mItems.get(position);
-        this.onCreatePresenter().bind(model, view);
+        this.getPresenter().bind(model, view);
     }
 
     @Override public int getItemCount() {
@@ -43,6 +43,6 @@ public abstract class BaseRecyclerViewAdapter<
         this.notifyDataSetChanged();
     }
 
-    protected abstract View onCreateItemView(ViewGroup parent, int viewType);
-    protected abstract Presenter onCreatePresenter();
+    protected abstract View getItemView(ViewGroup parent, int viewType);
+    protected abstract Presenter getPresenter();
 }
