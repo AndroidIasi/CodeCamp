@@ -10,18 +10,18 @@ import ro.androidiasi.codecamp.data.model.DataTimeFrame;
 /**
  * Created by andrei on 06/04/16.
  */
-public interface IAgendaDataSource {
+public interface IAgendaDataSource<Id> {
 
     void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback);
     void getSessionsList(ILoadCallback<List<DataSession>> pLoadCallback);
     void getTimeFramesList(ILoadCallback<List<DataTimeFrame>> pLoadCallback);
     void getCodecampersList(ILoadCallback<List<DataCodecamper>> pLoadCallback);
 
-    void getRoom(int pId, ILoadCallback<DataRoom> pLoadCallback);
-    void getSession(int pId, ILoadCallback<DataSession> pLoadCallback);
-    void getTimeFrame(int pId, ILoadCallback<DataTimeFrame> pLoadCallback);
-    void getCodecamper(int pId, ILoadCallback<DataCodecamper> pLoadCallback);
+    void getRoom(Id pId, ILoadCallback<DataRoom> pLoadCallback);
+    void getSession(Id pId, ILoadCallback<DataSession> pLoadCallback);
+    void getTimeFrame(Id pId, ILoadCallback<DataTimeFrame> pLoadCallback);
+    void getCodecamper(Id pId, ILoadCallback<DataCodecamper> pLoadCallback);
 
-    void isSessionFavorite(int pSessionId, ILoadCallback<DataSession> pLoadCallback);
-    void setSessionFavorite(int pSessionId, boolean pFavorite, ILoadCallback<DataSession> pLoadCallback);
+    void isSessionFavorite(Id pId, ILoadCallback<DataSession> pLoadCallback);
+    void setSessionFavorite(Id pId, boolean pFavorite, ILoadCallback<DataSession> pLoadCallback);
 }

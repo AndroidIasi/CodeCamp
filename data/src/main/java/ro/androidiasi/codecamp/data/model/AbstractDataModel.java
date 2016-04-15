@@ -5,8 +5,8 @@ import java.util.UUID;
 /**
  * Created by andrei on 06/04/16.
  */
-public abstract class AbstractDataModel implements IDataModel {
-    private final int mId;
+public abstract class AbstractDataModel implements IDataModel<Integer> {
+    private int mId;
 
     public AbstractDataModel(){
         this.mId = UUID.randomUUID().hashCode();
@@ -16,7 +16,7 @@ public abstract class AbstractDataModel implements IDataModel {
         mId = pId;
     }
 
-    @Override public final int getId() {
+    @Override public Integer getId() {
         return mId;
     }
 }

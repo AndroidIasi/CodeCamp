@@ -3,11 +3,14 @@ package ro.androidiasi.codecamp.data.model;
 /**
  * Created by andrei on 06/04/16.
  */
-public final class DataRoom extends AbstractDataModel {
+public class DataRoom extends AbstractDataModel {
 
-    private final String mName;
-    private final int mFloor;
-    private final int mSeats;
+    private String mName;
+    private int mFloor;
+    private int mSeats;
+
+    public DataRoom() {
+    }
 
     public DataRoom(String pName, int pFloor, int pSeats) {
         mName = pName;

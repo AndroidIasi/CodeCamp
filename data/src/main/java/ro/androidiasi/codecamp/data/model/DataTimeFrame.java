@@ -5,14 +5,24 @@ import java.util.Date;
 /**
  * Created by andrei on 06/04/16.
  */
-public final class DataTimeFrame extends AbstractDataModel {
+public class DataTimeFrame extends AbstractDataModel {
 
-    private final Date mStartTime;
-    private final Date mEndTime;
+    private String mName;
+    private Date mStartTime;
+    private Date mEndTime;
 
-    public DataTimeFrame(Date pStartTime, Date pEndTime) {
+
+    public DataTimeFrame() {
+    }
+
+    public DataTimeFrame(String pName, Date pStartTime, Date pEndTime) {
+        mName = pName;
         mStartTime = pStartTime;
         mEndTime = pEndTime;
+    }
+
+    public String getName() {
+        return mName;
     }
 
     public Date getStartTime() {

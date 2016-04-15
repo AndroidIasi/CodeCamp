@@ -3,13 +3,16 @@ package ro.androidiasi.codecamp.data.model;
 /**
  * Created by andrei on 06/04/16.
  */
-public final class DataCodecamper extends AbstractDataModel {
+public class DataCodecamper extends AbstractDataModel {
 
-    private final String mFullName;
-    private final String mTitle;
-    private final String mCompany;
-    private final String mDescription;
-    private final String mPhotoUrl;
+    private String mFullName;
+    private String mTitle;
+    private String mCompany;
+    private String mDescription;
+    private String mPhotoUrl;
+
+    public DataCodecamper() {
+    }
 
     public DataCodecamper(String pFullName, String pTitle, String pCompany, String pDescription, String pPhotoUrl) {
         mFullName = pFullName;

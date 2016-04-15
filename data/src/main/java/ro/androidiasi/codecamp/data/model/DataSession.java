@@ -3,16 +3,19 @@ package ro.androidiasi.codecamp.data.model;
 /**
  * Created by andrei on 06/04/16.
  */
-public final class DataSession extends AbstractDataModel {
+public class DataSession extends AbstractDataModel {
 
-    private final String mName;
-    private final String mDescription;
+    private String mName;
+    private String mDescription;
 
-    private final DataCodecamper mDataCodecamper;
-    private final DataRoom mDataRoom;
-    private final DataTimeFrame mDataTimeFrame;
+    private DataCodecamper mDataCodecamper;
+    private DataRoom mDataRoom;
+    private DataTimeFrame mDataTimeFrame;
 
     private boolean mFavorite;
+
+    public DataSession() {
+    }
 
     public DataSession(DataCodecamper pDataCodecamper, DataRoom pDataRoom, String pName, String pDescription, DataTimeFrame pDataTimeFrame) {
         mDataCodecamper = pDataCodecamper;

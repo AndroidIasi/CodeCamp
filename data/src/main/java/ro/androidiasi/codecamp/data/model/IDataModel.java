@@ -5,6 +5,6 @@ import java.io.Serializable;
 /**
  * Created by andrei on 06/04/16.
  */
-public interface IDataModel extends Serializable {
-    int getId();
+public interface IDataModel<Id> extends Serializable {
+    Id getId();
 }

@@ -12,7 +12,7 @@ import ro.androidiasi.codecamp.data.source.ILoadCallback;
 /**
  * Created by andrei on 06/04/16.
  */
-public class AgendaLocalDataSource implements IAgendaDataSource {
+public class AgendaLocalDataSource implements IAgendaDataSource<Long> {
 
     @Override public void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback) {
 
@@ -30,27 +30,27 @@ public class AgendaLocalDataSource implements IAgendaDataSource {
 
     }
 
-    @Override public void getRoom(int pId, ILoadCallback<DataRoom> pLoadCallback) {
+    @Override public void getRoom(Long pLong, ILoadCallback<DataRoom> pLoadCallback) {
 
     }
 
-    @Override public void getSession(int pId, ILoadCallback<DataSession> pLoadCallback) {
+    @Override public void getSession(Long pLong, ILoadCallback<DataSession> pLoadCallback) {
 
     }
 
-    @Override public void getTimeFrame(int pId, ILoadCallback<DataTimeFrame> pLoadCallback) {
+    @Override public void getTimeFrame(Long pLong, ILoadCallback<DataTimeFrame> pLoadCallback) {
 
     }
 
-    @Override public void getCodecamper(int pId, ILoadCallback<DataCodecamper> pLoadCallback) {
+    @Override public void getCodecamper(Long pLong, ILoadCallback<DataCodecamper> pLoadCallback) {
 
     }
 
-    @Override public void isSessionFavorite(int pSessionId, ILoadCallback<DataSession> pLoadCallback) {
+    @Override public void isSessionFavorite(Long pLong, ILoadCallback<DataSession> pLoadCallback) {
 
     }
 
-    @Override public void setSessionFavorite(int pSessionId, boolean pFavorite, ILoadCallback<DataSession> pLoadCallback) {
+    @Override public void setSessionFavorite(Long pLong, boolean pFavorite, ILoadCallback<DataSession> pLoadCallback) {
 
     }
 }
