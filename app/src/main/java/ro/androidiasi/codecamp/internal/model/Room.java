@@ -1,5 +1,7 @@
 package ro.androidiasi.codecamp.internal.model;
 
+import ro.androidiasi.codecamp.data.model.DataRoom;
+
 /**
  * Created by andrei on 06/04/16.
  */
@@ -25,5 +27,13 @@ public final class Room extends AbstractModel {
 
     public String getName() {
         return mName;
+    }
+
+    public static Room fromDataRoom(DataRoom pDataRoom){
+        return new Room(
+                pDataRoom.getName(),
+                pDataRoom.getFloor(),
+                pDataRoom.getSeats()
+        );
     }
 }

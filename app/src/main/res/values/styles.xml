@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Session.Title" parent="Base.TextAppearance.AppCompat.Title">
+    </style>
+
+    <style name="Session.Room" parent="Base.TextAppearance.AppCompat.Button">
+    </style>
 </resources>

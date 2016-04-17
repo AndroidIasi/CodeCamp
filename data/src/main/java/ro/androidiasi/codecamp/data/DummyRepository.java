@@ -92,6 +92,50 @@ public class DummyRepository implements IAgendaDataSource<Long> {
                 mCodecampersList.get(0),
                 mRoomsList.get(0),
                 "Welcome!",
+                "Bugs Bunny welcomes everyoneBugs Bunny welcomes everyoneBugs Bunny welcomes everyone" +
+                        "Bugs Bunny welcomes everyoneBugs Bunny welcomes everyone",
+                mTimeFramesList.get(0)
+        ));
+
+        this.mSessionsList.add(new DataSession(
+                mCodecampersList.get(1),
+                mRoomsList.get(1),
+                "Welcome!",
+                "The best pistol in the west!",
+                mTimeFramesList.get(1)
+        ));
+        this.mSessionsList.add(new DataSession(
+                mCodecampersList.get(2),
+                mRoomsList.get(2),
+                "Welcome!",
+                "Life of a duck...",
+                mTimeFramesList.get(2)
+        ));
+        this.mSessionsList.add(new DataSession(
+                mCodecampersList.get(0),
+                mRoomsList.get(2),
+                "Welcome!",
+                "Carrots! Love them or hate them!",
+                mTimeFramesList.get(3)
+        ));
+        this.mSessionsList.add(new DataSession(
+                mCodecampersList.get(1),
+                mRoomsList.get(4),
+                "Welcome!",
+                "Why the damn rabbit won't die?",
+                mTimeFramesList.get(4)
+        ));
+        this.mSessionsList.add(new DataSession(
+                mCodecampersList.get(2),
+                mRoomsList.get(5),
+                "Welcome!",
+                "Ducks don't give a \"phoque\"!",//din fr.
+                mTimeFramesList.get(5)
+        ));
+        this.mSessionsList.add(new DataSession(
+                mCodecampersList.get(0),
+                mRoomsList.get(0),
+                "Welcome!",
                 "Bugs Bunny welcomes everyone",
                 mTimeFramesList.get(0)
         ));

@@ -1,5 +1,10 @@
 package ro.androidiasi.codecamp.internal.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ro.androidiasi.codecamp.data.model.DataSession;
+
 /**
  * Created by andrei on 06/04/16.
  */
@@ -45,6 +50,26 @@ public final class Session extends AbstractModel {
 
     public boolean isFavorite() {
         return mFavorite;
+    }
+
+    public static Session fromDataSession(DataSession pDataSession){
+        return new Session(
+              Codecamper.fromDataCodecamper(pDataSession.getDataCodecamper()),
+                Room.fromDataRoom(pDataSession.getDataRoom()),
+                pDataSession.getName(),
+                pDataSession.getDescription(),
+                TimeFrame.fromDataTimeFrame(pDataSession.getDataTimeFrame()),
+                pDataSession.isFavorite()
+        );
+    }
+
+    public static List<Session> fromDataSessionList(List<DataSession> pDataSessions){
+        List<Session> sessions = new ArrayList<>();
+        for (int i = 0; i < pDataSessions.size(); i++) {
+            Session session = Session.fromDataSession(pDataSessions.get(i));
+            sessions.add(session);
+        }
+        return sessions;
     }
 
 }

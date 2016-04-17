@@ -2,6 +2,8 @@ package ro.androidiasi.codecamp.internal.model;
 
 import java.util.Date;
 
+import ro.androidiasi.codecamp.data.model.DataTimeFrame;
+
 /**
  * Created by andrei on 06/04/16.
  */
@@ -23,4 +25,10 @@ public final class TimeFrame extends AbstractModel {
         return mEndTime;
     }
 
+    public static TimeFrame fromDataTimeFrame(DataTimeFrame pDataTimeFrame){
+        return new TimeFrame(
+                pDataTimeFrame.getStartTime(),
+                pDataTimeFrame.getEndTime()
+        );
+    }
 }

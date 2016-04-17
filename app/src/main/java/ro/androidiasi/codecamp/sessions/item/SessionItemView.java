@@ -32,10 +32,6 @@ public class SessionItemView extends LinearLayout implements SessionItemContract
     }
 
 
-    @Override public void setPresenter(SessionItemContract.Presenter pPresenter) {
-        //no need for the presenter here, still getting used to MVP
-    }
-
     @Override public void setCodecamperPhotoUrl(String pPhotoUrl) {
         this.mDraweeView.setImageURI(Uri.parse(pPhotoUrl));
     }

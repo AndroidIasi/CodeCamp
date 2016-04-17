@@ -5,25 +5,31 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_session_height"
-    android:layout_margin="@dimen/activity_horizontal_margin">
+    android:layout_margin="@dimen/recycler_item_margin">
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/drawee_view"
         android:layout_width="@dimen/item_session_height"
-        android:layout_height="match_parent"/>
-    <RelativeLayout
+        android:layout_height="match_parent"
+        app:roundAsCircle="true"/>
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/Session.Title"
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="@string/placeholder_loremipsum"/>
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/Session.Room"
             android:id="@+id/track"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/text_view_margin"
             android:text="@string/placeholder_loremipsum_short"/>
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/track"
-            android:text="@string/placeholder_loremipsum"/>
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

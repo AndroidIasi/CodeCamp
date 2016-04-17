@@ -48,6 +48,7 @@ dependencies {
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
 
     compile "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
+    compile "uk.co.chrisjenx:calligraphy:$rootProject.ext.caligraphyVersion"
 
     testCompile 'junit:junit:4.12'
 }

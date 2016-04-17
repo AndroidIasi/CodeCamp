@@ -16,7 +16,4 @@ public class SessionItemPresenter implements SessionItemContract.Presenter {
         pSessionItemView.setRoomName(pSession.getRoom().getName());
     }
 
-    @Override public void start() {
-
-    }
 }
