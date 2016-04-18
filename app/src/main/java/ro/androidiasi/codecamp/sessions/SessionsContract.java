@@ -14,6 +14,7 @@ public interface SessionsContract {
 
     interface Presenter{
 
+        void onEventSessionUpdated();
     }
 
 }

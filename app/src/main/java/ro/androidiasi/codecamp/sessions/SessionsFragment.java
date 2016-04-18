@@ -5,10 +5,13 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import ro.androidiasi.codecamp.BaseFragment;
 import ro.androidiasi.codecamp.R;
 import ro.androidiasi.codecamp.internal.model.Session;
+import ro.androidiasi.codecamp.sessiondetail.EventSessionUpdated;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
@@ -43,5 +46,10 @@ public class SessionsFragment extends BaseFragment implements SessionsContract.V
 
     @ItemClick(R.id.list_view) public void onSessionItemClicked(Session pSession){
         this.getNavigator().goToSessionDetails(pSession);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEventMainThread(EventSessionUpdated pEvent){
+        this.mSessionsPresenter.onEventSessionUpdated();
     }
 }

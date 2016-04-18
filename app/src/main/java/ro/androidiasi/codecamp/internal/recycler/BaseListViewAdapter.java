@@ -43,7 +43,6 @@ public abstract class BaseListViewAdapter<
         return view;
     }
 
-
     public void update(List<Model> pItems){
         this.update(mItems, pItems);
     }

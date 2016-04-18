@@ -18,6 +18,7 @@ import ro.androidiasi.codecamp.data.DummyRepository;
 import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
+import ro.androidiasi.codecamp.internal.bus.CodecampBus;
 import ro.androidiasi.codecamp.internal.model.Codecamper;
 import ro.androidiasi.codecamp.internal.model.Session;
 
@@ -32,6 +33,8 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
 
     @Bean(DummyRepository.class) IAgendaDataSource<Long> mRepository;
     @Bean(CodecamperItemPresenter.class) CodecamperItemContract.Presenter mCodecamperItemPresenter;
+    @Bean CodecampBus mCodecampBus;
+
     @RootContext SessionDetailsActivity mSessionDetailsActivity;
 
     private Session mSession;
@@ -91,7 +94,7 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
         );
         this.mRepository.setSessionFavorite(mSession.getId(), mSession.isFavorite(), new ILoadCallback<DataSession>() {
             @Override public void onSuccess(DataSession pObject) {
-
+                mCodecampBus.postSticky(new EventSessionUpdated());
             }
 
             @Override public void onFailure() {

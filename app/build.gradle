@@ -50,6 +50,7 @@ dependencies {
     compile "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
     compile "uk.co.chrisjenx:calligraphy:$rootProject.ext.caligraphyVersion"
     compile "se.emilsjolander:stickylistheaders:$rootProject.ext.stickyHeadersVersion"
+    compile "org.greenrobot:eventbus:$rootProject.ext.eventBusVersion"
 
     testCompile 'junit:junit:4.12'
 }

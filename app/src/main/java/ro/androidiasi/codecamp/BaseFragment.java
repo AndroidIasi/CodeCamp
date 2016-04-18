@@ -7,10 +7,13 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import ro.androidiasi.codecamp.data.DummyRepository;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.internal.aa.IEnhancedView;
+import ro.androidiasi.codecamp.internal.bus.CodecampBus;
 
 /**
  * Created by andrei on 08/04/16.
@@ -20,6 +23,7 @@ public abstract class BaseFragment extends Fragment implements IEnhancedView {
 
     @Bean public Navigator mNavigator;
     @Bean(DummyRepository.class) public IAgendaDataSource<Long> mRepository;
+    @Bean public CodecampBus mCodecampBus;
 
     @AfterInject
     @Override public final void afterMembersInject(){
@@ -40,6 +44,18 @@ public abstract class BaseFragment extends Fragment implements IEnhancedView {
     @Override public void afterViews(){
         //empty
     }
+
+    @Override public void onResume() {
+        super.onResume();
+        this.mCodecampBus.register(this);
+    }
+
+    @Override public void onPause() {
+        super.onPause();
+        this.mCodecampBus.unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true) public void onEventMainThread(Object pObject){}
 
     public Navigator getNavigator() {
         return mNavigator;

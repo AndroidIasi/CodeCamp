@@ -38,4 +38,16 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public void setView(SessionsContract.View pView) {
         mView = pView;
     }
+
+    @Override public void onEventSessionUpdated() {
+        this.mRepository.getSessionsList(new ILoadCallback<List<DataSession>>() {
+            @Override public void onSuccess(List<DataSession> pObject) {
+                mSessionsAdapter.update(Session.fromDataSessionList(pObject));
+            }
+
+            @Override public void onFailure() {
+
+            }
+        });
+    }
 }
