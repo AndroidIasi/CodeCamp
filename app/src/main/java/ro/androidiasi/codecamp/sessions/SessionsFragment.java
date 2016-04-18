@@ -1,14 +1,12 @@
 package ro.androidiasi.codecamp.sessions;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import ro.androidiasi.codecamp.BaseFragment;
 import ro.androidiasi.codecamp.R;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * Created by andrei on 08/04/16.
@@ -17,7 +15,7 @@ import ro.androidiasi.codecamp.R;
 public class SessionsFragment extends BaseFragment implements SessionsContract.View {
 
     @Bean SessionsPresenter mSessionsPresenter;
-    @ViewById(R.id.recycler) RecyclerView mRecyclerView;
+    @ViewById(R.id.list_view) StickyListHeadersListView mListView;
 
     public static SessionsFragment newInstance(){
         return SessionsFragment_.builder()
@@ -26,12 +24,11 @@ public class SessionsFragment extends BaseFragment implements SessionsContract.V
 
     @Override public void afterViews() {
         super.afterViews();
-        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.mSessionsPresenter.setView(this);
         this.mSessionsPresenter.afterViews();
     }
 
-    @Override public RecyclerView getRecyclerView() {
-        return this.mRecyclerView;
+    @Override public StickyListHeadersListView getListView() {
+        return this.mListView;
     }
 }

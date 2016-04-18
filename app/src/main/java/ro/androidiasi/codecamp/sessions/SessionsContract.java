@@ -1,6 +1,6 @@
 package ro.androidiasi.codecamp.sessions;
 
-import android.support.v7.widget.RecyclerView;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * Created by andrei on 08/04/16.
@@ -9,7 +9,7 @@ public interface SessionsContract {
 
     interface View{
 
-        RecyclerView getRecyclerView();
+        StickyListHeadersListView getListView();
     }
 
     interface Presenter{

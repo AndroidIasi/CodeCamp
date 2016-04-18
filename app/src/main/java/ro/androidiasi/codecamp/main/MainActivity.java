@@ -1,5 +1,6 @@
 package ro.androidiasi.codecamp.main;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
@@ -17,6 +18,12 @@ public class MainActivity extends BaseActivity implements MainContract.View{
     @ViewById(R.id.view_pager) ViewPager mViewPager;
 
     @Bean MainPresenter mMainPresenter;
+
+    public static void start(Context pContext){
+        MainActivity_
+                .intent(pContext)
+                .start();
+    }
 
     @Override public void afterViews() {
         super.afterViews();

@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.LauncherActivity" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
     <style name="Session.Title" parent="Base.TextAppearance.AppCompat.Title">
     </style>
 

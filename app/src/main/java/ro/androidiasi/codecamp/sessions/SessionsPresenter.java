@@ -23,7 +23,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     private SessionsContract.View mView;
 
     public void afterViews() {
-        this.mView.getRecyclerView().setAdapter(this.mSessionsAdapter);
+        this.mView.getListView().setAdapter(this.mSessionsAdapter);
         this.mRepository.getSessionsList(new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(List<DataSession> pObject) {
                 mSessionsAdapter.update(Session.fromDataSessionList(pObject));
