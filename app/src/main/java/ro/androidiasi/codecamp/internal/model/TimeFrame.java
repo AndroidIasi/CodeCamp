@@ -12,7 +12,8 @@ public final class TimeFrame extends AbstractModel {
     private final Date mStartTime;
     private final Date mEndTime;
 
-    public TimeFrame(Date pStartTime, Date pEndTime) {
+    public TimeFrame(long pId, Date pStartTime, Date pEndTime) {
+        super(pId);
         mStartTime = pStartTime;
         mEndTime = pEndTime;
     }
@@ -27,6 +28,7 @@ public final class TimeFrame extends AbstractModel {
 
     public static TimeFrame fromDataTimeFrame(DataTimeFrame pDataTimeFrame){
         return new TimeFrame(
+                pDataTimeFrame.getId(),
                 pDataTimeFrame.getStartTime(),
                 pDataTimeFrame.getEndTime()
         );

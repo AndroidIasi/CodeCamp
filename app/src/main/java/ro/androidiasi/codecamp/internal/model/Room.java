@@ -11,7 +11,8 @@ public final class Room extends AbstractModel {
     private final int mFloor;
     private final int mSeats;
 
-    public Room(String pName, int pFloor, int pSeats) {
+    public Room(long pId, String pName, int pFloor, int pSeats) {
+        super(pId);
         mName = pName;
         mFloor = pFloor;
         mSeats = pSeats;
@@ -31,6 +32,7 @@ public final class Room extends AbstractModel {
 
     public static Room fromDataRoom(DataRoom pDataRoom){
         return new Room(
+                pDataRoom.getId(),
                 pDataRoom.getName(),
                 pDataRoom.getFloor(),
                 pDataRoom.getSeats()

@@ -1,5 +1,7 @@
 package ro.androidiasi.codecamp.data.model;
 
+import java.util.List;
+
 /**
  * Created by andrei on 06/04/16.
  */
@@ -8,7 +10,7 @@ public class DataSession extends AbstractDataModel {
     private String mName;
     private String mDescription;
 
-    private DataCodecamper mDataCodecamper;
+    private List<DataCodecamper> mDataCodecamper;
     private DataRoom mDataRoom;
     private DataTimeFrame mDataTimeFrame;
 
@@ -17,7 +19,7 @@ public class DataSession extends AbstractDataModel {
     public DataSession() {
     }
 
-    public DataSession(DataCodecamper pDataCodecamper, DataRoom pDataRoom, String pName, String pDescription, DataTimeFrame pDataTimeFrame) {
+    public DataSession(List<DataCodecamper> pDataCodecamper, DataRoom pDataRoom, String pName, String pDescription, DataTimeFrame pDataTimeFrame) {
         mDataCodecamper = pDataCodecamper;
         mDataRoom = pDataRoom;
         mName = pName;
@@ -25,7 +27,7 @@ public class DataSession extends AbstractDataModel {
         mDataTimeFrame = pDataTimeFrame;
     }
 
-    public DataCodecamper getDataCodecamper() {
+    public List<DataCodecamper> getDataCodecampersList() {
         return mDataCodecamper;
     }
 

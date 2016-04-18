@@ -89,7 +89,7 @@ public class DummyRepository implements IAgendaDataSource<Long> {
         this.mTimeFramesList.add(new DataTimeFrame("AfterParty", new Date(), new Date()));
 
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(0),
+                mCodecampersList,
                 mRoomsList.get(0),
                 "Welcome!",
                 "Bugs Bunny welcomes everyoneBugs Bunny welcomes everyoneBugs Bunny welcomes everyone" +
@@ -98,42 +98,42 @@ public class DummyRepository implements IAgendaDataSource<Long> {
         ));
 
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(1),
+                mCodecampersList,
                 mRoomsList.get(1),
                 "Welcome!",
                 "The best pistol in the west!",
                 mTimeFramesList.get(1)
         ));
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(2),
+                mCodecampersList,
                 mRoomsList.get(2),
                 "Welcome!",
                 "Life of a duck...",
                 mTimeFramesList.get(2)
         ));
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(0),
+                mCodecampersList,
                 mRoomsList.get(2),
                 "Welcome!",
                 "Carrots! Love them or hate them!",
                 mTimeFramesList.get(3)
         ));
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(1),
+                mCodecampersList,
                 mRoomsList.get(4),
                 "Welcome!",
                 "Why the damn rabbit won't die?",
                 mTimeFramesList.get(4)
         ));
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(2),
+                mCodecampersList,
                 mRoomsList.get(5),
                 "Welcome!",
                 "Ducks don't give a \"phoque\"!",//din fr.
                 mTimeFramesList.get(5)
         ));
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(0),
+                mCodecampersList,
                 mRoomsList.get(0),
                 "Welcome!",
                 "Bugs Bunny welcomes everyone",
@@ -141,35 +141,35 @@ public class DummyRepository implements IAgendaDataSource<Long> {
         ));
 
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(1),
+                mCodecampersList,
                 mRoomsList.get(1),
                 "Welcome!",
                 "The best pistol in the west!",
                 mTimeFramesList.get(1)
         ));
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(2),
+                mCodecampersList,
                 mRoomsList.get(2),
                 "Welcome!",
                 "Life of a duck...",
                 mTimeFramesList.get(2)
         ));
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(0),
+                mCodecampersList,
                 mRoomsList.get(2),
                 "Welcome!",
                 "Carrots! Love them or hate them!",
                 mTimeFramesList.get(3)
         ));
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(1),
+                mCodecampersList,
                 mRoomsList.get(4),
                 "Welcome!",
                 "Why the damn rabbit won't die?",
                 mTimeFramesList.get(4)
         ));
         this.mSessionsList.add(new DataSession(
-                mCodecampersList.get(2),
+                mCodecampersList,
                 mRoomsList.get(5),
                 "Welcome!",
                 "Ducks don't give a \"phoque\"!",//din fr.

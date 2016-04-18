@@ -10,7 +10,7 @@ import ro.androidiasi.codecamp.data.model.DataSession;
  */
 public final class Session extends AbstractModel {
 
-    private final Codecamper mCodecamper;
+    private final List<Codecamper> mCodecampersList;
     private final Room mRoom;
     private final String mName;
     private final String mDescription;
@@ -18,8 +18,9 @@ public final class Session extends AbstractModel {
 
     private final boolean mFavorite;
 
-    public Session(Codecamper pCodecamper, Room pRoom, String pName, String pDescription, TimeFrame pTimeFrame, boolean pFavorite) {
-        mCodecamper = pCodecamper;
+    public Session(Long pId, List<Codecamper> pCodecampersList, Room pRoom, String pName, String pDescription, TimeFrame pTimeFrame, boolean pFavorite) {
+        super(pId);
+        mCodecampersList = pCodecampersList;
         mRoom = pRoom;
         mName = pName;
         mDescription = pDescription;
@@ -27,8 +28,8 @@ public final class Session extends AbstractModel {
         mFavorite = pFavorite;
     }
 
-    public Codecamper getCodecamper() {
-        return mCodecamper;
+    public List<Codecamper> getCodecampersList() {
+        return mCodecampersList;
     }
 
     public Room getRoom() {
@@ -54,7 +55,8 @@ public final class Session extends AbstractModel {
 
     public static Session fromDataSession(DataSession pDataSession){
         return new Session(
-              Codecamper.fromDataCodecamper(pDataSession.getDataCodecamper()),
+                pDataSession.getId(),
+                Codecamper.fromDataCodecamperList(pDataSession.getDataCodecampersList()),
                 Room.fromDataRoom(pDataSession.getDataRoom()),
                 pDataSession.getName(),
                 pDataSession.getDescription(),

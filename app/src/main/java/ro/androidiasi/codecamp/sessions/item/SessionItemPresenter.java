@@ -11,8 +11,8 @@ import ro.androidiasi.codecamp.internal.model.Session;
 public class SessionItemPresenter implements SessionItemContract.Presenter<Session, SessionItemView> {
 
     @Override public void bind(Session pSession, SessionItemView pSessionItemView) {
-        pSessionItemView.setCodecamperPhotoUrl(pSession.getCodecamper().getPhotoUrl());
-        pSessionItemView.setDescription(pSession.getDescription());
+        pSessionItemView.setCodecamperPhotoUrl(pSession.getCodecampersList().get(0).getPhotoUrl());
+        pSessionItemView.setName(pSession.getName());
         pSessionItemView.setRoomName(pSession.getRoom().getName());
     }
 

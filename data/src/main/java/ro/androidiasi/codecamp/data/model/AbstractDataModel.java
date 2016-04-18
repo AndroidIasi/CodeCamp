@@ -5,18 +5,18 @@ import java.util.UUID;
 /**
  * Created by andrei on 06/04/16.
  */
-public abstract class AbstractDataModel implements IDataModel<Integer> {
-    private int mId;
+public abstract class AbstractDataModel implements IDataModel<Long> {
+    private long mId;
 
     public AbstractDataModel(){
         this.mId = UUID.randomUUID().hashCode();
     }
 
-    public AbstractDataModel(int pId) {
+    public AbstractDataModel(Long pId) {
         mId = pId;
     }
 
-    @Override public Integer getId() {
+    @Override public Long getId() {
         return mId;
     }
 }

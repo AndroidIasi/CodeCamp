@@ -11,7 +11,7 @@ public interface SessionItemContract {
 
     interface View extends IView {
         void setCodecamperPhotoUrl(String pPhotoUrl);
-        void setDescription(String pDescriptionText);
+        void setName(String pDescriptionText);
         void setRoomName(String pRoomText);
     }
 

@@ -5,32 +5,34 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_session_height"
-    android:layout_margin="@dimen/recycler_item_margin">
+    android:layout_marginTop="@dimen/codecamper_item_margin"
+    android:layout_marginBottom="@dimen/codecamper_item_margin">
+
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/drawee_view"
+        android:id="@+id/photo"
         android:layout_width="@dimen/item_session_height"
         android:layout_height="match_parent"
         app:roundAsCircle="true"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/list_heder_margin"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/codecamper_item_margin">
         <android.support.v7.widget.AppCompatTextView
-            style="@style/Text.Session.Title"
-            android:id="@+id/name"
+            style="@style/Text.Body"
+            android:id="@+id/full_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:text="@string/placeholder_loremipsum"/>
+            android:layout_height="wrap_content" />
         <android.support.v7.widget.AppCompatTextView
-            style="@style/Text.Session.Room"
-            android:id="@+id/track"
+            style="@style/Text.Body"
+            android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_view_margin"
-            android:text="@string/placeholder_loremipsum_short"/>
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/Text.Body"
+            android:id="@+id/company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
 </LinearLayout>

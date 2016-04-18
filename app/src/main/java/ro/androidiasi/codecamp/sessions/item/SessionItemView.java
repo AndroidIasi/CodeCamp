@@ -20,7 +20,7 @@ import ro.androidiasi.codecamp.R;
 public class SessionItemView extends LinearLayout implements SessionItemContract.View {
 
     @ViewById(R.id.drawee_view) SimpleDraweeView mDraweeView;
-    @ViewById(R.id.description) TextView mDescriptionTextView;
+    @ViewById(R.id.name) TextView mNameTextView;
     @ViewById(R.id.track)       TextView mTrackTextView;
 
     public SessionItemView(Context context) {
@@ -36,8 +36,8 @@ public class SessionItemView extends LinearLayout implements SessionItemContract
         this.mDraweeView.setImageURI(Uri.parse(pPhotoUrl));
     }
 
-    @Override public void setDescription(String pDescriptionText) {
-        this.mDescriptionTextView.setText(pDescriptionText);
+    @Override public void setName(String pDescriptionText) {
+        this.mNameTextView.setText(pDescriptionText);
     }
 
     @Override public void setRoomName(String pRoomText) {

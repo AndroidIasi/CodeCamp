@@ -5,7 +5,9 @@ import android.content.Context;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
+import ro.androidiasi.codecamp.internal.model.Session;
 import ro.androidiasi.codecamp.main.MainActivity;
+import ro.androidiasi.codecamp.sessiondetail.SessionDetailsActivity;
 
 /**
  * Created by andrei on 06/04/16.
@@ -19,4 +21,7 @@ public class Navigator {
         MainActivity.start(mContext);
     }
 
+    public void goToSessionDetails(Session pSession) {
+        SessionDetailsActivity.start(mContext, pSession);
+    }
 }

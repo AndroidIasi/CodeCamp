@@ -1,3 +1,5 @@
 <resources>
     <string name="placeholder_loremipsum"/>
+    <string name="placeholder_loremipsum_short"/>
+    <string name="placeholder_large_text"/>
 </resources>
