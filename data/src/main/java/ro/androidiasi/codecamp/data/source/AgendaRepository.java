@@ -32,6 +32,10 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     }
 
+    @Override public void getFavoriteSessionsList(ILoadCallback<List<DataSession>> pLoadCallback) {
+
+    }
+
     @Override public void getTimeFramesList(ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
 
     }

@@ -14,6 +14,7 @@ public interface IAgendaDataSource<Id> {
 
     void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback);
     void getSessionsList(ILoadCallback<List<DataSession>> pLoadCallback);
+    void getFavoriteSessionsList(ILoadCallback<List<DataSession>> pLoadCallback);
     void getTimeFramesList(ILoadCallback<List<DataTimeFrame>> pLoadCallback);
     void getCodecampersList(ILoadCallback<List<DataCodecamper>> pLoadCallback);
 

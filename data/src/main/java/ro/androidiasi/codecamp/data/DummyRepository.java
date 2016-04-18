@@ -185,6 +185,16 @@ public class DummyRepository implements IAgendaDataSource<Long> {
         pLoadCallback.onSuccess(mSessionsList);
     }
 
+    @Override public void getFavoriteSessionsList(ILoadCallback<List<DataSession>> pLoadCallback) {
+        List<DataSession> favoriteSessions = new ArrayList<>();
+        for (int i = 0; i < mSessionsList.size(); i++) {
+            if(mFavoriteSessions.isFavorite(mSessionsList.get(i).getId())){
+                favoriteSessions.add(mSessionsList.get(i));
+            }
+        }
+        pLoadCallback.onSuccess(favoriteSessions);
+    }
+
     @Override public void getTimeFramesList(ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
         pLoadCallback.onSuccess(mTimeFramesList);
     }

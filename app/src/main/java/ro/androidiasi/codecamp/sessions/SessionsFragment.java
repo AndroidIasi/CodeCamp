@@ -21,7 +21,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class SessionsFragment extends BaseFragment implements SessionsContract.View {
 
     @Bean SessionsPresenter mSessionsPresenter;
-    @FragmentArg Boolean mShowOnlyFavorites;
+    @FragmentArg Boolean mShowOnlyFavoriteSessions = Boolean.FALSE;
     @ViewById(R.id.list_view) StickyListHeadersListView mListView;
 
     public static SessionsFragment newInstance(){
@@ -30,13 +30,14 @@ public class SessionsFragment extends BaseFragment implements SessionsContract.V
 
     public static SessionsFragment newInstance(boolean pShowOnlyFavorites){
         return SessionsFragment_.builder()
-                .mShowOnlyFavorites(pShowOnlyFavorites)
+                .mShowOnlyFavoriteSessions(pShowOnlyFavorites)
                 .build();
     }
 
     @Override public void afterViews() {
         super.afterViews();
         this.mSessionsPresenter.setView(this);
+        this.mSessionsPresenter.setShowOnlyFavoriteSessions(mShowOnlyFavoriteSessions);
         this.mSessionsPresenter.afterViews();
     }
 

@@ -4,7 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import ro.androidiasi.codecamp.sessions.SessionsFragment;
+import java.util.List;
+
+import ro.androidiasi.codecamp.main.tab.ITab;
 
 /**
  * Created by andrei on 08/04/16.
@@ -12,15 +14,18 @@ import ro.androidiasi.codecamp.sessions.SessionsFragment;
 
 public class MainPagerAdapter extends FragmentStatePagerAdapter {
 
-    public MainPagerAdapter(FragmentManager fm) {
+    private List<ITab> mTabs;
+
+    public MainPagerAdapter(FragmentManager fm, List<ITab> pTabs) {
         super(fm);
+        this.mTabs = pTabs;
     }
 
     @Override public Fragment getItem(int position) {
-        return SessionsFragment.newInstance();
+        return this.mTabs.get(position).getFragment();
     }
 
     @Override public int getCount() {
-        return 4;
+        return mTabs.size();
     }
 }

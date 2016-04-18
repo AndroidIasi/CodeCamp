@@ -3,7 +3,7 @@
 
     <string name="tab_1_name">Sessions</string>
     <string name="tab_2_name">Favorites</string>
-    <string name="tab_3_name">Location</string>
+    <string name="tab_3_name">Speakers</string>
     <string name="tab_4_name">About</string>
     <string name="action_settings">Share</string>
 </resources>

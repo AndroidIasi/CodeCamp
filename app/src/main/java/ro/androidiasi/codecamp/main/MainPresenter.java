@@ -4,10 +4,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import ro.androidiasi.codecamp.R;
+import ro.androidiasi.codecamp.main.tab.TabsProvider;
 
 /**
  * Created by andrei on 16/04/16.
@@ -15,12 +16,13 @@ import ro.androidiasi.codecamp.R;
 @EBean
 public class MainPresenter implements MainContract.Presenter {
 
+    @Bean TabsProvider mTabsProvider;
     @RootContext MainActivity mMainActivity;
 
     private MainPagerAdapter mMainPagerAdapter;
 
     @AfterInject public void afterMembersInject(){
-        this.mMainPagerAdapter = new MainPagerAdapter(mMainActivity.getSupportFragmentManager());
+        this.mMainPagerAdapter = new MainPagerAdapter(mMainActivity.getSupportFragmentManager(), mTabsProvider.getTabsList());
     }
 
     public void afterViews() {
@@ -36,10 +38,9 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override public void setupTabLayout(TabLayout pTabLayout,final ViewPager pViewPager){
-        pTabLayout.addTab(pTabLayout.newTab().setText(R.string.tab_1_name));
-        pTabLayout.addTab(pTabLayout.newTab().setText(R.string.tab_2_name));
-        pTabLayout.addTab(pTabLayout.newTab().setText(R.string.tab_3_name));
-        pTabLayout.addTab(pTabLayout.newTab().setText(R.string.tab_4_name));
+        for (int i = 0; i < mTabsProvider.getTabsList().size(); i++) {
+            pTabLayout.addTab(pTabLayout.newTab().setText(mTabsProvider.getTabsList().get(i).getName()));
+        }
         pTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override public void onTabSelected(TabLayout.Tab tab) {
                 pViewPager.setCurrentItem(tab.getPosition());
