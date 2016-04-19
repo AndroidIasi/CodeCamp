@@ -4,13 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_session_height"
+    android:layout_height="@dimen/item_list_height"
     android:layout_marginTop="@dimen/codecamper_item_margin"
     android:layout_marginBottom="@dimen/codecamper_item_margin">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/photo"
-        android:layout_width="@dimen/item_session_height"
+        android:layout_width="@dimen/item_list_height"
         android:layout_height="match_parent"
         app:roundAsCircle="true"/>
     <LinearLayout

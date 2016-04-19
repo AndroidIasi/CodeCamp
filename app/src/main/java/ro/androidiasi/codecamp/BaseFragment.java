@@ -45,13 +45,13 @@ public abstract class BaseFragment extends Fragment implements IEnhancedView {
         //empty
     }
 
-    @Override public void onResume() {
-        super.onResume();
+    @Override public void onStart() {
+        super.onStart();
         this.mCodecampBus.register(this);
     }
 
-    @Override public void onPause() {
-        super.onPause();
+    @Override public void onStop() {
+        super.onStop();
         this.mCodecampBus.unregister(this);
     }
 

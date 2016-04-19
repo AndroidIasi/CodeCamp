@@ -6,8 +6,8 @@
     <dimen name="recycler_item_margin">8dp</dimen>
     <dimen name="text_view_margin">8dp</dimen>
     <dimen name="codecamper_item_margin">8dp</dimen>
-    <dimen name="item_session_height">80dp</dimen>
-    <dimen name="list_heder_margin">8dp</dimen>
+    <dimen name="item_list_height">80dp</dimen>
+    <dimen name="list_header_margin">8dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ro.androidiasi.codecamp.R;
+import ro.androidiasi.codecamp.codecampers.CodecampersFragment;
 import ro.androidiasi.codecamp.sessions.SessionsFragment;
 
 /**
@@ -21,10 +22,9 @@ public class TabsProvider {
 
     @RootContext Context mContext;
 
-    private List<ITab> mTabsList;
+    private List<ITab> mTabsList = new ArrayList<>();
 
     @AfterInject public void afterMembersInject(){
-        this.mTabsList = new ArrayList<>();
         this.mTabsList.add(new ITab() {
             @Override public String getName() {
                 return mContext.getString(R.string.tab_1_name);
@@ -49,7 +49,7 @@ public class TabsProvider {
             }
 
             @Override public Fragment getFragment() {
-                return SessionsFragment.newInstance();
+                return CodecampersFragment.newInstance();
             }
         });
         this.mTabsList.add(new ITab() {

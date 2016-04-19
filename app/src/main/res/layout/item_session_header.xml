@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/list_heder_margin"
+    android:padding="@dimen/list_header_margin"
     android:background="@color/colorGray">
     <android.support.v7.widget.AppCompatTextView
         style="@style/Text.Session.Header"
