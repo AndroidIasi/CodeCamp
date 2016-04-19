@@ -1,6 +1,6 @@
 package ro.androidiasi.codecamp.sessions.header;
 
-import java.util.Date;
+import android.widget.TextView;
 
 import ro.androidiasi.codecamp.internal.IView;
 import ro.androidiasi.codecamp.internal.model.Session;
@@ -12,8 +12,7 @@ import ro.androidiasi.codecamp.internal.recycler.IListViewItemPresenter;
 public class SessionHeaderContract {
 
     public interface View extends IView{
-        void setStartingTime(Date pStartingTime);
-        void setEndingTime(Date pEndingTime);
+        TextView getTimeTextView();
     }
 
     public interface Presenter extends IListViewItemPresenter<Session, SessionHeaderView> {
