@@ -1,5 +1,7 @@
 package ro.androidiasi.codecamp.sessions;
 
+import android.view.View;
+
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
@@ -36,6 +38,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         if(mShowOnlyFavoriteSessions){
             this.mRepository.getFavoriteSessionsList(new ILoadCallback<List<DataSession>>() {
                 @Override public void onSuccess(List<DataSession> pObject) {
+                    mView.getEmptyListTextView().setVisibility(pObject.size() == 0 ? View.VISIBLE : View.GONE);
                     mSessionsAdapter.update(Session.fromDataSessionList(pObject));
                 }
 

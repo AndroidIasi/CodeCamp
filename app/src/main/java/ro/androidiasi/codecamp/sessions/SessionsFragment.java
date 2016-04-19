@@ -1,5 +1,7 @@
 package ro.androidiasi.codecamp.sessions;
 
+import android.widget.TextView;
+
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
@@ -22,7 +24,9 @@ public class SessionsFragment extends BaseFragment implements SessionsContract.V
 
     @Bean SessionsPresenter mSessionsPresenter;
     @FragmentArg Boolean mShowOnlyFavoriteSessions = Boolean.FALSE;
+
     @ViewById(R.id.list_view) StickyListHeadersListView mListView;
+    @ViewById(R.id.empty_list_text) TextView mEmptyListTextView;
 
     public static SessionsFragment newInstance(){
         return newInstance(false);
@@ -43,6 +47,10 @@ public class SessionsFragment extends BaseFragment implements SessionsContract.V
 
     @Override public StickyListHeadersListView getListView() {
         return this.mListView;
+    }
+
+    @Override public TextView getEmptyListTextView() {
+        return mEmptyListTextView;
     }
 
     @ItemClick(R.id.list_view) public void onSessionItemClicked(Session pSession){

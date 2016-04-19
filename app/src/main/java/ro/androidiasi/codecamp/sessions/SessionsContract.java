@@ -1,5 +1,7 @@
 package ro.androidiasi.codecamp.sessions;
 
+import android.widget.TextView;
+
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
@@ -10,6 +12,8 @@ public interface SessionsContract {
     interface View{
 
         StickyListHeadersListView getListView();
+
+        TextView getEmptyListTextView();
     }
 
     interface Presenter{
