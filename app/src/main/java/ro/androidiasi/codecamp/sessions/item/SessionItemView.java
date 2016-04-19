@@ -1,7 +1,6 @@
 package ro.androidiasi.codecamp.sessions.item;
 
 import android.content.Context;
-import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,16 +30,15 @@ public class SessionItemView extends LinearLayout implements SessionItemContract
         super(context, attrs);
     }
 
-
-    @Override public void setCodecamperPhotoUrl(String pPhotoUrl) {
-        this.mDraweeView.setImageURI(Uri.parse(pPhotoUrl));
+    @Override public SimpleDraweeView getDraweeView() {
+        return mDraweeView;
     }
 
-    @Override public void setName(String pDescriptionText) {
-        this.mNameTextView.setText(pDescriptionText);
+    @Override public TextView getNameTextView() {
+        return mNameTextView;
     }
 
-    @Override public void setRoomName(String pRoomText) {
-        this.mTrackTextView.setText(pRoomText);
+    @Override public TextView getTrackTextView() {
+        return mTrackTextView;
     }
 }

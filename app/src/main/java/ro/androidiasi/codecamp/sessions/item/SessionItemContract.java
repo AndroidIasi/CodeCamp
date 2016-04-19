@@ -1,5 +1,9 @@
 package ro.androidiasi.codecamp.sessions.item;
 
+import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import ro.androidiasi.codecamp.internal.IView;
 import ro.androidiasi.codecamp.internal.model.IModel;
 import ro.androidiasi.codecamp.internal.recycler.IListViewItemPresenter;
@@ -10,9 +14,9 @@ import ro.androidiasi.codecamp.internal.recycler.IListViewItemPresenter;
 public interface SessionItemContract {
 
     interface View extends IView {
-        void setCodecamperPhotoUrl(String pPhotoUrl);
-        void setName(String pDescriptionText);
-        void setRoomName(String pRoomText);
+        SimpleDraweeView getDraweeView();
+        TextView getNameTextView();
+        TextView getTrackTextView();
     }
 
     interface Presenter<TModel extends IModel, TView extends android.view.View & View>
