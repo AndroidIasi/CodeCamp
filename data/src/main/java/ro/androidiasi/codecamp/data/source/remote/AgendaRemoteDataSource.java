@@ -9,6 +9,7 @@ import android.webkit.WebViewClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ro.androidiasi.codecamp.data.source.local.SnappyDatabase;
 import ro.androidiasi.codecamp.data.website.Codecamp;
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
@@ -32,6 +34,8 @@ import ro.androidiasi.codecamp.data.source.ILoadCallback;
 public class AgendaRemoteDataSource implements IAgendaDataSource<Long> {
 
     private static final String TAG = AgendaRemoteDataSource.class.getSimpleName();
+
+    @Bean SnappyDatabase mSnappyDatabase;
     @RootContext Context mContext;
 
     private WebView mWebView;
@@ -42,17 +46,21 @@ public class AgendaRemoteDataSource implements IAgendaDataSource<Long> {
     private List<DataTimeFrame> mTimeFrames = new ArrayList<>();
 
     @AfterInject public void afterMembersInject(){
-        mWebView = new WebView(mContext);
-        mWebView.loadUrl("http://iasi.codecamp.ro/");
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.addJavascriptInterface(this, "android");
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override public void onPageFinished(WebView view, String url) {
-                if(mWebView != null){
-                    mWebView.loadUrl("javascript:android.onData(ko.toJSON(new ConferenceViewModel()))");
+        if (mSnappyDatabase.dataExists()) {
+            this.readLists(mSnappyDatabase.getCodecamp());
+        } else {
+            mWebView = new WebView(mContext);
+            mWebView.loadUrl("http://iasi.codecamp.ro/");
+            mWebView.getSettings().setJavaScriptEnabled(true);
+            mWebView.addJavascriptInterface(this, "android");
+            mWebView.setWebViewClient(new WebViewClient() {
+                @Override public void onPageFinished(WebView view, String url) {
+                    if (mWebView != null) {
+                        mWebView.loadUrl("javascript:android.onData(ko.toJSON(new ConferenceViewModel()))");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @JavascriptInterface public void onData(String data){
@@ -65,16 +73,21 @@ public class AgendaRemoteDataSource implements IAgendaDataSource<Long> {
         Codecamp codecamp = null;
         try {
             codecamp = new ObjectMapper().readValue(data, Codecamp.class);
+            mSnappyDatabase.saveCodecamp(codecamp);
         } catch (IOException pE) {
             Log.e(TAG, pE.getMessage());
         }
-        if(codecamp != null){
-            this.mDataCodecampers = DataCodecamper.fromSpeakersList(codecamp.getConference().getSpeakers());
-            this.mDataRooms = DataRoom.fromTracksList(codecamp.getConference().getAgenda().getTracks());
-            this.mTimeFrames = DataTimeFrame.fromTimeSlotsList(codecamp.getConference().getAgenda().getTimeSlots());
-            this.mDataSessions = DataSession.fromBookingsList(codecamp.getConference().getAgenda().getBookings());
-        }
+        this.readLists(codecamp);
         this.onUiThreadDestroyWebView();
+    }
+
+    private void readLists(Codecamp pCodecamp) {
+        if(pCodecamp != null){
+            this.mDataCodecampers = DataCodecamper.fromSpeakersList(pCodecamp.getConference().getSpeakers());
+            this.mDataRooms = DataRoom.fromTracksList(pCodecamp.getConference().getAgenda().getTracks());
+            this.mTimeFrames = DataTimeFrame.fromTimeSlotsList(pCodecamp.getConference().getAgenda().getTimeSlots());
+            this.mDataSessions = DataSession.fromBookingsList(pCodecamp.getConference().getAgenda().getBookings());
+        }
     }
 
     @UiThread public void onUiThreadDestroyWebView() {

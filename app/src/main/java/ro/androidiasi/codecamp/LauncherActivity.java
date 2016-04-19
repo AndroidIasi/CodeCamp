@@ -19,7 +19,7 @@ public class LauncherActivity extends BaseActivity {
         this.onUiThreadStartMainActivity();
     }
 
-    @UiThread(delay = 2000) public void onUiThreadStartMainActivity(){
+    @UiThread(delay = 0) public void onUiThreadStartMainActivity(){
         this.getNavigator().goToMainActivity();
 //        Uri uri = new Uri.Builder()
 //                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"

@@ -18,7 +18,7 @@
         android:layout_marginLeft="@dimen/list_header_margin"
         android:gravity="center_vertical">
         <android.support.v7.widget.AppCompatTextView
-            style="@style/Text.Session.Title"
+            style="@style/Text.Session.Room"
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:ellipsize="end"
             android:text="@string/placeholder_loremipsum"/>
         <android.support.v7.widget.AppCompatTextView
-            style="@style/Text.Session.Room"
+            style="@style/Text.Body"
             android:id="@+id/track"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

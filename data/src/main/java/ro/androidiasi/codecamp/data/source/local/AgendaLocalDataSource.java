@@ -17,6 +17,8 @@ import ro.androidiasi.codecamp.data.source.ILoadCallback;
 @EBean
 public class AgendaLocalDataSource implements IAgendaDataSource<Long> {
 
+
+
     @Override public void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback) {
 
     }
