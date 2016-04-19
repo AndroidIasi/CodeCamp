@@ -35,6 +35,6 @@ public class CodecampersFragment extends BaseFragment implements CodecampersCont
     }
 
     @ItemClick(R.id.list_view) public void onCodecamperListItemClicked(Codecamper pCodecamper){
-        this.getNavigator().goToCodecamperDetails(pCodecamper);
+        this.getNavigator().goToCodecamperDetails(getActivity().getSupportFragmentManager(), pCodecamper);
     }
 }

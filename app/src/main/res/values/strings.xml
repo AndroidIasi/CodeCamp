@@ -10,4 +10,5 @@
     <string name="session_track_name_and_floor">%1$s - %2$s</string>
     <string name="codecampers">Codecampers:</string>
     <string name="where">Where:</string>
+    <string name="ok">OK</string>
 </resources>
