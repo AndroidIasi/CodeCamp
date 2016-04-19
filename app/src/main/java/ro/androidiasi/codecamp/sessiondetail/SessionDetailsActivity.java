@@ -28,6 +28,7 @@ public class SessionDetailsActivity extends BaseActivity implements SessionDetai
     @ViewById(R.id.description) TextView mDescriptionTextView;
 
     @ViewById(R.id.codecampers_container) LinearLayout mCodecampersContainerView;
+    @ViewById(R.id.location) TextView mLocationTextView;
 
     public static void start(Context pContext, Session pSession) {
         SessionDetailsActivity_.intent(pContext)
@@ -59,5 +60,9 @@ public class SessionDetailsActivity extends BaseActivity implements SessionDetai
 
     public LinearLayout getCodecampersContainerView() {
         return mCodecampersContainerView;
+    }
+
+    public TextView getLocationTextView() {
+        return mLocationTextView;
     }
 }

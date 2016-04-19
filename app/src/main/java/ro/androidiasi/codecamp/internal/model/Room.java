@@ -8,34 +8,27 @@ import ro.androidiasi.codecamp.data.model.DataRoom;
 public final class Room extends AbstractModel {
 
     private final String mName;
-    private final int mFloor;
-    private final int mSeats;
+    private String mDescription;
 
-    public Room(long pId, String pName, int pFloor, int pSeats) {
+    public Room(long pId, String pName, String pDescription) {
         super(pId);
         mName = pName;
-        mFloor = pFloor;
-        mSeats = pSeats;
-    }
-
-    public int getFloor() {
-        return mFloor;
-    }
-
-    public int getSeats() {
-        return mSeats;
+        mDescription = pDescription;
     }
 
     public String getName() {
         return mName;
     }
 
+    public String getDescription() {
+        return mDescription;
+    }
+
     public static Room fromDataRoom(DataRoom pDataRoom){
         return new Room(
                 pDataRoom.getId(),
                 pDataRoom.getName(),
-                pDataRoom.getFloor(),
-                pDataRoom.getSeats()
+                pDataRoom.getDescription()
         );
     }
 }

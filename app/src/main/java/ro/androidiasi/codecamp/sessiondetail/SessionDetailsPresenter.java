@@ -46,7 +46,16 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
         this.prepareToolBar();
         this.prepareFab();
         this.prepareDescription();
+        this.prepareLocation();
         this.prepareCodecampers();
+    }
+
+    private void prepareLocation() {
+        String location = mSessionDetailsActivity.getString(
+                R.string.session_track_name_and_floor,
+                mSession.getRoom().getName(),
+                mSession.getRoom().getDescription());
+        this.mSessionDetailsActivity.getLocationTextView().setText(location);
     }
 
     private void prepareDescription() {

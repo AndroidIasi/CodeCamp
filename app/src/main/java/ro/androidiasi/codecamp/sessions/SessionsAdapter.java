@@ -47,7 +47,7 @@ public class SessionsAdapter extends BaseListViewAdapter<Session, SessionItemVie
     }
 
     @Override public long getHeaderId(int position) {
-        return getItem(position).getTimeFrame().toString().hashCode();
+        return getItem(position).getTimeFrame().getId();
     }
 
 }

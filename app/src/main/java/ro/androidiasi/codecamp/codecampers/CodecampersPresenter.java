@@ -5,8 +5,8 @@ import org.androidannotations.annotations.EBean;
 
 import java.util.List;
 
-import ro.androidiasi.codecamp.data.DummyRepository;
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
+import ro.androidiasi.codecamp.data.source.AgendaRepository;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
 import ro.androidiasi.codecamp.internal.model.Codecamper;
@@ -18,7 +18,7 @@ import ro.androidiasi.codecamp.internal.model.Codecamper;
 public class CodecampersPresenter implements CodecampersContract.Presenter{
 
     @Bean CodecampersAdapter mCodecampersAdapter;
-    @Bean(DummyRepository.class) IAgendaDataSource<Long> mRepository;
+    @Bean(AgendaRepository.class) IAgendaDataSource<Long> mRepository;
     private CodecampersContract.View mView;
 
     @Override public void afterViews(){

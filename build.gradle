@@ -50,4 +50,5 @@ ext {
     caligraphyVersion = '2.2.0'
     stickyHeadersVersion = '2.7.0'
     eventBusVersion = '3.0.0'
+    jacksonVersion = '2.7.3'
 }

@@ -1,9 +1,13 @@
 package ro.androidiasi.codecamp.sessions.item;
 
+import android.content.Context;
 import android.net.Uri;
+import android.view.View;
 
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 
+import ro.androidiasi.codecamp.R;
 import ro.androidiasi.codecamp.internal.model.Session;
 
 /**
@@ -12,11 +16,22 @@ import ro.androidiasi.codecamp.internal.model.Session;
 @EBean
 public class SessionItemPresenter implements SessionItemContract.Presenter<Session, SessionItemView> {
 
+    @RootContext Context mContext;
+
     @Override public void bind(Session pSession, SessionItemView pSessionItemView) {
-        Uri photoUri = Uri.parse(pSession.getCodecampersList().get(0).getPhotoUrl());
-        pSessionItemView.getDraweeView().setImageURI(photoUri);
+        if(pSession.getCodecampersList().size() > 0) {
+            pSessionItemView.getDraweeView().setVisibility(View.VISIBLE);
+            Uri photoUri = Uri.parse(pSession.getCodecampersList().get(0).getPhotoUrl());
+            pSessionItemView.getDraweeView().setImageURI(photoUri);
+        } else {
+            pSessionItemView.getDraweeView().setImageURI(null);
+            pSessionItemView.getDraweeView().setVisibility(View.GONE);
+            pSessionItemView.getTrackTextView().setVisibility(View.GONE);
+        }
         pSessionItemView.getNameTextView().setText(pSession.getName());
-        String track = String.format("%s - Floor %s", pSession.getRoom().getName(), pSession.getRoom().getFloor());
+        String track = mContext.getString(R.string.session_track_name_and_floor,
+                pSession.getRoom().getName(),
+                pSession.getRoom().getDescription());
         pSessionItemView.getTrackTextView().setText(track);
     }
 

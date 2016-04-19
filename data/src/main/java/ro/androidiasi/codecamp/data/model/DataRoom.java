@@ -1,32 +1,54 @@
 package ro.androidiasi.codecamp.data.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ro.androidiasi.codecamp.data.website.Track;
+
 /**
  * Created by andrei on 06/04/16.
  */
 public class DataRoom extends AbstractDataModel {
 
+    public static final DataRoom EVERYWHERE = new DataRoom(-1, "-1","","");
+
+    private String mCode;
     private String mName;
-    private int mFloor;
-    private int mSeats;
+    private String mDescription;
 
-    public DataRoom() {
-    }
-
-    public DataRoom(String pName, int pFloor, int pSeats) {
+    public DataRoom(long pId, String pCode, String pName, String pDescription) {
+        super(pId);
+        mCode = pCode;
         mName = pName;
-        mFloor = pFloor;
-        mSeats = pSeats;
+        mDescription = pDescription;
     }
 
-    public int getFloor() {
-        return mFloor;
+    public String getCode() {
+        return mCode;
     }
 
-    public int getSeats() {
-        return mSeats;
+    public String getDescription() {
+        return mDescription;
     }
 
     public String getName() {
         return mName;
+    }
+
+    public static DataRoom fromTrack(Track pTrack){
+        return new DataRoom(
+                pTrack.getCode().hashCode(),
+                pTrack.getCode(),
+                pTrack.getName(),
+                pTrack.getDescription()
+        );
+    }
+
+    public static List<DataRoom> fromTracksList(List<Track> pTracks){
+        List<DataRoom> dataRoomsList = new ArrayList<>();
+        for (int i = 0; i < pTracks.size(); i++) {
+            dataRoomsList.add(fromTrack(pTracks.get(i)));
+        }
+        return dataRoomsList;
     }
 }

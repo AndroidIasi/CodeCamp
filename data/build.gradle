@@ -48,5 +48,9 @@ dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.snappydb:snappydb-lib:$rootProject.snappydbVersion"
     compile "com.esotericsoftware.kryo:kryo:$rootProject.kyroVersion"
+    compile "com.fasterxml.jackson.core:jackson-core:$rootProject.jacksonVersion"
+    compile "com.fasterxml.jackson.core:jackson-annotations:$rootProject.jacksonVersion"
+    compile "com.fasterxml.jackson.core:jackson-databind:$rootProject.jacksonVersion"
+
     testCompile 'junit:junit:4.12'
 }

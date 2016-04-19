@@ -24,10 +24,11 @@
 
         <android.support.v7.widget.AppCompatTextView
             style="@style/Text.Body"
+            android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/text_margin"
-            android:text="Codecampers:"/>
+            android:layout_marginLeft="@dimen/text_margin"
+            android:text="@string/placeholder_loremipsum"/>
         <LinearLayout
             android:id="@+id/codecampers_container"
             android:orientation="vertical"

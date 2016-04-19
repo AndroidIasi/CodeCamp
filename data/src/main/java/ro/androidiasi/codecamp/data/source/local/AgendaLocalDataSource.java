@@ -1,5 +1,7 @@
 package ro.androidiasi.codecamp.data.source.local;
 
+import org.androidannotations.annotations.EBean;
+
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
@@ -12,6 +14,7 @@ import ro.androidiasi.codecamp.data.source.ILoadCallback;
 /**
  * Created by andrei on 06/04/16.
  */
+@EBean
 public class AgendaLocalDataSource implements IAgendaDataSource<Long> {
 
     @Override public void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback) {

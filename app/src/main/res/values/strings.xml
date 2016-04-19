@@ -7,4 +7,7 @@
     <string name="tab_4_name">About</string>
     <string name="action_settings">Share</string>
     <string name="empty_favorite_sessions_list">There are no Sessions in this list.\nMark a Session as favorite\nand it will appear here.</string>
+    <string name="session_track_name_and_floor">%1$s - %2$s</string>
+    <string name="codecampers">Codecampers:</string>
+    <string name="where">Where:</string>
 </resources>

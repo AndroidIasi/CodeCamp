@@ -8,10 +8,6 @@ import java.util.UUID;
 public abstract class AbstractDataModel implements IDataModel<Long> {
     private long mId;
 
-    public AbstractDataModel(){
-        this.mId = UUID.randomUUID().hashCode();
-    }
-
     public AbstractDataModel(Long pId) {
         mId = pId;
     }
