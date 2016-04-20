@@ -1,40 +1,64 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
+apt {
+    arguments {
+        androidManifestFile variant.outputs[0]?.processResources?.manifestFile
+        resourcePackageName android.defaultConfig.applicationId
+    }
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-
+    lintOptions {
+        abortOnError false
+    }
     defaultConfig {
         applicationId "ro.androidiasi.codecamp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.0"
+    }
+    signingConfigs{
+        release {
+            storeFile file(RELEASE_KEYSTORE_PATH)
+            storePassword RELEASE_KEYSTORE_PASSWORD
+            keyAlias RELEASE_KEYSTORE_ALIAS
+            keyPassword RELEASE_KEYSTORE_KEY_PASSWORD
+        }
+    }
+    productFlavors{
+        iasi{
+            applicationIdSuffix ".iasi"
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
+            debuggable false
+            zipAlignEnabled true
+            applicationIdSuffix ".live"
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/MANIFEST.MF'
     }
     dexOptions {
         incremental true
     }
 }
-apt {
-    arguments {
-        androidManifestFile variant.outputs[0]?.processResources?.manifestFile
-        // if you have multiple outputs (when using splits), you may want to have other index than 0
 
-        // you should set your package name here if you are using different application IDs
-        // resourcePackageName "your.package.name"
-
-        // You can set optional annotation processing options here, like these commented options:
-        // logLevel 'INFO'
-        // logFile '/var/log/aa.log'
-    }
-}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':data')
