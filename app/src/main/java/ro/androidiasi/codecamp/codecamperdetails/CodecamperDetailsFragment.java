@@ -21,6 +21,7 @@ public class CodecamperDetailsFragment extends DialogFragment implements Codecam
 
     @FragmentArg Codecamper mCodecamper;
 
+    //TODO find a way to use the mvp pattern here
     @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         String sanitizedDescription = mCodecamper.getDescription().replaceAll("<[^>]*>", "");
