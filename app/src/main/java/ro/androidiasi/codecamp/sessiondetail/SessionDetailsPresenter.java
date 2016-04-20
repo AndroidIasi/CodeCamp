@@ -45,9 +45,14 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
         }
         this.prepareToolBar();
         this.prepareFab();
+        this.prepareTitle();
         this.prepareDescription();
         this.prepareLocation();
         this.prepareCodecampers();
+    }
+
+    private void prepareTitle() {
+        this.mSessionDetailsActivity.getTitleTextView().setText(mSession.getName());
     }
 
     private void prepareLocation() {

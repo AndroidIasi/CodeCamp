@@ -21,6 +21,7 @@
     <style name="Text.Session.Header" parent="Base.TextAppearance.AppCompat.Subhead"></style>
 
     <style name="Text.Body" parent="Base.TextAppearance.AppCompat.Body1"/>
+    <style name="Text.Body2" parent="Base.TextAppearance.AppCompat.Body2"/>
 
     <style name="TabLayout" parent="Widget.Design.TabLayout">
         <item name="tabTextAppearance">@style/TabLayout.TabText</item>

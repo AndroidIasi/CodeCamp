@@ -12,8 +12,25 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_horizontal_margin">
 
+        <TextView
+            style="@style/Text.Body2"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/placeholder_loremipsum"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/Text.Body2"
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:text="@string/placeholder_loremipsum"/>
+        
         <TextView
             style="@style/Text.Body"
             android:id="@+id/description"
@@ -22,13 +39,6 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@string/placeholder_loremipsum"/>
 
-        <android.support.v7.widget.AppCompatTextView
-            style="@style/Text.Body"
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/text_margin"
-            android:text="@string/placeholder_loremipsum"/>
         <LinearLayout
             android:id="@+id/codecampers_container"
             android:orientation="vertical"
