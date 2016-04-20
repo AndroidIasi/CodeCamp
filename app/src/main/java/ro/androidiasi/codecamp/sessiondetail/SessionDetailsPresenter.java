@@ -9,6 +9,7 @@ import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.res.DrawableRes;
 
+import ro.androidiasi.codecamp.Navigator;
 import ro.androidiasi.codecamp.R;
 import ro.androidiasi.codecamp.codecampers.item.CodecamperItemContract;
 import ro.androidiasi.codecamp.codecampers.item.CodecamperItemPresenter;
@@ -31,6 +32,7 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
     @DrawableRes(R.drawable.ic_action_favorite) Drawable mIsFavoriteIcon;
     @DrawableRes(R.drawable.ic_action_favorite_outline) Drawable mIsNotFavoriteIcon;
 
+    @Bean Navigator mNavigator;
     @Bean(DummyRepository.class) IAgendaDataSource<Long> mRepository;
     @Bean(CodecamperItemPresenter.class) CodecamperItemContract.Presenter mCodecamperItemPresenter;
     @Bean CodecampBus mCodecampBus;
@@ -69,8 +71,14 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
 
     private void prepareCodecampers() {
         for (int i = 0; i < mSession.getCodecampersList().size(); i++) {
-            Codecamper codecamper = mSession.getCodecampersList().get(i);
+            final Codecamper codecamper = mSession.getCodecampersList().get(i);
             CodecamperItemView codecamperItemView = CodecamperItemView_.build(mSessionDetailsActivity);
+            codecamperItemView.setClickable(true);
+            codecamperItemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    mNavigator.goToCodecamperDetails(mSessionDetailsActivity.getSupportFragmentManager(), codecamper);
+                }
+            });
             this.mSessionDetailsActivity.getCodecampersContainerView().addView(codecamperItemView);
             this.onUiThreadBindCodecamperWithView(codecamper, codecamperItemView);
         }

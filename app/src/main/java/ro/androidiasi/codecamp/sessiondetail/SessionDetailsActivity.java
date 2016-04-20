@@ -43,31 +43,31 @@ public class SessionDetailsActivity extends BaseActivity implements SessionDetai
         this.mSessionDetailsPresenter.afterViews();
     }
 
-    public Toolbar getToolbar() {
+    @Override public Toolbar getToolbar() {
         return mToolbar;
     }
 
-    public CollapsingToolbarLayout getCollapsingToolbarLayout() {
+    @Override public CollapsingToolbarLayout getCollapsingToolbarLayout() {
         return mCollapsingToolbarLayout;
     }
 
-    public FloatingActionButton getFab() {
+    @Override public FloatingActionButton getFab() {
         return mFab;
     }
 
-    public TextView getDescriptionTextView() {
+    @Override public TextView getDescriptionTextView() {
         return mDescriptionTextView;
     }
 
-    public LinearLayout getCodecampersContainerView() {
+    @Override public LinearLayout getCodecampersContainerView() {
         return mCodecampersContainerView;
     }
 
-    public TextView getLocationTextView() {
+    @Override public TextView getLocationTextView() {
         return mLocationTextView;
     }
 
-    public TextView getTitleTextView() {
+    @Override public TextView getTitleTextView() {
         return mTitleTextView;
     }
 }
