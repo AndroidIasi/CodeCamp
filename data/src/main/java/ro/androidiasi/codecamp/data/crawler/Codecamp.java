@@ -1,4 +1,4 @@
-package ro.androidiasi.codecamp.data.website;
+package ro.androidiasi.codecamp.data.crawler;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

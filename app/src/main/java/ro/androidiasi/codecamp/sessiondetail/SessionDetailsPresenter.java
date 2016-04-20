@@ -16,7 +16,6 @@ import ro.androidiasi.codecamp.codecampers.item.CodecamperItemPresenter;
 import ro.androidiasi.codecamp.codecampers.item.CodecamperItemView;
 import ro.androidiasi.codecamp.codecampers.item.CodecamperItemView_;
 import ro.androidiasi.codecamp.data.DummyRepository;
-import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
 import ro.androidiasi.codecamp.internal.bus.CodecampBus;
@@ -114,12 +113,12 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
                 mSession.getTimeFrame(),
                 !mSession.isFavorite()
         );
-        this.mRepository.setSessionFavorite(mSession.getId(), mSession.isFavorite(), new ILoadCallback<DataSession>() {
-            @Override public void onSuccess(DataSession pObject) {
+        this.mRepository.setSessionFavorite(mSession.getId(), mSession.isFavorite(), new ILoadCallback<Boolean>() {
+            @Override public void onSuccess(Boolean pObject) {
                 mCodecampBus.postSticky(new EventSessionUpdated());
             }
 
-            @Override public void onFailure() {
+            @Override public void onFailure(Exception pE) {
 
             }
         });

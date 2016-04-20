@@ -226,18 +226,18 @@ public class DummyRepository implements IAgendaDataSource<Long> {
         pLoadCallback.onSuccess(this.getForId(mCodecampersList, pLong));
     }
 
-    @Override public void isSessionFavorite(Long pLong, ILoadCallback<DataSession> pLoadCallback) {
+    @Override public void isSessionFavorite(Long pLong, ILoadCallback<Boolean> pLoadCallback) {
         Boolean isFavorite = this.mFavoriteSessions.isFavorite(pLong);
         DataSession dataSession = this.getForId(mSessionsList, pLong);
         dataSession.setFavorite(isFavorite);
-        pLoadCallback.onSuccess(dataSession);
+        pLoadCallback.onSuccess(isFavorite);
     }
 
-    @Override public void setSessionFavorite(Long pLong,final boolean pFavorite, ILoadCallback<DataSession> pLoadCallback) {
+    @Override public void setSessionFavorite(Long pLong,final boolean pFavorite, ILoadCallback<Boolean> pLoadCallback) {
         DataSession dataSession = getForId(mSessionsList, pLong);
         dataSession.setFavorite(pFavorite);
         this.mFavoriteSessions.put(pLong, pFavorite);
-        pLoadCallback.onSuccess(dataSession);
+        pLoadCallback.onSuccess(pFavorite);
     }
 
     @SuppressWarnings("unchecked")

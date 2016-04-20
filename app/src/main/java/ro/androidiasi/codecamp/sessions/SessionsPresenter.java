@@ -42,7 +42,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
                     mSessionsAdapter.update(Session.fromDataSessionList(pObject));
                 }
 
-                @Override public void onFailure() {
+                @Override public void onFailure(Exception pE) {
 
                 }
             });
@@ -52,7 +52,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
                     mSessionsAdapter.update(Session.fromDataSessionList(pObject));
                 }
 
-                @Override public void onFailure() {
+                @Override public void onFailure(Exception pE) {
 
                 }
             });

@@ -31,7 +31,7 @@ public class CodecampersPresenter implements CodecampersContract.Presenter{
                 mCodecampersAdapter.update(Codecamper.fromDataCodecamperList(pObject));
             }
 
-            @Override public void onFailure() {
+            @Override public void onFailure(Exception pE) {
 
             }
         });

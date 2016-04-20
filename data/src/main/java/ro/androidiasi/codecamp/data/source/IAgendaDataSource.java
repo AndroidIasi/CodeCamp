@@ -23,6 +23,6 @@ public interface IAgendaDataSource<Id> {
     void getTimeFrame(Id pId, ILoadCallback<DataTimeFrame> pLoadCallback);
     void getCodecamper(Id pId, ILoadCallback<DataCodecamper> pLoadCallback);
 
-    void isSessionFavorite(Id pId, ILoadCallback<DataSession> pLoadCallback);
-    void setSessionFavorite(Id pId, boolean pFavorite, ILoadCallback<DataSession> pLoadCallback);
+    void isSessionFavorite(Id pId, ILoadCallback<Boolean> pLoadCallback);
+    void setSessionFavorite(Id pId, boolean pFavorite, ILoadCallback<Boolean> pLoadCallback);
 }

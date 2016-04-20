@@ -61,11 +61,11 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     }
 
-    @Override public void isSessionFavorite(Long pLong, ILoadCallback<DataSession> pLoadCallback) {
+    @Override public void isSessionFavorite(Long pLong, ILoadCallback<Boolean> pLoadCallback) {
 
     }
 
-    @Override public void setSessionFavorite(Long pLong, boolean pFavorite, ILoadCallback<DataSession> pLoadCallback) {
+    @Override public void setSessionFavorite(Long pLong, boolean pFavorite, ILoadCallback<Boolean> pLoadCallback) {
 
     }
 }

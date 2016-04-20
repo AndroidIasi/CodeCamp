@@ -5,5 +5,5 @@ package ro.androidiasi.codecamp.data.source;
  */
 public interface ILoadCallback<T> {
     void onSuccess(T pObject);
-    void onFailure();
+    void onFailure(Exception pException);
 }

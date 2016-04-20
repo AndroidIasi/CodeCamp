@@ -3,7 +3,7 @@ package ro.androidiasi.codecamp.data.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import ro.androidiasi.codecamp.data.website.Track;
+import ro.androidiasi.codecamp.data.crawler.Track;
 
 /**
  * Created by andrei on 06/04/16.

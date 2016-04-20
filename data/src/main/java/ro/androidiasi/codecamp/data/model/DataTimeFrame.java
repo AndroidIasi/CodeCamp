@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import ro.androidiasi.codecamp.data.website.TimeSlot;
+import ro.androidiasi.codecamp.data.crawler.TimeSlot;
 
 /**
  * Created by andrei on 06/04/16.
