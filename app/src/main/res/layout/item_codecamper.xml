@@ -7,6 +7,7 @@
     android:layout_height="@dimen/item_list_height"
     android:layout_marginTop="@dimen/codecamper_item_margin"
     android:layout_marginBottom="@dimen/codecamper_item_margin"
+    android:gravity="center_vertical"
     android:background="?attr/selectableItemBackground">
 
     <com.facebook.drawee.view.SimpleDraweeView

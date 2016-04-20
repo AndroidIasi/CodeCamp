@@ -10,12 +10,12 @@
         android:id="@+id/drawee_view"
         android:layout_width="@dimen/item_list_height"
         android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/codecamper_item_margin"
         app:roundAsCircle="true"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/list_header_margin"
         android:gravity="center_vertical">
         <android.support.v7.widget.AppCompatTextView
             style="@style/Text.Session.Room"

@@ -11,4 +11,10 @@
     <string name="codecampers">Codecampers:</string>
     <string name="where">Where:</string>
     <string name="ok">OK</string>
+    <string name="androidiasi">AndroidIasi</string>
+    <string name="version">Version: %1$s-build%2$s</string>
+    <string name="description">Curious about the app? Found a problem?\nOpen an issue on GitHub! We love pull requests!</string>
+    <string name="app_is_open_source">This app is open source</string>
+    <string name="please_install_browser">Please install a browser...</string>
+    <string name="choser_favorite_app">Choose your favorite app...</string>
 </resources>

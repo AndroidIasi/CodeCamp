@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ro.androidiasi.codecamp.R;
+import ro.androidiasi.codecamp.about.AboutFragment;
 import ro.androidiasi.codecamp.codecampers.CodecampersFragment;
 import ro.androidiasi.codecamp.sessions.SessionsFragment;
 
@@ -58,7 +59,7 @@ public class TabsProvider {
             }
 
             @Override public Fragment getFragment() {
-                return SessionsFragment.newInstance();
+                return AboutFragment.newInstance();
             }
         });
     }
