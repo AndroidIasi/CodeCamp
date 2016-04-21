@@ -25,6 +25,7 @@ import ro.androidiasi.codecamp.data.source.local.exception.UnsupportedSnappyDb;
  * Created by andrei on 20/04/16.
  */
 @EBean(scope = EBean.Scope.Singleton)
+@SuppressWarnings("SynchronizeOnNonFinalField")
 public class SnappyDatabase implements IDatabase{
     private static final String TAG = "SnappyDatabase";
 
@@ -37,7 +38,7 @@ public class SnappyDatabase implements IDatabase{
 
     @RootContext Context mContext;
 
-    @Override @AfterInject public void afterMembersInject(){
+    @AfterInject public void afterMembersInject(){
         try {
             this.mSnappyDBInstance = SnappyDB.with(mContext);
         } catch (SnappydbException pE) {
@@ -46,16 +47,20 @@ public class SnappyDatabase implements IDatabase{
     }
 
     @Override public boolean isDataSessionFavorite(Long pDataSessionId) {
-        try {
-            return this.checkForNonNull(mSnappyDBInstance).getBoolean(String.valueOf(pDataSessionId));
-        } catch (SnappydbException pE) {
-            Log.e(TAG, "isDataSessionFavorite: ", pE);
+        synchronized (mSnappyDBInstance) {
+            try {
+                return this.checkForNonNull(mSnappyDBInstance).getBoolean(String.valueOf(pDataSessionId));
+            } catch (SnappydbException pE) {
+//                Log.e(TAG, "isDataSessionFavorite: ", pE);
+            }
+            return false;
         }
-        return false;
     }
 
     @Override public void setDataSessionFavorite(Long pLong, boolean pIsFavorite) throws SnappydbException {
-        this.checkForNonNull(mSnappyDBInstance).put(pLong.toString(), pIsFavorite);
+        synchronized (mSnappyDBInstance) {
+            this.checkForNonNull(mSnappyDBInstance).put(pLong.toString(), pIsFavorite);
+        }
     }
 
     @Override public void saveDataRoomsList(List<DataRoom> pDataRoomList){
@@ -67,10 +72,12 @@ public class SnappyDatabase implements IDatabase{
     }
 
     @Override public void deleteDataRooms(){
-        try {
-            this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_ROOMS);
-        } catch (SnappydbException pE) {
-            Log.e(TAG, "deleteDataRooms: ", pE);
+        synchronized (mSnappyDBInstance) {
+            try {
+                this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_ROOMS);
+            } catch (SnappydbException pE) {
+                Log.e(TAG, "deleteDataRooms: ", pE);
+            }
         }
     }
 
@@ -83,10 +90,12 @@ public class SnappyDatabase implements IDatabase{
     }
 
     @Override public void deleteDataTimeFrames(){
-        try {
-            this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_TIME_FRAMES);
-        } catch (SnappydbException pE) {
-            Log.e(TAG, "deleteDataTimeFrames: ", pE);
+        synchronized (mSnappyDBInstance) {
+            try {
+                this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_TIME_FRAMES);
+            } catch (SnappydbException pE) {
+                Log.e(TAG, "deleteDataTimeFrames: ", pE);
+            }
         }
     }
 
@@ -99,10 +108,12 @@ public class SnappyDatabase implements IDatabase{
     }
 
     @Override public void deleteDataCodecampers(){
-        try {
-            this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_CODECAMPERS);
-        } catch (SnappydbException pE) {
-            Log.e(TAG, "deleteDataCodecampers: ", pE);
+        synchronized (mSnappyDBInstance) {
+            try {
+                this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_CODECAMPERS);
+            } catch (SnappydbException pE) {
+                Log.e(TAG, "deleteDataCodecampers: ", pE);
+            }
         }
     }
 
@@ -115,10 +126,12 @@ public class SnappyDatabase implements IDatabase{
     }
 
     @Override public void deleteDataSessions(){
-        try {
-            this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_SESSIONS);
-        } catch (SnappydbException pE) {
-            Log.e(TAG, "deleteDataSessions: ", pE);
+        synchronized (mSnappyDBInstance) {
+            try {
+                this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_SESSIONS);
+            } catch (SnappydbException pE) {
+                Log.e(TAG, "deleteDataSessions: ", pE);
+            }
         }
     }
 
@@ -140,29 +153,35 @@ public class SnappyDatabase implements IDatabase{
 
 
     private<Model> void putList(String pKey, List<Model> pModelList){
-        try {
-            this.checkForNonNull(mSnappyDBInstance).put(pKey, pModelList);
-        } catch (SnappydbException pE) {
-            Log.e(TAG, "putList: ", pE);
+        synchronized (mSnappyDBInstance) {
+            try {
+                this.checkForNonNull(mSnappyDBInstance).put(pKey, pModelList.toArray());
+            } catch (SnappydbException pE) {
+                Log.e(TAG, "putList: ", pE);
+            }
         }
     }
 
     private<Model> List<Model> getList(String pKey, Class<Model> pModelClass) throws SnappydbException {
-        Model[]  modelsArray = this.checkForNonNull(mSnappyDBInstance).getObjectArray(pKey, pModelClass);
-        if(modelsArray == null){
-            throw new DataNotFoundException();
-        } else {
-            return Arrays.asList(modelsArray);
+        synchronized (mSnappyDBInstance) {
+            Model[] modelsArray = this.checkForNonNull(mSnappyDBInstance).getObjectArray(pKey, pModelClass);
+            if (modelsArray == null) {
+                throw new DataNotFoundException();
+            } else {
+                return Arrays.asList(modelsArray);
+            }
         }
     }
 
     private boolean dataExists(String pKey){
-        try {
-            return this.checkForNonNull(mSnappyDBInstance).exists(pKey);
-        } catch (SnappydbException pE) {
-            Log.e(TAG, "dataExist: ", pE);
+        synchronized (mSnappyDBInstance) {
+            try {
+                return this.checkForNonNull(mSnappyDBInstance).exists(pKey);
+            } catch (SnappydbException pE) {
+                Log.e(TAG, "dataExist: ", pE);
+            }
+            return false;
         }
-        return false;
     }
 
     private DB checkForNonNull(DB pSnappyDatabase) throws SnappydbException {

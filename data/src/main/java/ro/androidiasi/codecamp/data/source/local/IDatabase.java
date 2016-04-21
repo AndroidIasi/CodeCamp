@@ -2,8 +2,6 @@ package ro.androidiasi.codecamp.data.source.local;
 
 import com.snappydb.SnappydbException;
 
-import org.androidannotations.annotations.AfterInject;
-
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
@@ -15,8 +13,6 @@ import ro.androidiasi.codecamp.data.model.DataTimeFrame;
  * Created by andrei on 21/04/16.
  */
 public interface IDatabase {
-
-    @AfterInject void afterMembersInject();
 
     boolean isDataSessionFavorite(Long pDataSessionId) throws SnappydbException;
 

@@ -11,6 +11,8 @@
         android:layout_width="@dimen/item_list_height"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/codecamper_item_margin"
+        app:placeholderImageScaleType="centerCrop"
+        app:placeholderImage="@drawable/codecamper"
         app:roundAsCircle="true"/>
     <LinearLayout
         android:orientation="vertical"

@@ -1,5 +1,6 @@
 package ro.androidiasi.codecamp.codecampers;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
 
 import org.androidannotations.annotations.Bean;
@@ -18,6 +19,7 @@ import ro.androidiasi.codecamp.internal.model.Codecamper;
 public class CodecampersFragment extends BaseFragment implements CodecampersContract.View {
 
     @Bean CodecampersPresenter mCodecampersPresenter;
+    @ViewById(R.id.swipe_to_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @ViewById(R.id.list_view) ListView mListView;
 
     public static CodecampersFragment newInstance(){
@@ -33,6 +35,10 @@ public class CodecampersFragment extends BaseFragment implements CodecampersCont
 
     @Override public ListView getListView() {
         return mListView;
+    }
+
+    @Override public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return mSwipeRefreshLayout;
     }
 
     @ItemClick(R.id.list_view) public void onCodecamperListItemClicked(Codecamper pCodecamper){

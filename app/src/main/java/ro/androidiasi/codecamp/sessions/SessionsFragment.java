@@ -1,5 +1,6 @@
 package ro.androidiasi.codecamp.sessions;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.Bean;
@@ -25,6 +26,7 @@ public class SessionsFragment extends BaseFragment implements SessionsContract.V
     @Bean SessionsPresenter mSessionsPresenter;
     @FragmentArg Boolean mShowOnlyFavoriteSessions = Boolean.FALSE;
 
+    @ViewById(R.id.swipe_to_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @ViewById(R.id.list_view) StickyListHeadersListView mListView;
     @ViewById(R.id.empty_list_text) TextView mEmptyListTextView;
 
@@ -52,6 +54,10 @@ public class SessionsFragment extends BaseFragment implements SessionsContract.V
 
     @Override public TextView getEmptyListTextView() {
         return mEmptyListTextView;
+    }
+
+    @Override public SwipeRefreshLayout getSwipeRefreshLayout(){
+        return this.mSwipeRefreshLayout;
     }
 
     @ItemClick(R.id.list_view) public void onSessionItemClicked(Session pSession){

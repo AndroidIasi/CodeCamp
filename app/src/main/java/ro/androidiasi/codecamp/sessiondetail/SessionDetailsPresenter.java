@@ -40,6 +40,7 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
 
     private IAgendaDataSource<Long> mRepository;
     private Session mSession;
+    private boolean mIsSessionFavorite;
 
     @Override public void afterViews() {
         if(mSession == null){
@@ -88,8 +89,17 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
     }
 
     private void prepareFab() {
-        Drawable fabDrawable = this.mSession.isFavorite() ? mIsFavoriteIcon : mIsNotFavoriteIcon;
-        this.mSessionDetailsActivity.getFab().setImageDrawable(fabDrawable);
+        this.mRepository.isSessionFavorite(mSession.getId(), new ILoadCallback<Boolean>() {
+            @Override public void onSuccess(Boolean pObject) {
+                mIsSessionFavorite = pObject;
+                Drawable fabDrawable = pObject ? mIsFavoriteIcon : mIsNotFavoriteIcon;
+                mSessionDetailsActivity.getFab().setImageDrawable(fabDrawable);
+            }
+
+            @Override public void onFailure(Exception pException) {
+                mSessionDetailsActivity.getFab().setImageDrawable(mIsNotFavoriteIcon);
+            }
+        });
         this.mSessionDetailsActivity.getFab().setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View pView) {
                 onFavoritesFabClicked();
@@ -108,17 +118,11 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
     }
 
     private void onFavoritesFabClicked(){
-        this.mSession = new Session(
-                mSession.getId(),
-                mSession.getCodecampersList(),
-                mSession.getRoom(),
-                mSession.getName(),
-                mSession.getDescription(),
-                mSession.getTimeFrame(),
-                !mSession.isFavorite()
-        );
-        this.mRepository.setSessionFavorite(mSession.getId(), mSession.isFavorite(), new ILoadCallback<Boolean>() {
+        this.mRepository.setSessionFavorite(mSession.getId(), !mIsSessionFavorite, new ILoadCallback<Boolean>() {
             @Override public void onSuccess(Boolean pObject) {
+                mIsSessionFavorite = pObject;
+                Drawable fabDrawable = pObject ? mIsFavoriteIcon : mIsNotFavoriteIcon;
+                mSessionDetailsActivity.getFab().setImageDrawable(fabDrawable);
                 mCodecampBus.postSticky(new EventSessionUpdated());
             }
 
@@ -126,7 +130,6 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
                 Log.e(TAG, "onFailure: ", pE);
             }
         });
-        this.prepareFab();
     }
 
     @UiThread public void onUiThreadBindCodecamperWithView(Codecamper pCodecamper, CodecamperItemView pCodecamperItemView){

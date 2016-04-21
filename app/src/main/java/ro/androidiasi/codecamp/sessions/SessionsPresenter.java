@@ -1,5 +1,6 @@
 package ro.androidiasi.codecamp.sessions;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import org.androidannotations.annotations.Bean;
@@ -16,7 +17,7 @@ import ro.androidiasi.codecamp.internal.model.Session;
  * Created by andrei on 08/04/16.
  */
 @EBean
-public class SessionsPresenter implements SessionsContract.Presenter {
+public class SessionsPresenter implements SessionsContract.Presenter, SwipeRefreshLayout.OnRefreshListener {
 
     @Bean SessionsAdapter mSessionsAdapter;
 
@@ -32,6 +33,12 @@ public class SessionsPresenter implements SessionsContract.Presenter {
             throw new NullPointerException("Repository is NULL! Please set the Repository first!");
         }
         this.mView.getListView().setAdapter(this.mSessionsAdapter);
+        this.mView.getSwipeRefreshLayout().setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        this.mView.getSwipeRefreshLayout().setOnRefreshListener(this);
         this.updateAdapter();
     }
 
@@ -41,7 +48,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
     private void updateAdapter() {
         if(mShowOnlyFavoriteSessions){
-            this.mRepository.getFavoriteSessionsList(, new ILoadCallback<List<DataSession>>() {
+            this.mRepository.getFavoriteSessionsList(new ILoadCallback<List<DataSession>>() {
                 @Override public void onSuccess(List<DataSession> pObject) {
                     mView.getEmptyListTextView().setVisibility(pObject.size() == 0 ? View.VISIBLE : View.GONE);
                     mSessionsAdapter.update(Session.fromDataSessionList(pObject));
@@ -52,7 +59,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
                 }
             });
         } else {
-            this.mRepository.getSessionsList(, new ILoadCallback<List<DataSession>>() {
+            this.mRepository.getSessionsList(new ILoadCallback<List<DataSession>>() {
                 @Override public void onSuccess(List<DataSession> pObject) {
                     mSessionsAdapter.update(Session.fromDataSessionList(pObject));
                 }
@@ -60,7 +67,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
                 @Override public void onFailure(Exception pE) {
 
                 }
-            }, );
+            });
         }
     }
 
@@ -74,5 +81,33 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
     public void setRepository(IAgendaDataSource<Long> pRepository) {
         mRepository = pRepository;
+    }
+
+    @Override public void onRefresh() {
+        if(mShowOnlyFavoriteSessions){
+            this.mRepository.getFavoriteSessionsList(true, new ILoadCallback<List<DataSession>>() {
+                @Override public void onSuccess(List<DataSession> pObject) {
+                    mView.getEmptyListTextView().setVisibility(pObject.size() == 0 ? View.VISIBLE : View.GONE);
+                    mSessionsAdapter.update(Session.fromDataSessionList(pObject));
+                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                }
+
+                @Override public void onFailure(Exception pException) {
+                    mView.getEmptyListTextView().setVisibility(View.VISIBLE);
+                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                }
+            });
+        } else {
+            this.mRepository.getSessionsList(true, new ILoadCallback<List<DataSession>>() {
+                @Override public void onSuccess(List<DataSession> pObject) {
+                    mSessionsAdapter.update(Session.fromDataSessionList(pObject));
+                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                }
+
+                @Override public void onFailure(Exception pException) {
+                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                }
+            });
+        }
     }
 }

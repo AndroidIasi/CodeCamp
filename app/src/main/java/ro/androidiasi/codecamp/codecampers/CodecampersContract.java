@@ -1,5 +1,6 @@
 package ro.androidiasi.codecamp.codecampers;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
 
 import ro.androidiasi.codecamp.internal.IPresenter;
@@ -13,6 +14,8 @@ public interface CodecampersContract {
     interface View extends IView{
 
         ListView getListView();
+
+        SwipeRefreshLayout getSwipeRefreshLayout();
     }
 
     interface Presenter extends IPresenter{

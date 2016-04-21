@@ -3,6 +3,9 @@ package ro.androidiasi.codecamp.data.source.remote;
 import android.content.Context;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,6 +15,8 @@ import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
 
 import java.lang.ref.WeakReference;
+
+import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
 
 /**
  * Created by andrei on 21/04/16.
@@ -43,6 +48,14 @@ public class WebViewRemoteDataSource extends BaseRemoteDataSource {
                     if (mWebViewWeakReference.get() != null) {
                         mWebViewWeakReference.get().loadUrl(MIGHTY_JS_HACK);
                     }
+                }
+
+                @Override public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                    onFailure(new DataUnavailable());
+                }
+
+                @Override public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+                    onFailure(new DataUnavailable());
                 }
             });
             this.mWebViewWeakReference = new WeakReference<>(webView);

@@ -1,5 +1,6 @@
 package ro.androidiasi.codecamp.sessions;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.TextView;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -14,6 +15,8 @@ public interface SessionsContract {
         StickyListHeadersListView getListView();
 
         TextView getEmptyListTextView();
+
+        SwipeRefreshLayout getSwipeRefreshLayout();
     }
 
     interface Presenter{
