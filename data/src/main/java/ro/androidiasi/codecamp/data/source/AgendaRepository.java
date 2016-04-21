@@ -7,7 +7,6 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.UiThread;
 
-import java.io.File;
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.model.DataCodecamp;
@@ -27,7 +26,7 @@ import ro.androidiasi.codecamp.data.source.remote.WebViewRemoteDataSource;
 public class AgendaRepository implements IAgendaDataSource<Long> {
 
     private static final String TAG = "AgendaRepository";
-    @Bean FileRemoteDataSource mLocalSnappyDataSource;
+    @Bean AgendaLocalSnappyDataSource mLocalSnappyDataSource;
     @Bean FileRemoteDataSource mFileRemoteDataSource;
     @Bean WebViewRemoteDataSource mWebViewRemoteDataSource;
 

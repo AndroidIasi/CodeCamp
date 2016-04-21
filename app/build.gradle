@@ -37,10 +37,11 @@ android {
     buildTypes {
         debug{
             minifyEnabled true
+            useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
             debuggable false
             zipAlignEnabled true
             applicationIdSuffix ".live"
@@ -75,7 +76,6 @@ dependencies {
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
 
     compile "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
-    compile "uk.co.chrisjenx:calligraphy:$rootProject.ext.caligraphyVersion"
     compile "se.emilsjolander:stickylistheaders:$rootProject.ext.stickyHeadersVersion"
     compile "org.greenrobot:eventbus:$rootProject.ext.eventBusVersion"
 

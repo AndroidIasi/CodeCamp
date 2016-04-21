@@ -3,6 +3,7 @@ package ro.androidiasi.codecamp.data.source.remote;
 import android.content.Context;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -36,6 +37,7 @@ public class WebViewRemoteDataSource extends BaseRemoteDataSource {
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setBlockNetworkImage(true);
             webView.addJavascriptInterface(this, "android");
+            webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
             webView.setWebViewClient(new WebViewClient() {
                 @Override public void onPageFinished(WebView view, String url) {
                     if (mWebViewWeakReference.get() != null) {

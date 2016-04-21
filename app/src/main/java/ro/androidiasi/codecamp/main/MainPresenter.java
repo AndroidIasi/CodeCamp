@@ -33,7 +33,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override public void setupViewPager(ViewPager pViewPager, TabLayout pTabLayout){
-//        pViewPager.setAdapter(mMainPagerAdapter);
+        pViewPager.setAdapter(mMainPagerAdapter);
         pViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(pTabLayout));
     }
 

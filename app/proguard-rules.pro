@@ -15,3 +15,67 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-dontwarn
+-ignorewarnings
+
+-keepclassmembers class ** {
+   public void onEvent*(**);
+}
+
+# Keep our interfaces so they can be used by other ProGuard rules.
+# See http://sourceforge.net/p/proguard/bugs/466/
+-keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
+
+# Do not strip any method/class that is annotated with @DoNotStrip
+-keep @com.facebook.common.internal.DoNotStrip class *
+-keepclassmembers class * {
+    @com.facebook.common.internal.DoNotStrip *;
+}
+
+# Keep native methods
+-keepclassmembers class * {
+    native <methods>;
+}
+
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn com.android.volley.toolbox.**
+
+-keep class ro.androidiasi.** { *;}
+-keep enum ro.androidiasi.**
+-keep interface ro.androidiasi.**
+-keepclassmembers class ro.androidiasi.** { *;}
+-keepclassmembers enum ro.androidiasi.** { *;}
+-keepclassmembers interface ro.androidiasi.** { *;}
+-keepclassmembernames class ro.androidiasi.** { *;}
+-keepclassmembernames enum ro.androidiasi.** { *;}
+-keepclassmembernames interface ro.androidiasi.** { *;}
+
+-dontwarn sun.reflect.**
+-dontwarn java.beans.**
+-keep,allowshrinking class com.esotericsoftware.** {
+   <fields>;
+   <methods>;
+}
+-keep,allowshrinking class java.beans.** { *; }
+-keep,allowshrinking class sun.reflect.** { *; }
+-keep,allowshrinking class com.esotericsoftware.kryo.** { *; }
+-keep,allowshrinking class com.esotericsoftware.kryo.io.** { *; }
+-keep,allowshrinking class sun.nio.ch.** { *; }
+-dontwarn sun.nio.ch.**
+-dontwarn sun.misc.**
+
+-keep,allowshrinking class com.snappydb.** { *; }
+-dontwarn com.snappydb.**
+
+-keepattributes *Annotation*,EnclosingMethod,Signature
+-keepnames class com.fasterxml.jackson.** { *; }
+ -dontwarn com.fasterxml.jackson.databind.**
+ -keep class org.codehaus.** { *; }
+ -keepclassmembers public final enum org.codehaus.jackson.annotate.JsonAutoDetect$Visibility {
+ public static final org.codehaus.jackson.annotate.JsonAutoDetect$Visibility *; }
+-keep public class your.class.** {
+  public void set*(***);
+  public *** get*();
+}
