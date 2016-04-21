@@ -5,12 +5,12 @@ import android.support.v4.app.Fragment;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import ro.androidiasi.codecamp.data.DummyRepository;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.internal.aa.IEnhancedView;
 import ro.androidiasi.codecamp.internal.bus.CodecampBus;
@@ -21,8 +21,8 @@ import ro.androidiasi.codecamp.internal.bus.CodecampBus;
 @EFragment
 public abstract class BaseFragment extends Fragment implements IEnhancedView {
 
+    @App public CodecampApp mCodecampApp;
     @Bean public Navigator mNavigator;
-    @Bean(DummyRepository.class) public IAgendaDataSource<Long> mRepository;
     @Bean public CodecampBus mCodecampBus;
 
     @AfterInject
@@ -61,6 +61,6 @@ public abstract class BaseFragment extends Fragment implements IEnhancedView {
         return mNavigator;
     }
     public IAgendaDataSource<Long> getRepository(){
-        return mRepository;
+        return mCodecampApp.getRepository();
     }
 }

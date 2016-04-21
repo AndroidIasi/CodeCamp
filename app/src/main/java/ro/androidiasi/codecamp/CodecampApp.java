@@ -35,4 +35,6 @@ public class CodecampApp extends Application {
         Context newBase = CalligraphyContextWrapper.wrap(base);
         super.attachBaseContext(newBase);
     }
+
+
 }

@@ -41,6 +41,7 @@ public class SessionsFragment extends BaseFragment implements SessionsContract.V
     @Override public void afterViews() {
         super.afterViews();
         this.mSessionsPresenter.setView(this);
+        this.mSessionsPresenter.setRepository(getRepository());
         this.mSessionsPresenter.setShowOnlyFavoriteSessions(mShowOnlyFavoriteSessions);
         this.mSessionsPresenter.afterViews();
     }

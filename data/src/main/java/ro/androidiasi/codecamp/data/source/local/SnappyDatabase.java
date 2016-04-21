@@ -35,8 +35,12 @@ public class SnappyDatabase implements IDatabase{
         }
     }
 
-    @Override public void saveCodecamp(DataCodecamp pCodecamp) throws SnappydbException {
-        this.checkForNonNull(mSnappyDBInstance).put(KEY_OBJECT_CODECAMP, pCodecamp);
+    @Override public void saveCodecamp(DataCodecamp pCodecamp) {
+        try {
+            this.checkForNonNull(mSnappyDBInstance).put(KEY_OBJECT_CODECAMP, pCodecamp);
+        } catch (SnappydbException pE) {
+            Log.e(TAG, "saveCodecamp: ", pE);
+        }
     }
 
     @Override public boolean dataExists() throws SnappydbException {
@@ -53,12 +57,25 @@ public class SnappyDatabase implements IDatabase{
         }
     }
 
-    @Override public boolean isFavorite(Long pDataSessionId) throws SnappydbException {
-        return this.checkForNonNull(mSnappyDBInstance).getBoolean(String.valueOf(pDataSessionId));
+    @Override public boolean isFavorite(Long pDataSessionId) {
+        try {
+            return this.checkForNonNull(mSnappyDBInstance).getBoolean(String.valueOf(pDataSessionId));
+        } catch (SnappydbException pE) {
+            Log.e(TAG, "isFavorite: ", pE);
+        }
+        return false;
     }
 
     @Override public void setSessionFavorite(Long pLong, boolean pIsFavorite) throws SnappydbException {
         this.checkForNonNull(mSnappyDBInstance).put(pLong.toString(), pIsFavorite);
+    }
+
+    @Override public void deleteCodecamp() {
+        try {
+            this.mSnappyDBInstance.del(KEY_OBJECT_CODECAMP);
+        } catch (SnappydbException pE) {
+            Log.e(TAG, "deleteCodecamp: ", pE);
+        }
     }
 
     private DB checkForNonNull(DB pSnappyDatabase) throws SnappydbException {

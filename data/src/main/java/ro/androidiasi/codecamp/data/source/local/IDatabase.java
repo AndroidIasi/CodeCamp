@@ -17,4 +17,6 @@ public interface IDatabase {
     boolean isFavorite(Long pDataSessionId) throws SnappydbException;
 
     void setSessionFavorite(Long pLong, boolean pIsFavorite) throws SnappydbException;
+
+    void deleteCodecamp();
 }

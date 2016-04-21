@@ -27,6 +27,7 @@ public class CodecampersFragment extends BaseFragment implements CodecampersCont
     @Override public void afterViews() {
         super.afterViews();
         this.mCodecampersPresenter.setView(this);
+        this.mCodecampersPresenter.setRepository(getRepository());
         this.mCodecampersPresenter.afterViews();
     }
 

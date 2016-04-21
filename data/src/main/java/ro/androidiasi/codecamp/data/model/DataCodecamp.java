@@ -14,6 +14,9 @@ public class DataCodecamp extends AbstractDataModel {
     private List<DataCodecamper> mDataCodecampers;
     private List<DataSession> mDataSessions;
 
+    public DataCodecamp(){
+
+    }
 
     public DataCodecamp(Long pId, List<DataRoom> pDataRooms, List<DataTimeFrame> pTimeFrames, List<DataCodecamper> pDataCodecampers, List<DataSession> pDataSessions) {
         super(pId);

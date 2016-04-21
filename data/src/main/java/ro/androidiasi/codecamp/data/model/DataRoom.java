@@ -16,6 +16,10 @@ public class DataRoom extends AbstractDataModel {
     private String mName;
     private String mDescription;
 
+    public DataRoom(){
+
+    }
+
     public DataRoom(long pId, String pCode, String pName, String pDescription) {
         super(pId);
         mCode = pCode;

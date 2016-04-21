@@ -1,6 +1,7 @@
 package ro.androidiasi.codecamp.sessiondetail;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 
 import org.androidannotations.annotations.Bean;
@@ -15,7 +16,6 @@ import ro.androidiasi.codecamp.codecampers.item.CodecamperItemContract;
 import ro.androidiasi.codecamp.codecampers.item.CodecamperItemPresenter;
 import ro.androidiasi.codecamp.codecampers.item.CodecamperItemView;
 import ro.androidiasi.codecamp.codecampers.item.CodecamperItemView_;
-import ro.androidiasi.codecamp.data.DummyRepository;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
 import ro.androidiasi.codecamp.internal.bus.CodecampBus;
@@ -28,21 +28,25 @@ import ro.androidiasi.codecamp.internal.model.Session;
 @EBean
 public class SessionDetailsPresenter implements SessionDetailsContract.Presenter{
 
+    private static final String TAG = "SessionDetailsPresenter";
     @DrawableRes(R.drawable.ic_action_favorite) Drawable mIsFavoriteIcon;
     @DrawableRes(R.drawable.ic_action_favorite_outline) Drawable mIsNotFavoriteIcon;
 
     @Bean Navigator mNavigator;
-    @Bean(DummyRepository.class) IAgendaDataSource<Long> mRepository;
     @Bean(CodecamperItemPresenter.class) CodecamperItemContract.Presenter mCodecamperItemPresenter;
     @Bean CodecampBus mCodecampBus;
 
     @RootContext SessionDetailsActivity mSessionDetailsActivity;
 
+    private IAgendaDataSource<Long> mRepository;
     private Session mSession;
 
     @Override public void afterViews() {
         if(mSession == null){
             throw new NullPointerException("Session is NULL! Please set Session first!");
+        }
+        if(mRepository == null){
+            throw new NullPointerException("Repository is NULL! Please set the Repository first!");
         }
         this.prepareToolBar();
         this.prepareFab();
@@ -119,7 +123,7 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
             }
 
             @Override public void onFailure(Exception pE) {
-
+                Log.e(TAG, "onFailure: ", pE);
             }
         });
         this.prepareFab();
@@ -129,4 +133,7 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
         this.mCodecamperItemPresenter.bind(pCodecamper, pCodecamperItemView);
     }
 
+    public void setRepository(IAgendaDataSource<Long> pRepository) {
+        mRepository = pRepository;
+    }
 }

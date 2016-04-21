@@ -5,9 +5,8 @@ import android.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.UiThread;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +19,7 @@ import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
+import ro.androidiasi.codecamp.data.source.local.SnappyDatabase;
 import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
 
 /**
@@ -29,6 +29,9 @@ import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
 public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaDataSource<Long> {
 
     private static final String TAG = "BaseRemoteDataSource";
+
+    @Bean SnappyDatabase mSnappyDatabase;
+
     private ObjectMapper mObjectMapper;
     private ILoadCallback<List<DataRoom>> mDataRoomListCallback;
     private ILoadCallback<List<DataSession>> mDataSessionListCallback;
@@ -42,73 +45,52 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
 
     public void afterInject(){};
 
-    @Background
     @Override public void getRoomsList(final ILoadCallback<List<DataRoom>> pLoadCallback) {
         this.mDataRoomListCallback = pLoadCallback;
         this.requestData(pLoadCallback);
     }
 
-    @Background
     @Override public void getSessionsList(final ILoadCallback<List<DataSession>> pLoadCallback) {
         this.mDataSessionListCallback = pLoadCallback;
         this.requestData(pLoadCallback);
     }
 
-    @Background
     @Override public void getFavoriteSessionsList(final ILoadCallback<List<DataSession>> pLoadCallback) {
         //not storing favorites on the web
     }
 
-    @Background
     @Override public void getTimeFramesList(ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
         this.mDataTimeFrameListCallback = pLoadCallback;
         this.requestData(pLoadCallback);
     }
 
-    @Background
     @Override public void getCodecampersList(ILoadCallback<List<DataCodecamper>> pLoadCallback) {
         this.mDataCodecamperListCallback = pLoadCallback;
         this.requestData(pLoadCallback);
     }
 
-    @Background
     @Override public void getRoom(Long pLong, ILoadCallback<DataRoom> pLoadCallback) {
 
     }
 
-    @Background
     @Override public void getSession(Long pLong, ILoadCallback<DataSession> pLoadCallback) {
 
     }
 
-    @Background
     @Override public void getTimeFrame(Long pLong, ILoadCallback<DataTimeFrame> pLoadCallback) {
 
     }
 
-    @Background
     @Override public void getCodecamper(Long pLong, ILoadCallback<DataCodecamper> pLoadCallback) {
 
     }
 
-    @Background
     @Override public void isSessionFavorite(Long pLong, ILoadCallback<Boolean> pLoadCallback) {
 
     }
 
-    @Background
     @Override public void setSessionFavorite(Long pLong, boolean pFavorite, ILoadCallback<Boolean> pLoadCallback) {
 
-    }
-
-    @UiThread
-    @Override public <Model> void onUiThreadCallOnSuccessCallback(ILoadCallback<Model> pLoadCallback, Model pModel) {
-        pLoadCallback.onSuccess(pModel);
-    }
-
-    @UiThread
-    @Override public <E extends Exception> void onUiThreadCallOnFailureCallback(ILoadCallback pLoadCallback, E pException) {
-        pLoadCallback.onFailure(pException);
     }
 
     private DataCodecamp getDataCodecampFromJson(String pDataJson) throws IOException {
@@ -120,7 +102,7 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
         try {
             this.startCodecampJsonRequest();
         } catch (DataUnavailable pDataUnavailable) {
-            this.onUiThreadCallOnFailureCallback(pLoadCallback, pDataUnavailable);
+            Log.e(TAG, "requestData: ", pDataUnavailable);
         }
     }
 
@@ -141,24 +123,25 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
         DataCodecamp dataCodecamp = null;
         try {
             dataCodecamp = getDataCodecampFromJson(pObject);
+            mSnappyDatabase.saveCodecamp(dataCodecamp);
         } catch (IOException pE) {
-            this.onUiThreadCallOnFailureCallback(this, pE);
+            this.onFailure(pE);
         }
         if(dataCodecamp != null){
             if(mDataSessionListCallback != null){
-                this.onUiThreadCallOnSuccessCallback(mDataSessionListCallback, dataCodecamp.getDataSessions());
+                mDataSessionListCallback.onSuccess(dataCodecamp.getDataSessions());
                 this.mDataSessionListCallback = null;
             }
             if(mDataRoomListCallback != null){
-                this.onUiThreadCallOnSuccessCallback(mDataRoomListCallback, dataCodecamp.getDataRooms());
+                this.mDataRoomListCallback.onSuccess(dataCodecamp.getDataRooms());
                 this.mDataRoomListCallback = null;
             }
             if(mDataTimeFrameListCallback != null){
-                this.onUiThreadCallOnSuccessCallback(mDataTimeFrameListCallback, dataCodecamp.getTimeFrames());
+                this.mDataTimeFrameListCallback.onSuccess(dataCodecamp.getTimeFrames());
                 this.mDataTimeFrameListCallback = null;
             }
             if(mDataCodecamperListCallback != null) {
-                this.onUiThreadCallOnSuccessCallback(mDataCodecamperListCallback, dataCodecamp.getDataCodecampers());
+                this.mDataCodecamperListCallback.onSuccess(dataCodecamp.getDataCodecampers());
                 this.mDataCodecamperListCallback = null;
             }
         }
@@ -166,5 +149,21 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
 
     @Override public void onFailure(Exception pException) {
         Log.e(TAG, "onFailure: ", pException);
+        if(mDataSessionListCallback != null){
+            mDataSessionListCallback.onFailure(pException);
+            this.mDataSessionListCallback = null;
+        }
+        if(mDataRoomListCallback != null){
+            this.mDataRoomListCallback.onFailure(pException);
+            this.mDataRoomListCallback = null;
+        }
+        if(mDataTimeFrameListCallback != null){
+            this.mDataTimeFrameListCallback.onFailure(pException);
+            this.mDataTimeFrameListCallback = null;
+        }
+        if(mDataCodecamperListCallback != null) {
+            this.mDataCodecamperListCallback.onFailure(pException);
+            this.mDataCodecamperListCallback = null;
+        }
     }
 }

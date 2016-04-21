@@ -15,6 +15,9 @@ public class DataTimeFrame extends AbstractDataModel {
     private Date mStartTime;
     private Date mEndTime;
 
+    public DataTimeFrame(){
+
+    }
 
     public DataTimeFrame(long pId, String pName, Date pStartTime, Date pEndTime) {
         super(pId);

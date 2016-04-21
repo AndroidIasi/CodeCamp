@@ -8,6 +8,7 @@ import android.webkit.WebViewClient;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
+import org.androidannotations.annotations.UiThread;
 
 import java.lang.ref.WeakReference;
 
@@ -28,15 +29,16 @@ public class WebViewRemoteDataSource extends BaseRemoteDataSource {
 
     }
 
-    @Override public String startCodecampJsonRequest() {
-        if(mWebViewWeakReference.get() == null){
+    @UiThread
+    @Override public void startCodecampJsonRequest() {
+        if (mWebViewWeakReference == null || mWebViewWeakReference.get() == null) {
             WebView webView = new WebView(mContext);
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setBlockNetworkImage(true);
             webView.addJavascriptInterface(this, "android");
-            webView.setWebViewClient(new WebViewClient(){
+            webView.setWebViewClient(new WebViewClient() {
                 @Override public void onPageFinished(WebView view, String url) {
-                    if(mWebViewWeakReference.get() != null){
+                    if (mWebViewWeakReference.get() != null) {
                         mWebViewWeakReference.get().loadUrl(MIGHTY_JS_HACK);
                     }
                 }
@@ -44,7 +46,6 @@ public class WebViewRemoteDataSource extends BaseRemoteDataSource {
             this.mWebViewWeakReference = new WeakReference<>(webView);
         }
         this.mWebViewWeakReference.get().loadUrl(INDEX_HTML_PATH);
-        return "";
     }
 
     @JavascriptInterface public void onData(String data){

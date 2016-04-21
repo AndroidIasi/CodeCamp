@@ -19,6 +19,10 @@ public class DataSession extends AbstractDataModel {
 
     private boolean mFavorite;
 
+    public DataSession(){
+
+    }
+
     public DataSession(long pId, List<DataCodecamper> pDataCodecamper, DataRoom pDataRoom, String pName, String pDescription, DataTimeFrame pDataTimeFrame) {
         super(pId);
         mDataCodecamper = pDataCodecamper;

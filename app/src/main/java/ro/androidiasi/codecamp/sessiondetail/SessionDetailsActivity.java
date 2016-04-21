@@ -40,6 +40,7 @@ public class SessionDetailsActivity extends BaseActivity implements SessionDetai
     @Override public void afterViews() {
         super.afterViews();
         this.mSessionDetailsPresenter.setSession(mSession);
+        this.mSessionDetailsPresenter.setRepository(getRepository());
         this.mSessionDetailsPresenter.afterViews();
     }
 

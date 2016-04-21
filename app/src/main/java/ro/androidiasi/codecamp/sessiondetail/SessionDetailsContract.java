@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.internal.IPresenter;
 import ro.androidiasi.codecamp.internal.IView;
 import ro.androidiasi.codecamp.internal.model.Session;
@@ -38,5 +39,7 @@ public interface SessionDetailsContract {
         void afterViews();
 
         void setSession(Session pSession);
+
+        void setRepository(IAgendaDataSource<Long> pRepository);
     }
 }

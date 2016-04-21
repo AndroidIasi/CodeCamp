@@ -8,7 +8,6 @@ import org.androidannotations.annotations.EBean;
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.model.DataSession;
-import ro.androidiasi.codecamp.data.source.AgendaRepository;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
 import ro.androidiasi.codecamp.internal.model.Session;
@@ -20,12 +19,18 @@ import ro.androidiasi.codecamp.internal.model.Session;
 public class SessionsPresenter implements SessionsContract.Presenter {
 
     @Bean SessionsAdapter mSessionsAdapter;
-    @Bean(AgendaRepository.class) IAgendaDataSource<Long> mRepository;
 
+    private IAgendaDataSource<Long> mRepository;
     private SessionsContract.View mView;
     private Boolean mShowOnlyFavoriteSessions;
 
     @Override public void afterViews() {
+        if(mView == null){
+            throw new NullPointerException("View is NULL! Please set the view first!");
+        }
+        if(mRepository == null){
+            throw new NullPointerException("Repository is NULL! Please set the Repository first!");
+        }
         this.mView.getListView().setAdapter(this.mSessionsAdapter);
         this.updateAdapter();
     }
@@ -43,7 +48,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
                 }
 
                 @Override public void onFailure(Exception pE) {
-
+                    mView.getEmptyListTextView().setVisibility(View.VISIBLE);
                 }
             });
         } else {
@@ -65,5 +70,9 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
     public void setShowOnlyFavoriteSessions(Boolean pShowOnlyFavoriteSessions) {
         mShowOnlyFavoriteSessions = pShowOnlyFavoriteSessions;
+    }
+
+    public void setRepository(IAgendaDataSource<Long> pRepository) {
+        mRepository = pRepository;
     }
 }

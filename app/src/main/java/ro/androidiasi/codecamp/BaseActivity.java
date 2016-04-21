@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import ro.androidiasi.codecamp.data.DummyRepository;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.internal.aa.IEnhancedActivity;
 import ro.androidiasi.codecamp.internal.bus.CodecampBus;
@@ -22,8 +22,8 @@ import ro.androidiasi.codecamp.internal.bus.CodecampBus;
 @EActivity
 public abstract class BaseActivity extends AppCompatActivity implements IEnhancedActivity {
 
+    @App  public CodecampApp mCodecampApp;
     @Bean public Navigator mNavigator;
-    @Bean(DummyRepository.class) public IAgendaDataSource<Long> mRepository;
     @Bean public CodecampBus mCodecampBus;
 
     @AfterExtras
@@ -73,7 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IEnhance
     }
 
     public IAgendaDataSource<Long> getRepository(){
-        return this.mRepository;
+        return this.mCodecampApp.getRepository();
     }
 
     public CodecampBus getCodecampBus() {

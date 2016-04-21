@@ -7,5 +7,5 @@ import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
  * Created by andrei on 21/04/16.
  */
 public interface IRemoteClient extends ILoadCallback<String> {
-    String startCodecampJsonRequest() throws DataUnavailable;
+    void startCodecampJsonRequest() throws DataUnavailable;
 }

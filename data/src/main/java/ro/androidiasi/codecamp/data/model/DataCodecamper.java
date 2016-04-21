@@ -18,6 +18,10 @@ public class DataCodecamper extends AbstractDataModel {
     private String mDescription;
     private String mPhotoUrl;
 
+    public DataCodecamper(){
+
+    }
+
     public DataCodecamper(long pId, String pFullName, String pTitle, String pCompany, String pDescription, String pPhotoUrl) {
         super(pId);
         mFullName = pFullName;

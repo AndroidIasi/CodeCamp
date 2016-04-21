@@ -1,7 +1,5 @@
 package ro.androidiasi.codecamp.data.model;
 
-import java.util.UUID;
-
 /**
  * Created by andrei on 06/04/16.
  */
@@ -12,7 +10,15 @@ public abstract class AbstractDataModel implements IDataModel<Long> {
         mId = pId;
     }
 
+    public AbstractDataModel(){
+        this.mId = -1L;
+    }
+
     @Override public Long getId() {
         return mId;
+    }
+
+    @Override public void setId(Long pId) {
+        mId = pId;
     }
 }

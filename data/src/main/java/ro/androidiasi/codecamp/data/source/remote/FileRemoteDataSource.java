@@ -25,7 +25,7 @@ public class FileRemoteDataSource extends BaseRemoteDataSource{
 
     @RootContext Context mContext;
 
-    @Override public String startCodecampJsonRequest() throws DataUnavailable {
+    @Override public void startCodecampJsonRequest() throws DataUnavailable {
         String json;
         try {
             InputStream is = mContext.getAssets().open("data.min.json");
@@ -37,8 +37,10 @@ public class FileRemoteDataSource extends BaseRemoteDataSource{
             this.onSuccess(json);
         } catch (IOException ex) {
             this.onFailure(ex);
-            return null;
         }
-        return json;
+    }
+
+    public void invalidate() {
+
     }
 }
