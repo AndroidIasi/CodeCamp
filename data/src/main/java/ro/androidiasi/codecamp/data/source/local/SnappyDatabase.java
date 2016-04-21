@@ -62,15 +62,15 @@ public class SnappyDatabase implements IDatabase{
         this.putList(KEY_ARRAY_ROOMS, pDataRoomList);
     }
 
-    @Override public List<DataRoom> getDataRoomsList() throws SnappydbException {
+    @Override public List<DataRoom> getDataRooms() throws SnappydbException {
         return this.getList(KEY_ARRAY_ROOMS, DataRoom.class);
     }
 
-    @Override public void deleteDataRoomsList(){
+    @Override public void deleteDataRooms(){
         try {
             this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_ROOMS);
         } catch (SnappydbException pE) {
-            Log.e(TAG, "deleteDataRoomsList: ", pE);
+            Log.e(TAG, "deleteDataRooms: ", pE);
         }
     }
 
@@ -94,8 +94,8 @@ public class SnappyDatabase implements IDatabase{
         this.putList(KEY_ARRAY_CODECAMPERS, pCodecamperList);
     }
 
-    @Override public void getDataCodecampers() throws SnappydbException {
-        this.getList(KEY_ARRAY_CODECAMPERS, DataCodecamper.class);
+    @Override public List<DataCodecamper> getDataCodecampers() throws SnappydbException {
+        return this.getList(KEY_ARRAY_CODECAMPERS, DataCodecamper.class);
     }
 
     @Override public void deleteDataCodecampers(){
@@ -110,8 +110,8 @@ public class SnappyDatabase implements IDatabase{
         this.putList(KEY_ARRAY_SESSIONS, pDataSessions);
     }
 
-    @Override public void getDataSessions() throws SnappydbException {
-        this.getList(KEY_ARRAY_SESSIONS, DataSession.class);
+    @Override public List<DataSession> getDataSessions() throws SnappydbException {
+        return this.getList(KEY_ARRAY_SESSIONS, DataSession.class);
     }
 
     @Override public void deleteDataSessions(){

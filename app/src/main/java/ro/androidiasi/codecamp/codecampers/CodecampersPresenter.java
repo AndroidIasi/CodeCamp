@@ -29,7 +29,7 @@ public class CodecampersPresenter implements CodecampersContract.Presenter{
             throw new NullPointerException("Repository is NULL! Please set the Repository first!");
         }
         this.mView.getListView().setAdapter(mCodecampersAdapter);
-        this.mRepository.getCodecampersList(new ILoadCallback<List<DataCodecamper>>() {
+        this.mRepository.getCodecampersList(, new ILoadCallback<List<DataCodecamper>>() {
             @Override public void onSuccess(List<DataCodecamper> pObject) {
                 mCodecampersAdapter.update(Codecamper.fromDataCodecamperList(pObject));
             }

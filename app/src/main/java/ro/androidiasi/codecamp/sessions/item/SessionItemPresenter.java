@@ -21,6 +21,7 @@ public class SessionItemPresenter implements SessionItemContract.Presenter<Sessi
     @Override public void bind(Session pSession, SessionItemView pSessionItemView) {
         if(pSession.getCodecampersList().size() > 0) {
             pSessionItemView.getDraweeView().setVisibility(View.VISIBLE);
+            pSessionItemView.getTrackTextView().setVisibility(View.VISIBLE);
             Uri photoUri = Uri.parse(pSession.getCodecampersList().get(0).getPhotoUrl());
             pSessionItemView.getDraweeView().setImageURI(photoUri);
         } else {

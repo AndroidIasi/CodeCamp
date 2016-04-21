@@ -41,7 +41,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
 
     private void updateAdapter() {
         if(mShowOnlyFavoriteSessions){
-            this.mRepository.getFavoriteSessionsList(new ILoadCallback<List<DataSession>>() {
+            this.mRepository.getFavoriteSessionsList(, new ILoadCallback<List<DataSession>>() {
                 @Override public void onSuccess(List<DataSession> pObject) {
                     mView.getEmptyListTextView().setVisibility(pObject.size() == 0 ? View.VISIBLE : View.GONE);
                     mSessionsAdapter.update(Session.fromDataSessionList(pObject));
@@ -52,7 +52,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
                 }
             });
         } else {
-            this.mRepository.getSessionsList(new ILoadCallback<List<DataSession>>() {
+            this.mRepository.getSessionsList(, new ILoadCallback<List<DataSession>>() {
                 @Override public void onSuccess(List<DataSession> pObject) {
                     mSessionsAdapter.update(Session.fromDataSessionList(pObject));
                 }
@@ -60,7 +60,7 @@ public class SessionsPresenter implements SessionsContract.Presenter {
                 @Override public void onFailure(Exception pE) {
 
                 }
-            });
+            }, );
         }
     }
 

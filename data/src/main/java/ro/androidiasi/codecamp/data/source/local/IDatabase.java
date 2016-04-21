@@ -24,9 +24,9 @@ public interface IDatabase {
 
     void saveDataRoomsList(List<DataRoom> pDataRoomList);
 
-    List<DataRoom> getDataRoomsList() throws SnappydbException;
+    List<DataRoom> getDataRooms() throws SnappydbException;
 
-    void deleteDataRoomsList();
+    void deleteDataRooms();
 
     void saveDataTimeFrames(List<DataTimeFrame> pTimeFrameList);
 
@@ -36,13 +36,13 @@ public interface IDatabase {
 
     void saveDataCodecampers(List<DataCodecamper> pCodecamperList);
 
-    void getDataCodecampers() throws SnappydbException;
+    List<DataCodecamper> getDataCodecampers() throws SnappydbException;
 
     void deleteDataCodecampers();
 
     void saveDataSessions(List<DataSession> pDataSessions);
 
-    void getDataSessions() throws SnappydbException;
+    List<DataSession> getDataSessions() throws SnappydbException;
 
     void deleteDataSessions();
 

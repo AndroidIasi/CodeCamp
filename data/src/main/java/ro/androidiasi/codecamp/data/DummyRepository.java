@@ -184,15 +184,15 @@ public class DummyRepository implements IAgendaDataSource<Long> {
         ));
     }
 
-    @Override public void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback) {
+    @Override public void getRoomsList(boolean pForced, ILoadCallback<List<DataRoom>> pLoadCallback) {
         pLoadCallback.onSuccess(mRoomsList);
     }
 
-    @Override public void getSessionsList(ILoadCallback<List<DataSession>> pLoadCallback) {
+    @Override public void getSessionsList(boolean pForced, ILoadCallback<List<DataSession>> pLoadCallback) {
         pLoadCallback.onSuccess(mSessionsList);
     }
 
-    @Override public void getFavoriteSessionsList(ILoadCallback<List<DataSession>> pLoadCallback) {
+    @Override public void getFavoriteSessionsList(boolean pFroced, ILoadCallback<List<DataSession>> pLoadCallback) {
         List<DataSession> favoriteSessions = new ArrayList<>();
         for (int i = 0; i < mSessionsList.size(); i++) {
             if(mFavoriteSessions.isFavorite(mSessionsList.get(i).getId())){
@@ -202,11 +202,11 @@ public class DummyRepository implements IAgendaDataSource<Long> {
         pLoadCallback.onSuccess(favoriteSessions);
     }
 
-    @Override public void getTimeFramesList(ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
+    @Override public void getTimeFramesList(boolean pForced, ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
         pLoadCallback.onSuccess(mTimeFramesList);
     }
 
-    @Override public void getCodecampersList(ILoadCallback<List<DataCodecamper>> pLoadCallback) {
+    @Override public void getCodecampersList(boolean pForced, ILoadCallback<List<DataCodecamper>> pLoadCallback) {
         pLoadCallback.onSuccess(mCodecampersList);
     }
 

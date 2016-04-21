@@ -5,7 +5,6 @@ import android.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import java.io.IOException;
@@ -19,7 +18,6 @@ import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
-import ro.androidiasi.codecamp.data.source.local.SnappyDatabase;
 import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
 
 /**
@@ -29,8 +27,6 @@ import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
 public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaDataSource<Long> {
 
     private static final String TAG = "BaseRemoteDataSource";
-
-    @Bean SnappyDatabase mSnappyDatabase;
 
     private ObjectMapper mObjectMapper;
     private ILoadCallback<List<DataRoom>> mDataRoomListCallback;
@@ -45,33 +41,53 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
 
     public void afterInject(){};
 
-    @Override public void getRoomsList(final ILoadCallback<List<DataRoom>> pLoadCallback) {
+    @Override public void getRoomsList(boolean pForced, final ILoadCallback<List<DataRoom>> pLoadCallback) {
         this.mDataRoomListCallback = pLoadCallback;
         this.requestData(pLoadCallback);
     }
 
-    @Override public void getSessionsList(final ILoadCallback<List<DataSession>> pLoadCallback) {
+    @Override public void getSessionsList(boolean pForced, final ILoadCallback<List<DataSession>> pLoadCallback) {
         this.mDataSessionListCallback = pLoadCallback;
         this.requestData(pLoadCallback);
     }
 
-    @Override public void getFavoriteSessionsList(final ILoadCallback<List<DataSession>> pLoadCallback) {
+    @Override public void getFavoriteSessionsList(boolean pFroced, final ILoadCallback<List<DataSession>> pLoadCallback) {
         //not storing favorites on the web
     }
 
-    @Override public void getTimeFramesList(ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
+    @Override public void getTimeFramesList(boolean pForced, ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
         this.mDataTimeFrameListCallback = pLoadCallback;
         this.requestData(pLoadCallback);
     }
 
-    @Override public void getCodecampersList(ILoadCallback<List<DataCodecamper>> pLoadCallback) {
+    @Override public void getCodecampersList(boolean pForced, ILoadCallback<List<DataCodecamper>> pLoadCallback) {
         this.mDataCodecamperListCallback = pLoadCallback;
         this.requestData(pLoadCallback);
     }
 
-    @Override public void getRoom(Long pLong, ILoadCallback<DataRoom> pLoadCallback) {
-
+    @Override public void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback) {
+        this.getRoomsList(false, pLoadCallback);
     }
+
+    @Override public void getSessionsList(ILoadCallback<List<DataSession>> pLoadCallback) {
+        this.getSessionsList(false, pLoadCallback);
+    }
+
+    @Override public void getFavoriteSessionsList(ILoadCallback<List<DataSession>> pLoadCallback) {
+        this.getFavoriteSessionsList(false, pLoadCallback);
+    }
+
+    @Override public void getTimeFramesList(ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
+        this.getTimeFramesList(false, pLoadCallback);
+    }
+
+    @Override public void getCodecampersList(ILoadCallback<List<DataCodecamper>> pLoadCallback) {
+        this.getCodecampersList(false, pLoadCallback);
+    }
+
+    @Override public void getRoom(Long pLong, ILoadCallback<DataRoom> pLoadCallback) {
+    }
+
 
     @Override public void getSession(Long pLong, ILoadCallback<DataSession> pLoadCallback) {
 
@@ -92,6 +108,8 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
     @Override public void setSessionFavorite(Long pLong, boolean pFavorite, ILoadCallback<Boolean> pLoadCallback) {
 
     }
+
+
 
     private DataCodecamp getDataCodecampFromJson(String pDataJson) throws IOException {
         Codecamp codecamp = this.mObjectMapper.readValue(pDataJson, Codecamp.class);
@@ -123,7 +141,6 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
         DataCodecamp dataCodecamp = null;
         try {
             dataCodecamp = getDataCodecampFromJson(pObject);
-            mSnappyDatabase.saveCodecamp(dataCodecamp);
         } catch (IOException pE) {
             this.onFailure(pE);
         }
