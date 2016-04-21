@@ -7,6 +7,7 @@ import org.androidannotations.annotations.EBean;
 
 import java.util.List;
 
+import ro.androidiasi.codecamp.R;
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
@@ -41,10 +42,10 @@ public class CodecampersPresenter implements CodecampersContract.Presenter, Swip
             }
         });
         this.mView.getSwipeRefreshLayout().setColorSchemeResources(
-                android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+                R.color.holo_blue_bright,
+                R.color.holo_green_light,
+                R.color.holo_orange_light,
+                R.color.holo_red_light);
         this.mView.getSwipeRefreshLayout().setOnRefreshListener(this);
     }
 
