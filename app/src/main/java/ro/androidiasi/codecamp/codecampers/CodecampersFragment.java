@@ -7,10 +7,13 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import ro.androidiasi.codecamp.BaseFragment;
 import ro.androidiasi.codecamp.R;
 import ro.androidiasi.codecamp.internal.model.Codecamper;
+import ro.androidiasi.codecamp.main.EventStopSwipeToRefresh;
 
 /**
  * Created by andrei on 19/04/16.
@@ -43,5 +46,10 @@ public class CodecampersFragment extends BaseFragment implements CodecampersCont
 
     @ItemClick(R.id.list_view) public void onCodecamperListItemClicked(Codecamper pCodecamper){
         this.getNavigator().goToCodecamperDetails(getActivity().getSupportFragmentManager(), pCodecamper);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEventMainThread(EventStopSwipeToRefresh pEvent){
+        this.mSwipeRefreshLayout.setRefreshing(false);
     }
 }

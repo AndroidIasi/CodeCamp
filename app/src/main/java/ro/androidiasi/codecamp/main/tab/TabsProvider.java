@@ -13,6 +13,7 @@ import java.util.List;
 import ro.androidiasi.codecamp.R;
 import ro.androidiasi.codecamp.about.AboutFragment;
 import ro.androidiasi.codecamp.codecampers.CodecampersFragment;
+import ro.androidiasi.codecamp.favorites.FavoritesFragment;
 import ro.androidiasi.codecamp.sessions.SessionsFragment;
 
 /**
@@ -41,7 +42,7 @@ public class TabsProvider {
             }
 
             @Override public Fragment getFragment() {
-                return SessionsFragment.newInstance(true);
+                return FavoritesFragment.newInstance();
             }
         });
         this.mTabsList.add(new ITab() {

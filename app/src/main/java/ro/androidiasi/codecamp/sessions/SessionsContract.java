@@ -3,6 +3,7 @@ package ro.androidiasi.codecamp.sessions;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.TextView;
 
+import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
@@ -24,6 +25,10 @@ public interface SessionsContract {
         void afterViews();
 
         void onEventSessionUpdated();
+
+        void setRepository(IAgendaDataSource<Long> pRepository);
+
+        void setView(View pView);
     }
 
 }
