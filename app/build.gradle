@@ -42,6 +42,7 @@ android {
         }
         release {
             minifyEnabled true
+            useProguard false
             debuggable false
             zipAlignEnabled true
             applicationIdSuffix ".live"
