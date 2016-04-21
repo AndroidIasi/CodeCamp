@@ -1,5 +1,7 @@
 package ro.androidiasi.codecamp.data.source;
 
+import org.androidannotations.annotations.UiThread;
+
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
@@ -25,4 +27,8 @@ public interface IAgendaDataSource<Id> {
 
     void isSessionFavorite(Id pId, ILoadCallback<Boolean> pLoadCallback);
     void setSessionFavorite(Id pId, boolean pFavorite, ILoadCallback<Boolean> pLoadCallback);
+
+    @UiThread <Model> void onUiThreadCallOnSuccessCallback(ILoadCallback<Model> pLoadCallback, Model pModel);
+
+    @UiThread <E extends Exception> void onUiThreadCallOnFailureCallback(ILoadCallback pLoadCallback, E pException);
 }

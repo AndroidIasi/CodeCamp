@@ -23,9 +23,9 @@ import ro.androidiasi.codecamp.data.source.ILoadCallback;
  * Created by andrei on 06/04/16.
  */
 @EBean
-public class AgendaLocalDataSource implements IAgendaDataSource<Long> {
+public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
 
-    private static final String TAG = "AgendaLocalDataSource";
+    private static final String TAG = "AgendaLocalSnappyDataSource";
 
     @Bean(SnappyDatabase.class) IDatabase mSnappyDatabase;
 
@@ -125,11 +125,11 @@ public class AgendaLocalDataSource implements IAgendaDataSource<Long> {
         }
     }
 
-    @UiThread public<Model> void onUiThreadCallOnSuccessCallback(ILoadCallback<Model> pLoadCallback, Model pModel){
+    @Override @UiThread public<Model> void onUiThreadCallOnSuccessCallback(ILoadCallback<Model> pLoadCallback, Model pModel){
         pLoadCallback.onSuccess(pModel);
     }
 
-    @UiThread public<E extends Exception> void onUiThreadCallOnFailureCallback(ILoadCallback pLoadCallback, E pException){
+    @Override @UiThread public<E extends Exception> void onUiThreadCallOnFailureCallback(ILoadCallback pLoadCallback, E pException){
         Log.e(TAG, "onUiThreadCallOnFailureCallback: ", pException);
         pLoadCallback.onFailure(pException);
     }
