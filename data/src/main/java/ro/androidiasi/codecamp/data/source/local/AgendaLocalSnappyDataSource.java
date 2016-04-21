@@ -29,7 +29,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
 
     @Override public void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback) {
         try {
-            List<DataRoom> dataRoomList = this.mSnappyDatabase.getCodecamp().getDataRooms();
+            List<DataRoom> dataRoomList = this.mSnappyDatabase.getDataCodecamp().getDataRooms();
             this.onSuccess(pLoadCallback, dataRoomList);
         } catch (SnappydbException pE) {
             this.onFailure(pLoadCallback, pE);
@@ -38,7 +38,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
 
     @Override public void getSessionsList(ILoadCallback<List<DataSession>> pLoadCallback) {
         try {
-            List<DataSession> dataSessionList = this.mSnappyDatabase.getCodecamp().getDataSessions();
+            List<DataSession> dataSessionList = this.mSnappyDatabase.getDataCodecamp().getDataSessions();
             this.onSuccess(pLoadCallback, dataSessionList);
         } catch (SnappydbException pE) {
             this.onFailure(pLoadCallback, pE);
@@ -48,9 +48,9 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
     @Override public void getFavoriteSessionsList(ILoadCallback<List<DataSession>> pLoadCallback) {
         List<DataSession> favoriteSessionsList = new ArrayList<>();
         try {
-            List<DataSession> dataSessionList = this.mSnappyDatabase.getCodecamp().getDataSessions();
+            List<DataSession> dataSessionList = this.mSnappyDatabase.getDataCodecamp().getDataSessions();
             for (int i = 0; i < dataSessionList.size(); i++) {
-                if(mSnappyDatabase.isFavorite(dataSessionList.get(i).getId())){
+                if(mSnappyDatabase.isDataSessionFavorite(dataSessionList.get(i).getId())){
                     favoriteSessionsList.add(dataSessionList.get(i));
                 }
             }
@@ -62,7 +62,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
 
     @Override public void getTimeFramesList(ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
         try {
-            List<DataTimeFrame> dataTimeFrameList = this.mSnappyDatabase.getCodecamp().getTimeFrames();
+            List<DataTimeFrame> dataTimeFrameList = this.mSnappyDatabase.getDataCodecamp().getTimeFrames();
             this.onSuccess(pLoadCallback, dataTimeFrameList);
         } catch (SnappydbException pE) {
             this.onFailure(pLoadCallback, pE);
@@ -71,7 +71,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
 
     @Override public void getCodecampersList(ILoadCallback<List<DataCodecamper>> pLoadCallback) {
         try {
-            List<DataCodecamper> dataCodecamperList = this.mSnappyDatabase.getCodecamp().getDataCodecampers();
+            List<DataCodecamper> dataCodecamperList = this.mSnappyDatabase.getDataCodecamp().getDataCodecampers();
             this.onSuccess(pLoadCallback, dataCodecamperList);
         } catch (SnappydbException pE) {
             this.onFailure(pLoadCallback, pE);
@@ -97,7 +97,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
     @Override public void isSessionFavorite(Long pLong, final ILoadCallback<Boolean> pLoadCallback) {
         final boolean isFavorite;
         try {
-            isFavorite = mSnappyDatabase.isFavorite(pLong);
+            isFavorite = mSnappyDatabase.isDataSessionFavorite(pLong);
             this.onSuccess(pLoadCallback, isFavorite);
         } catch (SnappydbException pE) {
             this.onFailure(pLoadCallback, pE);
@@ -106,7 +106,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
 
     @Override public void setSessionFavorite(Long pLong, final boolean pFavorite, final ILoadCallback<Boolean> pLoadCallback) {
         try {
-            mSnappyDatabase.setSessionFavorite(pLong, pFavorite);
+            mSnappyDatabase.setDataSessionFavorite(pLong, pFavorite);
             this.onSuccess(pLoadCallback, pFavorite);
         } catch (final SnappydbException pE) {
             this.onFailure(pLoadCallback, pE);
@@ -123,6 +123,6 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
     }
 
     public void invalidate() {
-        this.mSnappyDatabase.deleteCodecamp();
+        this.mSnappyDatabase.deleteDataCodecamp();
     }
 }
