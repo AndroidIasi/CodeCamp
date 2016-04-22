@@ -25,6 +25,9 @@
             android:name=".sessiondetail.SessionDetailsActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="6aaafeadebcfe596553d99ac6cd10e3c887ab8bf" />
     </application>
 
 </manifest>

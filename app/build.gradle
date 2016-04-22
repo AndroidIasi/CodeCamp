@@ -1,4 +1,18 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.21.6'
+    }
+}
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 apply plugin: 'android-apt'
 
 apt {
@@ -81,4 +95,7 @@ dependencies {
     compile "org.greenrobot:eventbus:$rootProject.ext.eventBusVersion"
 
     testCompile 'junit:junit:4.12'
+    compile("com.crashlytics.sdk.android:crashlytics:$rootProject.ext.crashlyticsVersion@aar") {
+        transitive = true;
+    }
 }
