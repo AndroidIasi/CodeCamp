@@ -2,7 +2,7 @@ package ro.androidiasi.codecamp.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import ro.androidiasi.codecamp.main.tab.IMainTab;
  * Created by andrei on 08/04/16.
  */
 
-public class MainPagerAdapter extends FragmentStatePagerAdapter {
+public class MainPagerAdapter extends FragmentPagerAdapter {
 
     private List<IMainTab> mTabs;
 

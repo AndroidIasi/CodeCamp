@@ -7,6 +7,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.UiThread;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
@@ -151,9 +152,28 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     @Background
     @Override public void getFavoriteSessionsList(final ILoadCallback<List<DataSession>> pLoadCallback) {
-        this.mLocalSnappyDataSource.getFavoriteSessionsList(new ILoadCallback<List<DataSession>>() {
-            @Override public void onSuccess(List<DataSession> pObject) {
-                onUiThreadCallOnSuccessCallback(pLoadCallback, pObject);
+        this.getSessionsList(new ILoadCallback<List<DataSession>>() {
+            @Override public void onSuccess(final List<DataSession> pObject) {
+                if(pObject == null){
+                    this.onFailure(new DataNotFoundException());
+                    return;
+                }
+                final List<DataSession> favoriteSessions = new ArrayList<>();
+                for (int i = 0; i < pObject.size(); i++) {
+                    final int finalI = i;
+                    mLocalSnappyDataSource.isSessionFavorite(pObject.get(i).getId(), new ILoadCallback<Boolean>() {
+                        @Override public void onSuccess(Boolean pIsFavorite) {
+                            if(pIsFavorite) {
+                                favoriteSessions.add(pObject.get(finalI));
+                            }
+                        }
+
+                        @Override public void onFailure(Exception pException) {
+
+                        }
+                    });
+                }
+                onUiThreadCallOnSuccessCallback(pLoadCallback, favoriteSessions);
             }
 
             @Override public void onFailure(Exception pException) {

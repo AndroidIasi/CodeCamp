@@ -7,7 +7,6 @@ import com.snappydb.SnappydbException;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
@@ -46,18 +45,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
     }
 
     @Override public void getFavoriteSessionsList(boolean pFroced, ILoadCallback<List<DataSession>> pLoadCallback) {
-        List<DataSession> favoriteSessionsList = new ArrayList<>();
-        try {
-            List<DataSession> dataSessionList = this.mDatabase.getDataSessions();
-            for (int i = 0; i < dataSessionList.size(); i++) {
-                if(mDatabase.isDataSessionFavorite(dataSessionList.get(i).getId())){
-                    favoriteSessionsList.add(dataSessionList.get(i));
-                }
-            }
-            this.onSuccess(pLoadCallback, favoriteSessionsList);
-        } catch (SnappydbException pE) {
-            this.onFailure(pLoadCallback, pE);
-        }
+
     }
 
     @Override public void getTimeFramesList(boolean pForced, ILoadCallback<List<DataTimeFrame>> pLoadCallback) {

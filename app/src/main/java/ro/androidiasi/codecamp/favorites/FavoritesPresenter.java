@@ -27,7 +27,11 @@ public class FavoritesPresenter extends SessionsPresenter implements FavoritesCo
             }
 
             @Override public void onFailure(Exception pE) {
-                mView.getEmptyListTextView().setVisibility(View.VISIBLE);
+                if(mView.isAdded()) {
+                    mView.getEmptyListTextView().setVisibility(mSessionsAdapter.getCount() == 0
+                            ? View.VISIBLE
+                            : View.GONE);
+                }
             }
         });
     }
@@ -44,7 +48,9 @@ public class FavoritesPresenter extends SessionsPresenter implements FavoritesCo
 
             @Override public void onFailure(Exception pException) {
                 if(mView.isAdded()) {
-                    mView.getEmptyListTextView().setVisibility(View.VISIBLE);
+                    if(mSessionsAdapter.getCount() == 0) {
+                        mView.getEmptyListTextView().setVisibility(View.VISIBLE);
+                    }
                     mView.getSwipeRefreshLayout().setRefreshing(false);
                 }
             }
