@@ -20,7 +20,9 @@ public class FavoritesPresenter extends SessionsPresenter implements FavoritesCo
     @Override protected void updateAdapter() {
         this.mRepository.getFavoriteSessionsList(new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(List<DataSession> pObject) {
-                mView.getEmptyListTextView().setVisibility(pObject.size() == 0 ? View.VISIBLE : View.GONE);
+                if(mView.isAdded()){
+                    mView.getEmptyListTextView().setVisibility(pObject.size() == 0 ? View.VISIBLE : View.GONE);
+                }
                 mSessionsAdapter.update(Session.fromDataSessionList(pObject));
             }
 

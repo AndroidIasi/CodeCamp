@@ -24,10 +24,10 @@ public class TabsProvider {
 
     @RootContext Context mContext;
 
-    private List<ITab> mTabsList = new ArrayList<>();
+    private List<IMainTab> mTabsList = new ArrayList<>();
 
     @AfterInject public void afterMembersInject(){
-        this.mTabsList.add(new ITab() {
+        this.mTabsList.add(new IMainTab() {
             @Override public String getName() {
                 return mContext.getString(R.string.tab_1_name);
             }
@@ -36,7 +36,7 @@ public class TabsProvider {
                 return SessionsFragment.newInstance();
             }
         });
-        this.mTabsList.add(new ITab() {
+        this.mTabsList.add(new IMainTab() {
             @Override public String getName() {
                 return mContext.getString(R.string.tab_2_name);
             }
@@ -45,7 +45,7 @@ public class TabsProvider {
                 return FavoritesFragment.newInstance();
             }
         });
-        this.mTabsList.add(new ITab() {
+        this.mTabsList.add(new IMainTab() {
             @Override public String getName() {
                 return mContext.getString(R.string.tab_3_name);
             }
@@ -54,7 +54,7 @@ public class TabsProvider {
                 return CodecampersFragment.newInstance();
             }
         });
-        this.mTabsList.add(new ITab() {
+        this.mTabsList.add(new IMainTab() {
             @Override public String getName() {
                 return mContext.getString(R.string.tab_4_name);
             }
@@ -65,7 +65,7 @@ public class TabsProvider {
         });
     }
 
-    public List<ITab> getTabsList() {
+    public List<IMainTab> getTabsList() {
         return mTabsList;
     }
 }

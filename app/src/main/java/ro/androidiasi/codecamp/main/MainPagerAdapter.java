@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import ro.androidiasi.codecamp.main.tab.ITab;
+import ro.androidiasi.codecamp.main.tab.IMainTab;
 
 /**
  * Created by andrei on 08/04/16.
@@ -14,9 +14,9 @@ import ro.androidiasi.codecamp.main.tab.ITab;
 
 public class MainPagerAdapter extends FragmentStatePagerAdapter {
 
-    private List<ITab> mTabs;
+    private List<IMainTab> mTabs;
 
-    public MainPagerAdapter(FragmentManager fm, List<ITab> pTabs) {
+    public MainPagerAdapter(FragmentManager fm, List<IMainTab> pTabs) {
         super(fm);
         this.mTabs = pTabs;
     }
