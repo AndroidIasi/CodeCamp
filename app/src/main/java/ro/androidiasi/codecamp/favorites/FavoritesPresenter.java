@@ -33,14 +33,18 @@ public class FavoritesPresenter extends SessionsPresenter implements FavoritesCo
     @Override public void onRefresh() {
         this.mRepository.getFavoriteSessionsList(true, new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(List<DataSession> pObject) {
-                mView.getEmptyListTextView().setVisibility(pObject.size() == 0 ? View.VISIBLE : View.GONE);
                 mSessionsAdapter.update(Session.fromDataSessionList(pObject));
-                mView.getSwipeRefreshLayout().setRefreshing(false);
+                if(mView.isAdded()) {
+                    mView.getEmptyListTextView().setVisibility(pObject.size() == 0 ? View.VISIBLE : View.GONE);
+                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                }
             }
 
             @Override public void onFailure(Exception pException) {
-                mView.getEmptyListTextView().setVisibility(View.VISIBLE);
-                mView.getSwipeRefreshLayout().setRefreshing(false);
+                if(mView.isAdded()) {
+                    mView.getEmptyListTextView().setVisibility(View.VISIBLE);
+                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                }
             }
         });
     }

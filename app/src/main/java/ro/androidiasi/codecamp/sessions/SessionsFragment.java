@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.IgnoreWhen;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.Subscribe;

@@ -13,6 +13,8 @@ public interface SessionsContract {
 
     interface View{
 
+        boolean isAdded();
+
         StickyListHeadersListView getListView();
 
         TextView getEmptyListTextView();

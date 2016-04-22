@@ -69,11 +69,15 @@ public class SessionsPresenter implements SessionsContract.Presenter, SwipeRefre
         this.mRepository.getSessionsList(true, new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(List<DataSession> pObject) {
                 mSessionsAdapter.update(Session.fromDataSessionList(pObject));
-                mView.getSwipeRefreshLayout().setRefreshing(false);
+                if(mView.isAdded()) {
+                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                }
             }
 
             @Override public void onFailure(Exception pException) {
-                mView.getSwipeRefreshLayout().setRefreshing(false);
+                if(mView.isAdded()) {
+                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                }
             }
         });
     }

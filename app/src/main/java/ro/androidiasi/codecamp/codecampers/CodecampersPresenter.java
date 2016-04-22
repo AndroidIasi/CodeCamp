@@ -61,11 +61,15 @@ public class CodecampersPresenter implements CodecampersContract.Presenter, Swip
         this.mRepository.getCodecampersList(true, new ILoadCallback<List<DataCodecamper>>() {
             @Override public void onSuccess(List<DataCodecamper> pObject) {
                 mCodecampersAdapter.update(Codecamper.fromDataCodecamperList(pObject));
-                mView.getSwipeRefreshLayout().setRefreshing(false);
+                if(mView.isAdded()) {
+                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                }
             }
 
             @Override public void onFailure(Exception pException) {
-                mView.getSwipeRefreshLayout().setRefreshing(false);
+                if(mView.isAdded()) {
+                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                }
             }
         });
     }

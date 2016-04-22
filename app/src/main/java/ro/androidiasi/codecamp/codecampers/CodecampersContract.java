@@ -13,6 +13,8 @@ public interface CodecampersContract {
 
     interface View extends IView{
 
+        boolean isAdded();
+
         ListView getListView();
 
         SwipeRefreshLayout getSwipeRefreshLayout();
