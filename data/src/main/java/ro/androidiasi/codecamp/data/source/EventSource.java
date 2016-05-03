@@ -14,10 +14,10 @@ import java.util.List;
 /**
  * Created by andrei on 03/05/16.
  */
-public enum EventSource implements Comparator<EventSource>{
+public enum EventSource {
 
-    IASI("2016-04-23T05:00Z", "iasi.data.min.json", "iasi.index.html", "http://iasi.codecamp.ro/images/speakers/"),
-    CLUJ("2016-06-07T05:00Z", "cluj.data.min.json", "cluj.index.html", "http://cluj.codecamp.ro/images/speakers/");
+    IASI("2016-04-23T05:00:00.000", "iasi.data.min.json", "iasi.index.html", "http://iasi.codecamp.ro/images/speakers/"),
+    CLUJ("2016-06-07T05:00:00.000", "cluj.data.min.json", "cluj.index.html", "http://cluj.codecamp.ro/images/speakers/");
 
     private final Date mEventDate;
     private final String mDataJsonFile;
@@ -32,7 +32,7 @@ public enum EventSource implements Comparator<EventSource>{
     }
 
     private Date getDateFromString(String pStringDate){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         try {
             return dateFormat.parse(pStringDate);
         } catch (ParseException pE) {
@@ -57,13 +57,13 @@ public enum EventSource implements Comparator<EventSource>{
         return mPhotosRootUrl;
     }
 
-    @Override public int compare(EventSource lhs, EventSource rhs) {
-        return rhs.getEventDate().compareTo(lhs.getEventDate());
-    }
-
-    public static EventSource getLattestEvent(){
+    public static EventSource getLatestEvent(){
         List<EventSource> list = Arrays.asList(EventSource.values());
-        Collections.sort(list);
+        Collections.sort(list, new Comparator<EventSource>() {
+            @Override public int compare(EventSource lhs, EventSource rhs) {
+                return rhs.getEventDate().compareTo(lhs.getEventDate());
+            }
+        });
         return list.get(0);
     }
 }
