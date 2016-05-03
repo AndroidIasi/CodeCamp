@@ -382,6 +382,12 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
         });
     }
 
+    @Override public void setEventSource(EventSource pEventSource) {
+        this.mLocalSnappyDataSource.setEventSource(pEventSource);
+        this.mFileRemoteDataSource.setEventSource(pEventSource);
+        this.mWebViewRemoteDataSource.setEventSource(pEventSource);
+    }
+
     @UiThread public <Model> void onUiThreadCallOnSuccessCallback(ILoadCallback<Model> pLoadCallback, Model pModel) {
         pLoadCallback.onSuccess(pModel);
     }

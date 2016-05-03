@@ -32,4 +32,5 @@ public interface IAgendaDataSource<Id> {
     void isSessionFavorite(Id pId, ILoadCallback<Boolean> pLoadCallback);
     void setSessionFavorite(Id pId, boolean pFavorite, ILoadCallback<Boolean> pLoadCallback);
 
+    void setEventSource(EventSource pEventSource);
 }

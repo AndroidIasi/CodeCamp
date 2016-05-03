@@ -26,9 +26,10 @@ public class FileRemoteDataSource extends BaseRemoteDataSource{
     @RootContext Context mContext;
 
     @Override public void startCodecampJsonRequest() throws DataUnavailable {
+        super.startCodecampJsonRequest();
         String json;
         try {
-            InputStream is = mContext.getAssets().open("data.min.json");
+            InputStream is = mContext.getAssets().open(mEventSource.getDataJsonFile());
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

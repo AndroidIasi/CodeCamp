@@ -1,5 +1,6 @@
 package ro.androidiasi.codecamp.data.source.remote;
 
+import android.support.annotation.CallSuper;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +17,7 @@ import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
+import ro.androidiasi.codecamp.data.source.EventSource;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
 import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
@@ -27,6 +29,7 @@ import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
 public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaDataSource<Long> {
 
     private static final String TAG = "BaseRemoteDataSource";
+    protected EventSource mEventSource;
 
     private ObjectMapper mObjectMapper;
     private ILoadCallback<List<DataRoom>> mDataRoomListCallback;
@@ -40,6 +43,13 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
     }
 
     public void afterInject(){};
+
+    @CallSuper
+    @Override public void startCodecampJsonRequest() throws DataUnavailable {
+        if(mEventSource == null){
+            throw new NullPointerException("EventSource is NULL! Please set EventSource first!");
+        }
+    }
 
     @Override public void getRoomsList(boolean pForced, final ILoadCallback<List<DataRoom>> pLoadCallback) {
         this.mDataRoomListCallback = pLoadCallback;
@@ -182,5 +192,9 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
             this.mDataCodecamperListCallback.onFailure(pException);
             this.mDataCodecamperListCallback = null;
         }
+    }
+
+    @Override public void setEventSource(EventSource pEventSource) {
+        this.mEventSource = pEventSource;
     }
 }

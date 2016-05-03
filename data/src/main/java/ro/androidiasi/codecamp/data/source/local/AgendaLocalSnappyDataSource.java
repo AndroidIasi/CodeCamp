@@ -13,6 +13,7 @@ import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
+import ro.androidiasi.codecamp.data.source.EventSource;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
 
@@ -119,6 +120,11 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         } catch (final SnappydbException pE) {
             this.onFailure(pLoadCallback, pE);
         }
+    }
+
+    @Override public void setEventSource(EventSource pEventSource) {
+        //it doesn't really matter for local caching,
+        // we'll just invalidate the db on changing the source
     }
 
     public void storeDataRooms(List<DataRoom> pDataRoomList){

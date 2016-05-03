@@ -24,7 +24,7 @@ import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
 @EBean
 public class WebViewRemoteDataSource extends BaseRemoteDataSource {
 
-    private static final String INDEX_HTML_PATH = "file:///android_asset/index.html";
+    private static final String INDEX_HTML_PATH_PREFIX = "file:///android_asset/";
     private static final String MIGHTY_JS_HACK = "javascript:android.onData(ko.toJSON(new ConferenceViewModel()))";
 
     @RootContext  Context mContext;
@@ -36,7 +36,8 @@ public class WebViewRemoteDataSource extends BaseRemoteDataSource {
     }
 
     @UiThread
-    @Override public void startCodecampJsonRequest() {
+    @Override public void startCodecampJsonRequest() throws DataUnavailable {
+        super.startCodecampJsonRequest();
         if (mWebViewWeakReference == null || mWebViewWeakReference.get() == null) {
             WebView webView = new WebView(mContext);
             webView.getSettings().setJavaScriptEnabled(true);
@@ -60,7 +61,7 @@ public class WebViewRemoteDataSource extends BaseRemoteDataSource {
             });
             this.mWebViewWeakReference = new WeakReference<>(webView);
         }
-        this.mWebViewWeakReference.get().loadUrl(INDEX_HTML_PATH);
+        this.mWebViewWeakReference.get().loadUrl(INDEX_HTML_PATH_PREFIX + mEventSource.getDataHtmlFile());
     }
 
     @JavascriptInterface public void onData(String data){
