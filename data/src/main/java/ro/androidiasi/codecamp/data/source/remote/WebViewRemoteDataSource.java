@@ -35,9 +35,12 @@ public class WebViewRemoteDataSource extends BaseRemoteDataSource {
 
     }
 
-    @UiThread
     @Override public void startCodecampJsonRequest() throws DataUnavailable {
         super.startCodecampJsonRequest();
+        this.onUiThreadStartWebViewClient();
+    }
+
+    @UiThread public void onUiThreadStartWebViewClient() {
         if (mWebViewWeakReference == null || mWebViewWeakReference.get() == null) {
             WebView webView = new WebView(mContext);
             webView.getSettings().setJavaScriptEnabled(true);

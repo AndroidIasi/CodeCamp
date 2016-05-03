@@ -119,11 +119,9 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
 
     }
 
-
-
     private DataCodecamp getDataCodecampFromJson(String pDataJson) throws IOException {
         Codecamp codecamp = this.mObjectMapper.readValue(pDataJson, Codecamp.class);
-        return DataCodecamp.fromCrawlerCodecamp(codecamp);
+        return DataCodecamp.fromCrawlerCodecamp(mEventSource.getPhotosRootUrl(), codecamp);
     }
 
     private<Model> void requestData(ILoadCallback<Model> pLoadCallback) {//this does not look good :)

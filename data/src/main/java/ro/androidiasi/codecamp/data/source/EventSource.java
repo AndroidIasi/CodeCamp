@@ -1,5 +1,7 @@
 package ro.androidiasi.codecamp.data.source;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,16 +14,18 @@ import java.util.List;
 /**
  * Created by andrei on 03/05/16.
  */
-public enum EventSource implements Comparator<EventSource> {
+public enum EventSource implements Comparator<EventSource>{
 
-    IASI("2016-04-23T05:00:00.000Z", "iasi.data.min.json", "iasi.index.html"),
-    CLUJ("2016-06-07T05:00:00.000Z", "cluj.data.min.json", "cluj.index.html");
+    IASI("2016-04-23T05:00Z", "iasi.data.min.json", "iasi.index.html", "http://iasi.codecamp.ro/images/speakers/"),
+    CLUJ("2016-06-07T05:00Z", "cluj.data.min.json", "cluj.index.html", "http://cluj.codecamp.ro/images/speakers/");
 
     private final Date mEventDate;
     private final String mDataJsonFile;
     private final String mDataHtmlFile;
+    private final String mPhotosRootUrl;
 
-    EventSource(String pEventDate, String pDataJsonFile, String pDataHtmlFile){
+    EventSource(String pEventDate, String pDataJsonFile, String pDataHtmlFile, String pPhotosRootUrl){
+        mPhotosRootUrl = pPhotosRootUrl;
         mEventDate = this.getDateFromString(pEventDate);
         mDataJsonFile = pDataJsonFile;
         mDataHtmlFile = pDataHtmlFile;
@@ -32,7 +36,7 @@ public enum EventSource implements Comparator<EventSource> {
         try {
             return dateFormat.parse(pStringDate);
         } catch (ParseException pE) {
-            pE.printStackTrace();
+            Log.e("EventSource", "getDateFromString: ", pE);
         }
         return new Date();
     }
@@ -47,6 +51,10 @@ public enum EventSource implements Comparator<EventSource> {
 
     public Date getEventDate() {
         return mEventDate;
+    }
+
+    public String getPhotosRootUrl() {
+        return mPhotosRootUrl;
     }
 
     @Override public int compare(EventSource lhs, EventSource rhs) {

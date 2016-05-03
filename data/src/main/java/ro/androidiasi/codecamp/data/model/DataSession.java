@@ -61,18 +61,18 @@ public class DataSession extends AbstractDataModel {
         mFavorite = pFavorite;
     }
 
-    public static DataSession fromBooking(Booking pBooking){
+    public static DataSession fromBooking(String pPhotoRootUrl, Booking pBooking){
         if(pBooking.getSession() == null){
             return allTracksSession(pBooking);
         } else {
-            return simpleSession(pBooking);
+            return simpleSession(pPhotoRootUrl, pBooking);
         }
     }
 
-    public static List<DataSession> fromBookingsList(List<Booking> pBookingList){
+    public static List<DataSession> fromBookingsList(String pPhotoRootUrl, List<Booking> pBookingList){
         List<DataSession> dataSessionsList = new ArrayList<>();
         for (int i = 0; i < pBookingList.size(); i++) {
-            dataSessionsList.add(fromBooking(pBookingList.get(i)));
+            dataSessionsList.add(fromBooking(pPhotoRootUrl, pBookingList.get(i)));
         }
         return dataSessionsList;
     }
@@ -87,9 +87,9 @@ public class DataSession extends AbstractDataModel {
         return new DataSession(id, codecampersList, dataRoom, name, description, dataTimeFrame);
     }
 
-    private static DataSession simpleSession(Booking pBooking){
+    private static DataSession simpleSession(String pPhotoRootUrl, Booking pBooking){
         long id = pBooking.getSession().getCode().hashCode();
-        List<DataCodecamper> codecampersList = DataCodecamper.fromSpeakersList(pBooking.getSession().getSpeakers());
+        List<DataCodecamper> codecampersList = DataCodecamper.fromSpeakersList(pPhotoRootUrl, pBooking.getSession().getSpeakers());
         DataRoom dataRoom = DataRoom.fromTrack(pBooking.getTrack());
         String name = pBooking.getSession().getTitle();
         String description = pBooking.getSession().getDescription();

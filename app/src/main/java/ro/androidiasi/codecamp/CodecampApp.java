@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
@@ -30,7 +31,7 @@ public class CodecampApp extends Application {
     }
 
     @AfterInject public void afterMembersInject(){
-        this.mEventSource = EventSource.getLattestEvent();
+        this.mEventSource = EventSource.CLUJ;
         this.mRepository.setEventSource(mEventSource);
     }
 

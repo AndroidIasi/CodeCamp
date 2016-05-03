@@ -10,8 +10,6 @@ import ro.androidiasi.codecamp.data.crawler.Speaker;
  */
 public class DataCodecamper extends AbstractDataModel {
 
-    public static final String PHOTO_ROOT = "http://iasi.codecamp.ro/images/speakers/";
-
     private String mFullName;
     private String mTitle;
     private String mCompany;
@@ -51,21 +49,21 @@ public class DataCodecamper extends AbstractDataModel {
         return mPhotoUrl;
     }
 
-    public static DataCodecamper fromSpeaker(Speaker pSpeaker){
+    public static DataCodecamper fromSpeaker(String pPhotoRootUrl, Speaker pSpeaker){
         return new DataCodecamper(
                 pSpeaker.getPhoto().hashCode(),//nasty workaround, doesn't have a reliable ID
                 pSpeaker.getName(),
                 pSpeaker.getTitle(),
                 pSpeaker.getCompany(),
                 pSpeaker.getBio(),
-                PHOTO_ROOT + pSpeaker.getPhoto()
+                pPhotoRootUrl + pSpeaker.getPhoto()
         );
     }
 
-    public static List<DataCodecamper> fromSpeakersList(List<Speaker> pSpeakers){
+    public static List<DataCodecamper> fromSpeakersList(String pPhotoRootUrl, List<Speaker> pSpeakers){
         List<DataCodecamper> dataCodecamperList = new ArrayList<>();
         for (int i = 0; i < pSpeakers.size(); i++) {
-            dataCodecamperList.add(fromSpeaker(pSpeakers.get(i)));
+            dataCodecamperList.add(fromSpeaker(pPhotoRootUrl, pSpeakers.get(i)));
         }
         return dataCodecamperList;
     }

@@ -42,11 +42,11 @@ public class DataCodecamp extends AbstractDataModel {
         return mDataSessions;
     }
 
-    public static DataCodecamp fromCrawlerCodecamp(Codecamp pCodecamp){
-        List<DataCodecamper> dataCodecampers = DataCodecamper.fromSpeakersList(pCodecamp.getConference().getSpeakers());
+    public static DataCodecamp fromCrawlerCodecamp(String pPhotoRootUrl, Codecamp pCodecamp){
+        List<DataCodecamper> dataCodecampers = DataCodecamper.fromSpeakersList(pPhotoRootUrl, pCodecamp.getConference().getSpeakers());
         List<DataRoom> dataRooms = DataRoom.fromTracksList(pCodecamp.getConference().getAgenda().getTracks());
         List<DataTimeFrame> dataTimeFrames = DataTimeFrame.fromTimeSlotsList(pCodecamp.getConference().getAgenda().getTimeSlots());
-        List<DataSession> dataSessions = DataSession.fromBookingsList(pCodecamp.getConference().getAgenda().getBookings());
+        List<DataSession> dataSessions = DataSession.fromBookingsList(pPhotoRootUrl, pCodecamp.getConference().getAgenda().getBookings());
 
         return new DataCodecamp(-1L, dataRooms, dataTimeFrames, dataCodecampers, dataSessions);
     }
