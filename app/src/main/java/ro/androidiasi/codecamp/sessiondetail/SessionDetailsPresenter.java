@@ -3,6 +3,7 @@ package ro.androidiasi.codecamp.sessiondetail;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -124,6 +125,8 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
                 Drawable fabDrawable = pObject ? mIsFavoriteIcon : mIsNotFavoriteIcon;
                 mSessionDetailsActivity.getFab().setImageDrawable(fabDrawable);
                 mCodecampBus.postSticky(new EventSessionUpdated());
+                String message = pObject ? "Session added to Favorites" : "Session removed from Favorites";
+                Toast.makeText(mSessionDetailsActivity, message, Toast.LENGTH_SHORT).show();
             }
 
             @Override public void onFailure(Exception pE) {
