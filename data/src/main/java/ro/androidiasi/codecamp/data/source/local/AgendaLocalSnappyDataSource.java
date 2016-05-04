@@ -123,6 +123,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
     }
 
     @Override public void setEventSource(EventSource pEventSource) {
+        this.mDatabase.setEventSource(pEventSource);
         //it doesn't really matter for local caching,
         // we'll just invalidate the db on changing the source
     }

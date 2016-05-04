@@ -18,6 +18,7 @@ import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
+import ro.androidiasi.codecamp.data.source.EventSource;
 import ro.androidiasi.codecamp.data.source.local.exception.DataNotFoundException;
 import ro.androidiasi.codecamp.data.source.local.exception.UnsupportedSnappyDb;
 
@@ -39,8 +40,13 @@ public class SnappyDatabase implements IDatabase{
     @RootContext Context mContext;
 
     @AfterInject public void afterMembersInject(){
+    }
+
+    private void openDatabase(String pName) {
         try {
-            this.mSnappyDBInstance = SnappyDB.with(mContext);
+            this.mSnappyDBInstance = new SnappyDB.Builder(mContext)
+                    .name(pName)
+                    .build();
         } catch (SnappydbException pE) {
             Log.e(TAG, "afterMembersInject:", pE);
         }
@@ -149,6 +155,10 @@ public class SnappyDatabase implements IDatabase{
 
     @Override public boolean dataSessionsExist(){
         return this.dataExists(KEY_ARRAY_SESSIONS);
+    }
+
+    @Override public void setEventSource(EventSource pEventSource) {
+        this.openDatabase(pEventSource.toString());
     }
 
 
