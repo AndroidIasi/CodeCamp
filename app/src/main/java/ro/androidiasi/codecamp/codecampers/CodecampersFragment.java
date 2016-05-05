@@ -12,6 +12,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import ro.androidiasi.codecamp.BaseFragment;
 import ro.androidiasi.codecamp.R;
+import ro.androidiasi.codecamp.about.EventRefreshLists;
 import ro.androidiasi.codecamp.internal.model.Codecamper;
 import ro.androidiasi.codecamp.main.EventStopSwipeToRefresh;
 
@@ -51,5 +52,10 @@ public class CodecampersFragment extends BaseFragment implements CodecampersCont
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEventMainThread(EventStopSwipeToRefresh pEvent){
         this.mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEventMainThread(EventRefreshLists pEvent){
+        this.mCodecampersPresenter.onRefresh();
     }
 }

@@ -64,7 +64,7 @@ public class WebViewRemoteDataSource extends BaseRemoteDataSource {
             });
             this.mWebViewWeakReference = new WeakReference<>(webView);
         }
-        this.mWebViewWeakReference.get().loadUrl(INDEX_HTML_PATH_PREFIX + mEventSource.getDataHtmlFile());
+        this.mWebViewWeakReference.get().loadUrl(INDEX_HTML_PATH_PREFIX + mConference.getDataHtmlFile());
     }
 
     @JavascriptInterface public void onData(String data){

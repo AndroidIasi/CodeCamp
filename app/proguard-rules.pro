@@ -33,6 +33,16 @@
     @com.facebook.common.internal.DoNotStrip *;
 }
 
+-keep class com.facebook.common.** { *;}
+-keep enum com.facebook.common.**
+-keep interface com.facebook.common.**
+-keepclassmembers class com.facebook.common.** { *;}
+-keepclassmembers enum com.facebook.common.** { *;}
+-keepclassmembers interface com.facebook.common.** { *;}
+-keepclassmembernames class com.facebook.common.** { *;}
+-keepclassmembernames enum com.facebook.common.** { *;}
+-keepclassmembernames interface com.facebook.common.** { *;}
+
 # Keep native methods
 -keepclassmembers class * {
     native <methods>;

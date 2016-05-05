@@ -2,6 +2,7 @@ package ro.androidiasi.codecamp.data.source;
 
 import android.util.Log;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -26,6 +27,7 @@ import ro.androidiasi.codecamp.data.source.remote.WebViewRemoteDataSource;
 public class AgendaRepository implements IAgendaDataSource<Long> {
 
     private static final String TAG = "AgendaRepository";
+    private DataConference mDataConference;
     @Bean AgendaLocalSnappyDataSource mLocalSnappyDataSource;
     @Bean FileRemoteDataSource mFileRemoteDataSource;
     @Bean WebViewRemoteDataSource mWebViewRemoteDataSource;
@@ -34,6 +36,10 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     private List<DataTimeFrame> mMemCacheTimeFrame;
     private List<DataCodecamper> mMemCacheDataCodecampers;
     private List<DataSession> mMemCacheDataSession;
+
+    @AfterInject public void afterMembersInject(){
+        this.setLatestConference();
+    }
 
     @Background
     @Override public void getRoomsList(boolean pForced, final ILoadCallback<List<DataRoom>> pLoadCallback) {
@@ -382,10 +388,15 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
         });
     }
 
-    @Override public void setEventSource(EventSource pEventSource) {
-        this.mLocalSnappyDataSource.setEventSource(pEventSource);
-        this.mFileRemoteDataSource.setEventSource(pEventSource);
-        this.mWebViewRemoteDataSource.setEventSource(pEventSource);
+    public void setConference(DataConference pConference) {
+        this.mDataConference = pConference;
+        this.mLocalSnappyDataSource.setConference(pConference);
+        this.mFileRemoteDataSource.setConference(pConference);
+        this.mWebViewRemoteDataSource.setConference(pConference);
+    }
+
+    @Override public DataConference getConference() {
+        return mDataConference;
     }
 
     @UiThread public <Model> void onUiThreadCallOnSuccessCallback(ILoadCallback<Model> pLoadCallback, Model pModel) {
@@ -394,6 +405,10 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     @UiThread public <E extends Exception> void onUiThreadCallOnFailureCallback(ILoadCallback pLoadCallback, E pException) {
         pLoadCallback.onFailure(pException);
+    }
+
+    public void setLatestConference(){
+        this.setConference(DataConference.getLatestEvent());
     }
 
     private void invalidateDataRoomsList() {
@@ -416,7 +431,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
         this.mLocalSnappyDataSource.invalidateDataSessions();
     }
 
-    public void invalidate(){
+    @Override public void invalidate(){
         this.mMemCacheDataRooms = null;
         this.mMemCacheTimeFrame = null;
         this.mMemCacheDataCodecampers = null;

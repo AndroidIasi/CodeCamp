@@ -29,7 +29,7 @@ public class FileRemoteDataSource extends BaseRemoteDataSource{
         super.startCodecampJsonRequest();
         String json;
         try {
-            InputStream is = mContext.getAssets().open(mEventSource.getDataJsonFile());
+            InputStream is = mContext.getAssets().open(mConference.getDataJsonFile());
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

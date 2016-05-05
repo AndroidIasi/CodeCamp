@@ -4,7 +4,7 @@
     <string name="tab_1_name">Sessions</string>
     <string name="tab_2_name">Favorites</string>
     <string name="tab_3_name">Speakers</string>
-    <string name="tab_4_name">About</string>
+    <string name="tab_4_name">Settings</string>
     <string name="action_settings">Share</string>
     <string name="empty_favorite_sessions_list">There are no Sessions in this list.\nMark a Session as favorite\nand it will appear here.</string>
     <string name="session_track_name_and_floor">%1$s - %2$s</string>
@@ -12,9 +12,13 @@
     <string name="where">Where:</string>
     <string name="ok">OK</string>
     <string name="androidiasi">AndroidIasi</string>
-    <string name="version">Version: %1$s-build%2$s</string>
-    <string name="description">Curious about the app? Found a problem?\nOpen an issue on GitHub! We love pull requests!</string>
+    <string name="version">v%1$s-build%2$s</string>
+    <string name="description">Found a problem?\nWe love pull requests!</string>
     <string name="app_is_open_source">This app is open source</string>
-    <string name="please_install_browser">Please install a browser...</string>
-    <string name="choser_favorite_app">Choose your favorite app...</string>
+    <string name="please_install_browser">Please install a browser…</string>
+    <string name="choser_favorite_app">Choose your favorite app…</string>
+    <string name="pref_select_conference">Select conference</string>
+    <string name="pref_change_between_conferences">Change between conferences</string>
+    <string name="pref_key_select_conference">pref_key_select_conference</string>
+    <string name="pref_key_list_select_conference">pref_key_list_select_conference</string>
 </resources>

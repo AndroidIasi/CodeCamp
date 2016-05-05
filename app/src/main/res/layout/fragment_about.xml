@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
         android:gravity="center">
         <ImageView
             android:id="@+id/android_iasi_logo"
@@ -21,30 +22,59 @@
             android:layout_margin="@dimen/text_margin"
             android:gravity="center"
             android:text="@string/androidiasi"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/Text.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="Select event"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGray"/>
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGray"/>
+        </LinearLayout>
         <TextView
             style="@style/Text.Body2"
-            android:layout_width="wrap_content"
+            android:id="@+id/version_label"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/description"/>
+            android:layout_margin="@dimen/text_margin"
+            android:text="Version"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray"/>
         <TextView
             style="@style/Text.Body"
             android:id="@+id/version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:gravity="center"
             android:text="@string/version"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray"/>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/github_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/button_margin"
+            android:drawableLeft="@drawable/ic_github_logo"
+            android:drawablePadding="@dimen/button_drawable_padding"
+            android:text="@string/app_is_open_source"/>
     </LinearLayout>
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/github_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/button_margin"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:drawableLeft="@drawable/ic_github_logo"
-        android:drawablePadding="@dimen/button_drawable_padding"
-        android:text="@string/app_is_open_source"/>
 </RelativeLayout>

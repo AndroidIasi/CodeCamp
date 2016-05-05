@@ -13,7 +13,7 @@ import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
-import ro.androidiasi.codecamp.data.source.EventSource;
+import ro.androidiasi.codecamp.data.source.DataConference;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
 
@@ -122,10 +122,14 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         }
     }
 
-    @Override public void setEventSource(EventSource pEventSource) {
-        this.mDatabase.setEventSource(pEventSource);
+    @Override public void setConference(DataConference pConference) {
+        this.mDatabase.setEventSource(pConference);
         //it doesn't really matter for local caching,
         // we'll just invalidate the db on changing the source
+    }
+
+    @Override public DataConference getConference() {
+        return null;
     }
 
     public void storeDataRooms(List<DataRoom> pDataRoomList){
@@ -153,7 +157,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         pLoadCallback.onFailure(pException);
     }
 
-    public void invalidate() {
+    @Override public void invalidate() {
         this.mDatabase.deleteDataRooms();
         this.mDatabase.deleteDataCodecampers();
         this.mDatabase.deleteDataTimeFrames();

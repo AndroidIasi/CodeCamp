@@ -7,7 +7,6 @@ import com.snappydb.DB;
 import com.snappydb.SnappyDB;
 import com.snappydb.SnappydbException;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
@@ -18,7 +17,7 @@ import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
-import ro.androidiasi.codecamp.data.source.EventSource;
+import ro.androidiasi.codecamp.data.source.DataConference;
 import ro.androidiasi.codecamp.data.source.local.exception.DataNotFoundException;
 import ro.androidiasi.codecamp.data.source.local.exception.UnsupportedSnappyDb;
 
@@ -38,19 +37,6 @@ public class SnappyDatabase implements IDatabase{
     private DB mSnappyDBInstance;
 
     @RootContext Context mContext;
-
-    @AfterInject public void afterMembersInject(){
-    }
-
-    private void openDatabase(String pName) {
-        try {
-            this.mSnappyDBInstance = new SnappyDB.Builder(mContext)
-                    .name(pName)
-                    .build();
-        } catch (SnappydbException pE) {
-            Log.e(TAG, "afterMembersInject:", pE);
-        }
-    }
 
     @Override public boolean isDataSessionFavorite(Long pDataSessionId) {
         synchronized (mSnappyDBInstance) {
@@ -157,10 +143,30 @@ public class SnappyDatabase implements IDatabase{
         return this.dataExists(KEY_ARRAY_SESSIONS);
     }
 
-    @Override public void setEventSource(EventSource pEventSource) {
-        this.openDatabase(pEventSource.toString());
+    @Override public void setEventSource(DataConference pConference) {
+        this.closeCurrentDatabase();
+        this.openDatabase(pConference.toString());
     }
 
+    private void closeCurrentDatabase() {
+        try {
+            if(mSnappyDBInstance != null && mSnappyDBInstance.isOpen()){
+                mSnappyDBInstance.close();
+            }
+        } catch (SnappydbException pE) {
+            Log.e(TAG, "closeCurrentDatabase: ", pE);
+        }
+    }
+
+    private void openDatabase(String pName) {
+        try {
+            this.mSnappyDBInstance = new SnappyDB.Builder(mContext)
+                    .name(pName)
+                    .build();
+        } catch (SnappydbException pE) {
+            Log.e(TAG, "afterMembersInject:", pE);
+        }
+    }
 
     private<Model> void putList(String pKey, List<Model> pModelList){
         synchronized (mSnappyDBInstance) {

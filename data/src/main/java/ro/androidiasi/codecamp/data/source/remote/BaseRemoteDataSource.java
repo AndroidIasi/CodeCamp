@@ -17,7 +17,7 @@ import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
-import ro.androidiasi.codecamp.data.source.EventSource;
+import ro.androidiasi.codecamp.data.source.DataConference;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 import ro.androidiasi.codecamp.data.source.ILoadCallback;
 import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
@@ -29,7 +29,7 @@ import ro.androidiasi.codecamp.data.source.remote.exception.DataUnavailable;
 public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaDataSource<Long> {
 
     private static final String TAG = "BaseRemoteDataSource";
-    protected EventSource mEventSource;
+    protected DataConference mConference;
 
     private ObjectMapper mObjectMapper;
     private ILoadCallback<List<DataRoom>> mDataRoomListCallback;
@@ -46,8 +46,8 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
 
     @CallSuper
     @Override public void startCodecampJsonRequest() throws DataUnavailable {
-        if(mEventSource == null){
-            throw new NullPointerException("EventSource is NULL! Please set EventSource first!");
+        if(mConference == null){
+            throw new NullPointerException("DataConference is NULL! Please set DataConference first!");
         }
     }
 
@@ -121,7 +121,7 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
 
     private DataCodecamp getDataCodecampFromJson(String pDataJson) throws IOException {
         Codecamp codecamp = this.mObjectMapper.readValue(pDataJson, Codecamp.class);
-        return DataCodecamp.fromCrawlerCodecamp(mEventSource.getPhotosRootUrl(), codecamp);
+        return DataCodecamp.fromCrawlerCodecamp(mConference.getPhotosRootUrl(), codecamp);
     }
 
     private<Model> void requestData(ILoadCallback<Model> pLoadCallback) {//this does not look good :)
@@ -192,7 +192,15 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
         }
     }
 
-    @Override public void setEventSource(EventSource pEventSource) {
-        this.mEventSource = pEventSource;
+    @Override public void invalidate() {
+        //nothing to invalidate on remote
+    }
+
+    @Override public DataConference getConference() {
+        return mConference;
+    }
+
+    public void setConference(DataConference pConference) {
+        this.mConference = pConference;
     }
 }

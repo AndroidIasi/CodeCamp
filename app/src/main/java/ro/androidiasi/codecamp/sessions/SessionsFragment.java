@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.IgnoreWhen;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.Subscribe;
@@ -13,6 +12,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import ro.androidiasi.codecamp.BaseFragment;
 import ro.androidiasi.codecamp.R;
+import ro.androidiasi.codecamp.about.EventRefreshLists;
 import ro.androidiasi.codecamp.internal.model.Session;
 import ro.androidiasi.codecamp.main.EventStopSwipeToRefresh;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -64,5 +64,10 @@ public class SessionsFragment extends BaseFragment implements SessionsContract.V
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEventMainThread(EventStopSwipeToRefresh pEvent){
         this.mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEventMainThread(EventRefreshLists pEvent){
+        this.mSessionsPresenter.onRefresh();
     }
 }

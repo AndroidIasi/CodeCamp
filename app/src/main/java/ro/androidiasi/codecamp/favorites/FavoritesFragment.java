@@ -6,6 +6,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import ro.androidiasi.codecamp.R;
+import ro.androidiasi.codecamp.about.EventRefreshLists;
 import ro.androidiasi.codecamp.sessiondetail.EventSessionUpdated;
 import ro.androidiasi.codecamp.sessions.SessionsContract;
 import ro.androidiasi.codecamp.sessions.SessionsFragment;
@@ -30,5 +31,10 @@ public class FavoritesFragment extends SessionsFragment implements FavoritesCont
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEventMainThread(EventSessionUpdated pEvent){
         this.mFavoritesPresenter.onEventSessionUpdated();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEventMainThread(EventRefreshLists pEvent){
+        this.mFavoritesPresenter.onRefresh();
     }
 }

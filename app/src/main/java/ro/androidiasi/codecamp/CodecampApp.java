@@ -5,13 +5,11 @@ import android.app.Application;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EApplication;
 
 import io.fabric.sdk.android.Fabric;
 import ro.androidiasi.codecamp.data.source.AgendaRepository;
-import ro.androidiasi.codecamp.data.source.EventSource;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 
 /**
@@ -21,7 +19,6 @@ import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
 public class CodecampApp extends Application {
 
     @Bean(AgendaRepository.class) IAgendaDataSource<Long> mRepository;
-    private EventSource mEventSource;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -29,12 +26,8 @@ public class CodecampApp extends Application {
         Fabric.with(this, new Crashlytics());
     }
 
-    @AfterInject public void afterMembersInject(){
-        this.mEventSource = EventSource.getLatestEvent();
-        this.mRepository.setEventSource(mEventSource);
-    }
-
     public IAgendaDataSource<Long> getRepository() {
         return mRepository;
     }
+
 }

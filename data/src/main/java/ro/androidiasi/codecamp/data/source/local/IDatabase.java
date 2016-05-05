@@ -8,7 +8,7 @@ import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
-import ro.androidiasi.codecamp.data.source.EventSource;
+import ro.androidiasi.codecamp.data.source.DataConference;
 
 /**
  * Created by andrei on 21/04/16.
@@ -51,6 +51,6 @@ public interface IDatabase {
 
     boolean dataSessionsExist();
 
-    void setEventSource(EventSource pEventSource);
+    void setEventSource(DataConference pConference);
 
 }

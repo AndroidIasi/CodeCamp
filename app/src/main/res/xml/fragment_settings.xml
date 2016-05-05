@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_change_between_conferences"
+        android:key="@string/pref_key_select_conference">
+        <ListPreference
+            android:title="@string/pref_select_conference"
+            android:key="@string/pref_key_list_select_conference"/>
+    </PreferenceCategory>
+</PreferenceScreen>
