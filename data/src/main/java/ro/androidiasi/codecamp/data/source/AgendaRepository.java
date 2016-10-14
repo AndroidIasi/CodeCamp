@@ -17,8 +17,8 @@ import ro.androidiasi.codecamp.data.model.DataSession;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
 import ro.androidiasi.codecamp.data.source.local.AgendaLocalSnappyDataSource;
 import ro.androidiasi.codecamp.data.source.local.exception.DataNotFoundException;
+import ro.androidiasi.codecamp.data.source.remote.ConnectAPIRemoteDataSource;
 import ro.androidiasi.codecamp.data.source.remote.FileRemoteDataSource;
-import ro.androidiasi.codecamp.data.source.remote.WebViewRemoteDataSource;
 
 /**
  * Created by andrei on 06/04/16.
@@ -30,7 +30,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     private DataConference mDataConference;
     @Bean AgendaLocalSnappyDataSource mLocalSnappyDataSource;
     @Bean FileRemoteDataSource mFileRemoteDataSource;
-    @Bean WebViewRemoteDataSource mWebViewRemoteDataSource;
+    @Bean ConnectAPIRemoteDataSource mWebViewRemoteDataSource;
 
     private List<DataRoom> mMemCacheDataRooms;
     private List<DataTimeFrame> mMemCacheTimeFrame;

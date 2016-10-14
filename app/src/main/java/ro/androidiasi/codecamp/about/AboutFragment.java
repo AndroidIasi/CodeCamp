@@ -38,7 +38,7 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
 
     @Override public void afterInject() {
         super.afterInject();
-        List<DataConference> dataConferenceList = DataConference.listByDate();
+        List<DataConference> dataConferenceList = DataConference.listByDateAscending();
         List<Conference> conferenceList = Conference.fromDataConferenceList(dataConferenceList);
         this.mSelectEventAdapter.update(conferenceList);
     }

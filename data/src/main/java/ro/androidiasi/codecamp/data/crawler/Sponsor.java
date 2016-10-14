@@ -3,14 +3,16 @@ package ro.androidiasi.codecamp.data.crawler;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Track {
+public class Sponsor {
 
     @JsonProperty("name")
     public String name;
-    @JsonProperty("capacity")
-    public int capacity;
-    @JsonProperty("description")
-    public String description;
+    @JsonProperty("logoUrl")
+    public String logoUrl;
+    @JsonProperty("websiteUrl")
+    public String websiteUrl;
+    @JsonProperty("sponsorshipPackage")
+    public String sponsorshipPackage;
     @JsonProperty("displayOrder")
     public int displayOrder;
 

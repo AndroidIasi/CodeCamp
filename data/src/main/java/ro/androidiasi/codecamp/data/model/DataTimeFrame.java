@@ -1,7 +1,6 @@
 package ro.androidiasi.codecamp.data.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.crawler.TimeSlot;
@@ -12,14 +11,14 @@ import ro.androidiasi.codecamp.data.crawler.TimeSlot;
 public class DataTimeFrame extends AbstractDataModel {
 
     private String mName;
-    private Date mStartTime;
-    private Date mEndTime;
+    private String mStartTime;
+    private String mEndTime;
 
     public DataTimeFrame(){
 
     }
 
-    public DataTimeFrame(long pId, String pName, Date pStartTime, Date pEndTime) {
+    public DataTimeFrame(long pId, String pName, String pStartTime, String pEndTime) {
         super(pId);
         mName = pName;
         mStartTime = pStartTime;
@@ -30,20 +29,20 @@ public class DataTimeFrame extends AbstractDataModel {
         return mName;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return mStartTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return mEndTime;
     }
 
     public static DataTimeFrame fromTimeSlot(TimeSlot pTimeSlot){
         return new DataTimeFrame(
-                pTimeSlot.getCode().hashCode(),
-                pTimeSlot.getCode(),
-                pTimeSlot.getStart(),
-                pTimeSlot.getEnd()
+                pTimeSlot.startTime.hashCode(),
+                pTimeSlot.startTime,
+                pTimeSlot.startTime,
+                pTimeSlot.endTime
         );
     }
 

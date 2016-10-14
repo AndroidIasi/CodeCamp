@@ -15,11 +15,7 @@ import ro.androidiasi.codecamp.internal.model.Session;
 @EBean
 public class SessionHeaderPresenter implements SessionHeaderContract.Presenter{
 
-    private DateFormat mDateFormat;
-
-    @AfterInject public void afterMembersInject(){
-        this.mDateFormat = new SimpleDateFormat("HH:mm");
-    }
+    @AfterInject public void afterMembersInject(){}
 
     @Override public void bind(Session pModel, SessionHeaderView pView) {
         String result = String.format("%s - %s",
@@ -28,7 +24,8 @@ public class SessionHeaderPresenter implements SessionHeaderContract.Presenter{
         pView.getTimeTextView().setText(result);
     }
 
-    private String formatTime(Date pStartTime){
-        return mDateFormat.format(pStartTime);
+    private String formatTime(String pStartTime){
+        //TODO: Remove the :00 at the end
+        return pStartTime;
     }
 }

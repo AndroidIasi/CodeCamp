@@ -9,20 +9,20 @@ import ro.androidiasi.codecamp.data.model.DataTimeFrame;
  */
 public final class TimeFrame extends AbstractModel {
 
-    private final Date mStartTime;
-    private final Date mEndTime;
+    private final String mStartTime;
+    private final String mEndTime;
 
-    public TimeFrame(long pId, Date pStartTime, Date pEndTime) {
+    public TimeFrame(long pId, String pStartTime, String pEndTime) {
         super(pId);
         mStartTime = pStartTime;
         mEndTime = pEndTime;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return mStartTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return mEndTime;
     }
 

@@ -49,21 +49,21 @@ public class DataCodecamper extends AbstractDataModel {
         return mPhotoUrl;
     }
 
-    public static DataCodecamper fromSpeaker(String pPhotoRootUrl, Speaker pSpeaker){
+    public static DataCodecamper fromSpeaker(Speaker pSpeaker){
         return new DataCodecamper(
-                pSpeaker.getPhoto().hashCode(),//nasty workaround, doesn't have a reliable ID
-                pSpeaker.getName(),
-                pSpeaker.getTitle(),
-                pSpeaker.getCompany(),
-                pSpeaker.getBio(),
-                pPhotoRootUrl + pSpeaker.getPhoto()
+                pSpeaker.photoUrl.hashCode(),//nasty workaround, doesn't have a reliable ID
+                pSpeaker.name,
+                pSpeaker.jobTitle,
+                pSpeaker.company,
+                pSpeaker.bio,
+                pSpeaker.photoUrl.replaceAll(" ", "%20")
         );
     }
 
-    public static List<DataCodecamper> fromSpeakersList(String pPhotoRootUrl, List<Speaker> pSpeakers){
+    public static List<DataCodecamper> fromSpeakersList(List<Speaker> pSpeakers){
         List<DataCodecamper> dataCodecamperList = new ArrayList<>();
         for (int i = 0; i < pSpeakers.size(); i++) {
-            dataCodecamperList.add(fromSpeaker(pPhotoRootUrl, pSpeakers.get(i)));
+            dataCodecamperList.add(fromSpeaker(pSpeakers.get(i)));
         }
         return dataCodecamperList;
     }

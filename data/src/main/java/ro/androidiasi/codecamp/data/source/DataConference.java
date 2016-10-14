@@ -16,27 +16,25 @@ import java.util.List;
  */
 public enum DataConference {
 
-    IASI("Iasi - 23 April 2016", "2016-04-23T05:00:00.000", "iasi.data.min.json",
-            "iasi.index.html", "http://iasi.codecamp.ro/images/speakers/"),
-    CLUJ("Cluj - 07 May 2016", "2016-06-07T05:00:00.000", "cluj.data.min.json",
-            "cluj.index.html", "http://cluj.codecamp.ro/images/speakers/");
+    IASI("Iasi - Autumn 2016", "2016-10-22T00:00:00", "iasi.data.min.json",
+            "https://connect.codecamp.ro/api/conferences/2"),
+    CLUJ("Cluj - Autumn 2016", "2016-11-19T00:00:00", "cluj.data.min.json",
+            "https://connect.codecamp.ro/api/conferences/3");
 
     private final String mName;
     private final Date mEventDate;
     private final String mDataJsonFile;
-    private final String mDataHtmlFile;
-    private final String mPhotosRootUrl;
+    private final String mConnectJsonURL;
 
-    DataConference(String pName, String pEventDate, String pDataJsonFile, String pDataHtmlFile, String pPhotosRootUrl){
+    DataConference(String pName, String pEventDate, String pDataJsonFile, String pConnectJsonURL){
         mName = pName;
-        mPhotosRootUrl = pPhotosRootUrl;
         mEventDate = this.getDateFromString(pEventDate);
         mDataJsonFile = pDataJsonFile;
-        mDataHtmlFile = pDataHtmlFile;
+        mConnectJsonURL = pConnectJsonURL;
     }
 
     private Date getDateFromString(String pStringDate){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {
             return dateFormat.parse(pStringDate);
         } catch (ParseException pE) {
@@ -49,16 +47,12 @@ public enum DataConference {
         return mDataJsonFile;
     }
 
-    public String getDataHtmlFile() {
-        return mDataHtmlFile;
+    public String getConnectJsonURL() {
+        return mConnectJsonURL;
     }
 
     public Date getEventDate() {
         return mEventDate;
-    }
-
-    public String getPhotosRootUrl() {
-        return mPhotosRootUrl;
     }
 
     public String getName() {
@@ -77,15 +71,22 @@ public enum DataConference {
     }
 
     public static DataConference getLatestEvent(){
-        List<DataConference> list = listByDate();
+        Date today = new Date();
+        List<DataConference> list = listByDateAscending();
+        for (DataConference conference: list){
+            if (today.compareTo(conference.getEventDate())<0){
+                return conference;
+            }
+        }
+        //Fallback, we have no more conferences in the future
         return list.get(0);
     }
 
-    public static List<DataConference> listByDate(){
+    public static List<DataConference> listByDateAscending(){
         List<DataConference> list = Arrays.asList(DataConference.values());
         Collections.sort(list, new Comparator<DataConference>() {
             @Override public int compare(DataConference lhs, DataConference rhs) {
-                return rhs.getEventDate().compareTo(lhs.getEventDate());
+                return lhs.getEventDate().compareTo(rhs.getEventDate());
             }
         });
         return list;

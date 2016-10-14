@@ -11,7 +11,7 @@ import org.androidannotations.annotations.EBean;
 import java.io.IOException;
 import java.util.List;
 
-import ro.androidiasi.codecamp.data.crawler.Codecamp;
+import ro.androidiasi.codecamp.data.crawler.CodecampNew;
 import ro.androidiasi.codecamp.data.model.DataCodecamp;
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
@@ -120,8 +120,8 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
     }
 
     private DataCodecamp getDataCodecampFromJson(String pDataJson) throws IOException {
-        Codecamp codecamp = this.mObjectMapper.readValue(pDataJson, Codecamp.class);
-        return DataCodecamp.fromCrawlerCodecamp(mConference.getPhotosRootUrl(), codecamp);
+        CodecampNew codecamp = this.mObjectMapper.readValue(pDataJson, CodecampNew.class);
+        return DataCodecamp.fromCrawlerCodecamp(codecamp);
     }
 
     private<Model> void requestData(ILoadCallback<Model> pLoadCallback) {//this does not look good :)

@@ -41,10 +41,10 @@ public class DataRoom extends AbstractDataModel {
 
     public static DataRoom fromTrack(Track pTrack){
         return new DataRoom(
-                pTrack.getCode().hashCode(),
-                pTrack.getCode(),
-                pTrack.getName(),
-                pTrack.getDescription()
+                pTrack.name.hashCode(),
+                pTrack.name,
+                pTrack.name,
+                pTrack.description
         );
     }
 

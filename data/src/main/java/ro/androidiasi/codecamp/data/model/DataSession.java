@@ -3,7 +3,7 @@ package ro.androidiasi.codecamp.data.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import ro.androidiasi.codecamp.data.crawler.Booking;
+import ro.androidiasi.codecamp.data.crawler.Session;
 
 /**
  * Created by andrei on 06/04/16.
@@ -61,39 +61,70 @@ public class DataSession extends AbstractDataModel {
         mFavorite = pFavorite;
     }
 
-    public static DataSession fromBooking(String pPhotoRootUrl, Booking pBooking){
-        if(pBooking.getSession() == null){
-            return allTracksSession(pBooking);
-        } else {
-            return simpleSession(pPhotoRootUrl, pBooking);
-        }
-    }
-
-    public static List<DataSession> fromBookingsList(String pPhotoRootUrl, List<Booking> pBookingList){
+    public static List<DataSession> fromSessionList(List<Session> sessions, List<DataCodecamper> dataCodecampers, List<DataRoom> dataRooms, List<DataTimeFrame> dataTimeFrames) {
         List<DataSession> dataSessionsList = new ArrayList<>();
-        for (int i = 0; i < pBookingList.size(); i++) {
-            dataSessionsList.add(fromBooking(pPhotoRootUrl, pBookingList.get(i)));
+        for (Session session : sessions) {
+
+            long id = (session.startTime + session.track).hashCode();
+            String name = session.title;
+            String description = session.description;
+            List<DataCodecamper> codecampers = pickCodecampers(session, dataCodecampers);
+            DataRoom dataRoom = pickRoom(session, dataRooms);
+            DataTimeFrame timeFrame = pickTimeFrame(session, dataTimeFrames);
+
+            dataSessionsList.add(new DataSession(id, codecampers, dataRoom, name, description, timeFrame));
         }
         return dataSessionsList;
     }
 
-    private static DataSession allTracksSession(Booking pBooking){
-        long id = pBooking.getAlt().hashCode();
-        List<DataCodecamper> codecampersList = new ArrayList<>();
-        DataRoom dataRoom = DataRoom.EVERYWHERE;
-        String name = pBooking.getAlt();
-        String description = pBooking.getAlt();
-        DataTimeFrame dataTimeFrame = DataTimeFrame.fromTimeSlot(pBooking.getTimeSlot());
-        return new DataSession(id, codecampersList, dataRoom, name, description, dataTimeFrame);
+    private static List<DataCodecamper> pickCodecampers(Session session, List<DataCodecamper> dataCodecampers) {
+        List<DataCodecamper> sessionCodecampers = new ArrayList<>();
+        if (!session.allTracks) {
+            for (String speaker : session.speakers) {
+                for (DataCodecamper codecamper : dataCodecampers) {
+                    if (speaker.equals(codecamper.getFullName())) {
+                        sessionCodecampers.add(codecamper);
+                    }
+                }
+            }
+        }
+        return sessionCodecampers;
     }
 
-    private static DataSession simpleSession(String pPhotoRootUrl, Booking pBooking){
-        long id = pBooking.getSession().getCode().hashCode();
-        List<DataCodecamper> codecampersList = DataCodecamper.fromSpeakersList(pPhotoRootUrl, pBooking.getSession().getSpeakers());
-        DataRoom dataRoom = DataRoom.fromTrack(pBooking.getTrack());
-        String name = pBooking.getSession().getTitle();
-        String description = pBooking.getSession().getDescription();
-        DataTimeFrame dataTimeFrame = DataTimeFrame.fromTimeSlot(pBooking.getTimeSlot());
-        return new DataSession(id, codecampersList, dataRoom, name, description, dataTimeFrame);
+    private static DataRoom pickRoom(Session session, List<DataRoom> dataRooms) {
+        if (session.allTracks) {
+            return DataRoom.EVERYWHERE;
+        }
+
+        DataRoom sessionDataRoom = null;
+        for (DataRoom dataRoom : dataRooms) {
+            if (session.track.equals(dataRoom.getName())) {
+                sessionDataRoom = dataRoom;
+                break;
+            }
+        }
+        //Should not happen, this is a fallback
+        if (sessionDataRoom == null) {
+            sessionDataRoom = new DataRoom(session.track.hashCode(), session.track, session.track, session.track);
+        }
+
+        return sessionDataRoom;
     }
+
+    private static DataTimeFrame pickTimeFrame(Session session, List<DataTimeFrame> dataTimeFrames) {
+        DataTimeFrame sessionDataTimeFrame = null;
+        for (DataTimeFrame dataTimeFrame : dataTimeFrames) {
+            if (session.startTime.equals(dataTimeFrame.getStartTime()) &&
+                    session.endTime.equals(dataTimeFrame.getEndTime())) {
+                sessionDataTimeFrame = dataTimeFrame;
+                break;
+            }
+        }
+        //Should not happen, this is a fallback
+        if (sessionDataTimeFrame == null) {
+            sessionDataTimeFrame = new DataTimeFrame(session.startTime.hashCode(), session.startTime, session.startTime, session.endTime);
+        }
+        return sessionDataTimeFrame;
+    }
+
 }

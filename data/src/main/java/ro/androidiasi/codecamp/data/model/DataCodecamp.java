@@ -2,7 +2,7 @@ package ro.androidiasi.codecamp.data.model;
 
 import java.util.List;
 
-import ro.androidiasi.codecamp.data.crawler.Codecamp;
+import ro.androidiasi.codecamp.data.crawler.CodecampNew;
 
 /**
  * Created by andrei on 21/04/16.
@@ -42,11 +42,12 @@ public class DataCodecamp extends AbstractDataModel {
         return mDataSessions;
     }
 
-    public static DataCodecamp fromCrawlerCodecamp(String pPhotoRootUrl, Codecamp pCodecamp){
-        List<DataCodecamper> dataCodecampers = DataCodecamper.fromSpeakersList(pPhotoRootUrl, pCodecamp.getConference().getSpeakers());
-        List<DataRoom> dataRooms = DataRoom.fromTracksList(pCodecamp.getConference().getAgenda().getTracks());
-        List<DataTimeFrame> dataTimeFrames = DataTimeFrame.fromTimeSlotsList(pCodecamp.getConference().getAgenda().getTimeSlots());
-        List<DataSession> dataSessions = DataSession.fromBookingsList(pPhotoRootUrl, pCodecamp.getConference().getAgenda().getBookings());
+    public static DataCodecamp fromCrawlerCodecamp(CodecampNew pCodecamp){
+        List<DataCodecamper> dataCodecampers = DataCodecamper.fromSpeakersList(pCodecamp.speakers);
+        List<DataRoom> dataRooms = DataRoom.fromTracksList(pCodecamp.schedules.get(0).tracks);
+        List<DataTimeFrame> dataTimeFrames = DataTimeFrame.fromTimeSlotsList(pCodecamp.schedules.get(0).timeSlots);
+        List<DataSession> dataSessions = DataSession.fromSessionList(pCodecamp.schedules.get(0).sessions,
+                dataCodecampers, dataRooms, dataTimeFrames);
 
         return new DataCodecamp(-1L, dataRooms, dataTimeFrames, dataCodecampers, dataSessions);
     }
