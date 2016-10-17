@@ -3,10 +3,6 @@ package ro.androidiasi.codecamp.sessions.header;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import ro.androidiasi.codecamp.internal.model.Session;
 
 /**
@@ -25,7 +21,6 @@ public class SessionHeaderPresenter implements SessionHeaderContract.Presenter{
     }
 
     private String formatTime(String pStartTime){
-        //TODO: Remove the :00 at the end
-        return pStartTime;
+        return pStartTime.replace(".{3}$","");
     }
 }

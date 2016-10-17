@@ -7,6 +7,7 @@ import java.util.List;
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
+import ro.androidiasi.codecamp.data.model.DataSponsor;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
 import ro.androidiasi.codecamp.data.source.DataConference;
 
@@ -38,6 +39,12 @@ public interface IDatabase {
     void deleteDataCodecampers();
 
     void saveDataSessions(List<DataSession> pDataSessions);
+
+    List<DataSponsor> getDataSponsors() throws SnappydbException;
+
+    void deleteDataSponsors();
+
+    void saveDataSponsors(List<DataSponsor> pDataSponsorList);
 
     List<DataSession> getDataSessions() throws SnappydbException;
 

@@ -15,6 +15,7 @@ import ro.androidiasi.codecamp.about.AboutFragment;
 import ro.androidiasi.codecamp.codecampers.CodecampersFragment;
 import ro.androidiasi.codecamp.favorites.FavoritesFragment;
 import ro.androidiasi.codecamp.sessions.SessionsFragment;
+import ro.androidiasi.codecamp.sponsors.SponsorsFragment;
 
 /**
  * Created by andrei on 19/04/16.
@@ -52,6 +53,15 @@ public class TabsProvider {
 
             @Override public Fragment getFragment() {
                 return CodecampersFragment.newInstance();
+            }
+        });
+        this.mTabsList.add(new IMainTab() {
+            @Override public String getName() {
+                return mContext.getString(R.string.tab_name_sponsors);
+            }
+
+            @Override public Fragment getFragment() {
+                return SponsorsFragment.newInstance();
             }
         });
         this.mTabsList.add(new IMainTab() {

@@ -14,6 +14,7 @@ import java.util.List;
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
+import ro.androidiasi.codecamp.data.model.DataSponsor;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
 import ro.androidiasi.codecamp.data.source.local.AgendaLocalSnappyDataSource;
 import ro.androidiasi.codecamp.data.source.local.exception.DataNotFoundException;
@@ -36,6 +37,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     private List<DataTimeFrame> mMemCacheTimeFrame;
     private List<DataCodecamper> mMemCacheDataCodecampers;
     private List<DataSession> mMemCacheDataSession;
+    private List<DataSponsor> mMemCacheDataSponsors;
 
     @AfterInject public void afterMembersInject(){
         this.setLatestConference();
@@ -77,6 +79,16 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
             this.invalidateCodecampersList();
         }
         this.getCodecampersFromRemote(pLoadCallback);
+    }
+    @Background
+    @Override
+    public void getSponsorsList(boolean pForced, ILoadCallback<List<DataSponsor>> pLoadCallback) {
+        if(pForced){
+            this.invalidateDataSponsors();
+            this.getSponsorsFromRemote(pLoadCallback);
+        } else {
+            this.getSponsorsList(pLoadCallback);
+        }
     }
 
     @Background
@@ -266,6 +278,44 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
         });
     }
 
+    @Background
+    @Override public void getSponsorsList(final ILoadCallback<List<DataSponsor>> pLoadCallback) {
+        if(mMemCacheDataSponsors != null){
+            this.onUiThreadCallOnSuccessCallback(pLoadCallback, mMemCacheDataSponsors);
+        }
+        mLocalSnappyDataSource.getSponsorsList(new ILoadCallback<List<DataSponsor>>() {
+            @Override public void onSuccess(List<DataSponsor> pObject) {
+                if(pObject == null){
+                    this.onFailure(new DataNotFoundException());
+                    return;
+                }
+                mMemCacheDataSponsors = pObject;
+                onUiThreadCallOnSuccessCallback(pLoadCallback, pObject);
+            }
+
+            @Override public void onFailure(Exception pException) {
+                mFileRemoteDataSource.getSponsorsList(new ILoadCallback<List<DataSponsor>>() {
+                    @Override public void onSuccess(List<DataSponsor> pObject) {
+                        if(pObject == null){
+                            this.onFailure(new DataNotFoundException());
+                            return;
+                        }
+                        mMemCacheDataSponsors = pObject;
+                        mLocalSnappyDataSource.storeDataSponsors(pObject);
+                        onUiThreadCallOnSuccessCallback(pLoadCallback, pObject);
+                        //call this to get the most fresh data :)
+                        //don't rely on the local JSON :D
+                        this.onFailure(new DataNotFoundException());
+                    }
+
+                    @Override public void onFailure(Exception pException) {
+                        getSponsorsFromRemote(pLoadCallback);
+                    }
+                });
+            }
+        });
+    }
+
     private void getRoomsFromRemote(final ILoadCallback<List<DataRoom>> pLoadCallback) {
         mWebViewRemoteDataSource.getRoomsList(new ILoadCallback<List<DataRoom>>() {
             @Override public void onSuccess(List<DataRoom> pObject) {
@@ -337,6 +387,25 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
             @Override public void onFailure(Exception pException) {
                 Log.e(TAG, "onFailure: Can't fail more than that :))", pException);
+                onUiThreadCallOnFailureCallback(pLoadCallback, pException);
+            }
+        });
+    }
+
+    private void getSponsorsFromRemote(final ILoadCallback<List<DataSponsor>> pLoadCallback){
+        mWebViewRemoteDataSource.getSponsorsList(new ILoadCallback<List<DataSponsor>>() {
+            @Override public void onSuccess(List<DataSponsor> pObject) {
+                if(pObject == null){
+                    this.onFailure(new DataNotFoundException());
+                    return;
+                }
+                mMemCacheDataSponsors = pObject;
+                mLocalSnappyDataSource.storeDataSponsors(pObject);
+                onUiThreadCallOnSuccessCallback(pLoadCallback, pObject);
+            }
+
+            @Override public void onFailure(Exception pException) {
+                Log.e(TAG, "onFailure: can't fail more than that :)", pException);
                 onUiThreadCallOnFailureCallback(pLoadCallback, pException);
             }
         });
@@ -431,11 +500,17 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
         this.mLocalSnappyDataSource.invalidateDataSessions();
     }
 
+    private void invalidateDataSponsors(){
+        this.mMemCacheDataSponsors = null;
+        this.mLocalSnappyDataSource.invalidateDataSponsors();
+    }
+
     @Override public void invalidate(){
         this.mMemCacheDataRooms = null;
         this.mMemCacheTimeFrame = null;
         this.mMemCacheDataCodecampers = null;
         this.mMemCacheDataSession = null;
+        this.mMemCacheDataSponsors = null;
         this.mLocalSnappyDataSource.invalidate();
     }
 }

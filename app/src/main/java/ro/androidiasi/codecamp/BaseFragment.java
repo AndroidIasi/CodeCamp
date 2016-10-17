@@ -36,14 +36,10 @@ public abstract class BaseFragment extends Fragment implements IEnhancedView {
     }
 
     @CallSuper
-    @Override public void afterInject(){
-        //empty
-    }
+    @Override public void afterInject(){}
 
     @CallSuper
-    @Override public void afterViews(){
-        //empty
-    }
+    @Override public void afterViews(){}
 
     @Override public void onStart() {
         super.onStart();
@@ -55,7 +51,8 @@ public abstract class BaseFragment extends Fragment implements IEnhancedView {
         this.mCodecampBus.unregister(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true) public void onEventMainThread(Object pObject){}
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEventMainThread(Object pObject){}
 
     public Navigator getNavigator() {
         return mNavigator;

@@ -16,7 +16,7 @@ import ro.androidiasi.codecamp.R;
 @EViewGroup(R.layout.item_session_header)
 public class SessionHeaderView extends LinearLayout implements SessionHeaderContract.View{
 
-    @ViewById(R.id.text_time) TextView mTimeTextView;
+    @ViewById(R.id.text_time) public TextView mTimeTextView;
 
     public SessionHeaderView(Context context) {
         super(context);

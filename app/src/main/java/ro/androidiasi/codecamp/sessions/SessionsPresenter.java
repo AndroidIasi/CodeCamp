@@ -57,11 +57,11 @@ public class SessionsPresenter implements SessionsContract.Presenter, SwipeRefre
         });
     }
 
-    public void setView(SessionsContract.View pView) {
+    @Override public void setView(SessionsContract.View pView) {
         mView = pView;
     }
 
-    public void setRepository(IAgendaDataSource<Long> pRepository) {
+    @Override public void setRepository(IAgendaDataSource<Long> pRepository) {
         mRepository = pRepository;
     }
 

@@ -13,17 +13,21 @@ public class DataCodecamp extends AbstractDataModel {
     private List<DataTimeFrame> mTimeFrames;
     private List<DataCodecamper> mDataCodecampers;
     private List<DataSession> mDataSessions;
+    private List<DataSponsor> mDataSponsors;
 
     public DataCodecamp(){
 
     }
 
-    public DataCodecamp(Long pId, List<DataRoom> pDataRooms, List<DataTimeFrame> pTimeFrames, List<DataCodecamper> pDataCodecampers, List<DataSession> pDataSessions) {
+    public DataCodecamp(Long pId, List<DataRoom> pDataRooms, List<DataTimeFrame> pTimeFrames,
+                        List<DataCodecamper> pDataCodecampers, List<DataSession> pDataSessions,
+                        List<DataSponsor> pDataSponsorList) {
         super(pId);
         mDataRooms = pDataRooms;
         mTimeFrames = pTimeFrames;
         mDataCodecampers = pDataCodecampers;
         mDataSessions = pDataSessions;
+        mDataSponsors = pDataSponsorList;
     }
 
     public List<DataRoom> getDataRooms() {
@@ -42,13 +46,17 @@ public class DataCodecamp extends AbstractDataModel {
         return mDataSessions;
     }
 
+    public List<DataSponsor> getDataSponsors() {
+        return mDataSponsors;
+    }
+
     public static DataCodecamp fromCrawlerCodecamp(CodecampNew pCodecamp){
         List<DataCodecamper> dataCodecampers = DataCodecamper.fromSpeakersList(pCodecamp.speakers);
         List<DataRoom> dataRooms = DataRoom.fromTracksList(pCodecamp.schedules.get(0).tracks);
         List<DataTimeFrame> dataTimeFrames = DataTimeFrame.fromTimeSlotsList(pCodecamp.schedules.get(0).timeSlots);
         List<DataSession> dataSessions = DataSession.fromSessionList(pCodecamp.schedules.get(0).sessions,
                 dataCodecampers, dataRooms, dataTimeFrames);
-
-        return new DataCodecamp(-1L, dataRooms, dataTimeFrames, dataCodecampers, dataSessions);
+        List<DataSponsor> dataSponsorList = DataSponsor.fromSponsorsList(pCodecamp.sponsors, pCodecamp.sponsorshipPackages);
+        return new DataCodecamp(-1L, dataRooms, dataTimeFrames, dataCodecampers, dataSessions, dataSponsorList);
     }
 }

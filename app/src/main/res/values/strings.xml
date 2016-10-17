@@ -21,4 +21,6 @@
     <string name="pref_change_between_conferences">Change between conferences</string>
     <string name="pref_key_select_conference">pref_key_select_conference</string>
     <string name="pref_key_list_select_conference">pref_key_list_select_conference</string>
+    <string name="tab_name_sponsors">Sponsors</string>
+    <string name="failure_refresh_sponsors">Couldn\'t refresh sposnors feed</string>
 </resources>

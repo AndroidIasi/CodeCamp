@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.2.1'
 
         // Plugin to help with annotation processing
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -52,6 +52,7 @@ ext {
     androidAnnotationsVersion = '4.0.0'
     frescoVersion = '0.9.0'
     stickyHeadersVersion = '2.7.0'
+    stickyHeadersGridVersion = '1.0.1'
     eventBusVersion = '3.0.0'
     jacksonVersion = '2.7.3'
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
+import ro.androidiasi.codecamp.data.model.DataSponsor;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
 import ro.androidiasi.codecamp.data.source.DataConference;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
@@ -67,6 +68,16 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         }
     }
 
+    @Override
+    public void getSponsorsList(boolean pForced, ILoadCallback<List<DataSponsor>> pLoadCallback) {
+        try {
+            List<DataSponsor> dataSponsors = this.mDatabase.getDataSponsors();
+            this.onSuccess(pLoadCallback, dataSponsors);
+        } catch (SnappydbException pE){
+            this.onFailure(pLoadCallback, pE);
+        }
+    }
+
     @Override public void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback) {
         this.getRoomsList(false, pLoadCallback);
     }
@@ -85,6 +96,10 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
 
     @Override public void getCodecampersList(ILoadCallback<List<DataCodecamper>> pLoadCallback) {
         this.getCodecampersList(false, pLoadCallback);
+    }
+
+    @Override public void getSponsorsList(ILoadCallback<List<DataSponsor>> pLoadCallback) {
+        this.getSponsorsList(false, pLoadCallback);
     }
 
     @Override public void getRoom(Long pLong, ILoadCallback<DataRoom> pLoadCallback) {
@@ -148,6 +163,10 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         this.mDatabase.saveDataSessions(pDataSessionList);
     }
 
+    public void storeDataSponsors(List<DataSponsor> pDataSponsorList) {
+        this.mDatabase.saveDataSponsors(pDataSponsorList);
+    }
+
     private<Model> void onSuccess(ILoadCallback<Model> pLoadCallback, Model pFavorite) {
         pLoadCallback.onSuccess(pFavorite);
     }
@@ -162,6 +181,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         this.mDatabase.deleteDataCodecampers();
         this.mDatabase.deleteDataTimeFrames();
         this.mDatabase.deleteDataSessions();
+        this.mDatabase.deleteDataSponsors();
     }
 
     public void invalidateDataRooms() {
@@ -178,5 +198,10 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
 
     public void invalidateDataSessions(){
         this.mDatabase.deleteDataSessions();
+    }
+
+
+    public void invalidateDataSponsors(){
+        this.mDatabase.deleteDataSponsors();
     }
 }

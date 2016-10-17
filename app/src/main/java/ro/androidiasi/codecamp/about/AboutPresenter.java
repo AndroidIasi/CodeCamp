@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import ro.androidiasi.codecamp.BuildConfig;
+import ro.androidiasi.codecamp.Navigator;
 import ro.androidiasi.codecamp.R;
 
 /**
@@ -17,6 +19,7 @@ import ro.androidiasi.codecamp.R;
 @EBean
 public class AboutPresenter implements AboutContract.Presenter {
 
+    @Bean Navigator mNavigator;
     @RootContext Context mContext;
 
     private AboutContract.View mView;
@@ -33,16 +36,6 @@ public class AboutPresenter implements AboutContract.Presenter {
     }
 
     @Override public void onThisAppIsOpenSourceClicked() {
-        Uri webpage = Uri.parse("https://github.com/AndroidIasi/Codecamp");
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-
-        String title = mContext.getString(R.string.choser_favorite_app);
-        Intent chooser = Intent.createChooser(webIntent, title);
-
-        if (webIntent.resolveActivity(mContext.getPackageManager()) != null) {
-            mContext.startActivity(chooser);
-        } else {
-            Toast.makeText(mContext, R.string.please_install_browser, Toast.LENGTH_SHORT).show();
-        }
+        mNavigator.goToWebPage("https://github.com/AndroidIasi/Codecamp");
     }
 }

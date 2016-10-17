@@ -16,6 +16,7 @@ import java.util.List;
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
+import ro.androidiasi.codecamp.data.model.DataSponsor;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
 import ro.androidiasi.codecamp.data.source.DataConference;
 import ro.androidiasi.codecamp.data.source.local.exception.DataNotFoundException;
@@ -33,6 +34,7 @@ public class SnappyDatabase implements IDatabase{
     private static final String KEY_ARRAY_TIME_FRAMES = "key_array_time_frames";
     private static final String KEY_ARRAY_CODECAMPERS = "key_array_codecampers";
     private static final String KEY_ARRAY_SESSIONS = "key_array_sessions";
+    private static final String KEY_ARRAY_SPONSORS = "key_array_sponsors";
 
     private DB mSnappyDBInstance;
 
@@ -111,6 +113,24 @@ public class SnappyDatabase implements IDatabase{
 
     @Override public void saveDataSessions(List<DataSession> pDataSessions){
         this.putList(KEY_ARRAY_SESSIONS, pDataSessions);
+    }
+
+    @Override public List<DataSponsor> getDataSponsors() throws SnappydbException {
+        return this.getList(KEY_ARRAY_SPONSORS, DataSponsor.class);
+    }
+
+    @Override public void deleteDataSponsors() {
+        synchronized (mSnappyDBInstance){
+            try {
+                this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_SPONSORS);
+            } catch (SnappydbException pE){
+                Log.e(TAG, "deleteDataSponsors: ", pE);
+            }
+        }
+    }
+
+    @Override public void saveDataSponsors(List<DataSponsor> pDataSponsorList) {
+        this.putList(KEY_ARRAY_SPONSORS, pDataSponsorList);
     }
 
     @Override public List<DataSession> getDataSessions() throws SnappydbException {

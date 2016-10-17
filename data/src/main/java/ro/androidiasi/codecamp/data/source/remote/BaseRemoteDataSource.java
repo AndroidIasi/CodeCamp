@@ -16,6 +16,7 @@ import ro.androidiasi.codecamp.data.model.DataCodecamp;
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
 import ro.androidiasi.codecamp.data.model.DataSession;
+import ro.androidiasi.codecamp.data.model.DataSponsor;
 import ro.androidiasi.codecamp.data.model.DataTimeFrame;
 import ro.androidiasi.codecamp.data.source.DataConference;
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
@@ -36,6 +37,7 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
     private ILoadCallback<List<DataSession>> mDataSessionListCallback;
     private ILoadCallback<List<DataTimeFrame>> mDataTimeFrameListCallback;
     private ILoadCallback<List<DataCodecamper>> mDataCodecamperListCallback;
+    private ILoadCallback<List<DataSponsor>> mDataSponsorsListCallback;
 
     @AfterInject public void afterMembersInject(){
         this.mObjectMapper = new ObjectMapper();
@@ -75,6 +77,12 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
         this.requestData(pLoadCallback);
     }
 
+    @Override
+    public void getSponsorsList(boolean pForced, ILoadCallback<List<DataSponsor>> pLoadCallback) {
+        this.mDataSponsorsListCallback = pLoadCallback;
+        this.requestData(pLoadCallback);
+    }
+
     @Override public void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback) {
         this.getRoomsList(false, pLoadCallback);
     }
@@ -93,6 +101,10 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
 
     @Override public void getCodecampersList(ILoadCallback<List<DataCodecamper>> pLoadCallback) {
         this.getCodecampersList(false, pLoadCallback);
+    }
+
+    @Override public void getSponsorsList(ILoadCallback<List<DataSponsor>> pLoadCallback) {
+       getSponsorsList(false,  pLoadCallback);
     }
 
     @Override public void getRoom(Long pLong, ILoadCallback<DataRoom> pLoadCallback) {
@@ -169,6 +181,10 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
                 this.mDataCodecamperListCallback.onSuccess(dataCodecamp.getDataCodecampers());
                 this.mDataCodecamperListCallback = null;
             }
+            if(mDataSponsorsListCallback != null){
+                this.mDataSponsorsListCallback.onSuccess(dataCodecamp.getDataSponsors());
+                this.mDataSponsorsListCallback = null;
+            }
         }
     }
 
@@ -189,6 +205,10 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
         if(mDataCodecamperListCallback != null) {
             this.mDataCodecamperListCallback.onFailure(pException);
             this.mDataCodecamperListCallback = null;
+        }
+        if(mDataSponsorsListCallback != null){
+            this.mDataSponsorsListCallback.onFailure(pException);
+            this.mDataSponsorsListCallback = null;
         }
     }
 

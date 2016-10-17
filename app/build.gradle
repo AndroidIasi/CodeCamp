@@ -74,9 +74,6 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/MANIFEST.MF'
     }
-    dexOptions {
-        incremental false
-    }
 }
 
 dependencies {
@@ -94,6 +91,7 @@ dependencies {
     compile "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
     compile "se.emilsjolander:stickylistheaders:$rootProject.ext.stickyHeadersVersion"
     compile "org.greenrobot:eventbus:$rootProject.ext.eventBusVersion"
+    compile "com.tonicartos:stickygridheaders:$rootProject.ext.stickyHeadersGridVersion"
 
     testCompile 'junit:junit:4.12'
     compile("com.crashlytics.sdk.android:crashlytics:$rootProject.ext.crashlyticsVersion@aar") {
