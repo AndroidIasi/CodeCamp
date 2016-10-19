@@ -95,6 +95,7 @@ dependencies {
     compile "com.tonicartos:stickygridheaders:$rootProject.ext.stickyHeadersGridVersion"
 
     testCompile 'junit:junit:4.12'
+    testCompile 'io.appium:java-client:4.0.0'
     compile("com.crashlytics.sdk.android:crashlytics:$rootProject.ext.crashlyticsVersion@aar") {
         transitive = true;
     }
