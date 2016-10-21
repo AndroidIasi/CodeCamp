@@ -72,9 +72,10 @@ public enum DataConference {
 
     public static DataConference getLatestEvent(){
         Date today = new Date();
+        long conferenceLingerTime = 7L * (24*60*60*1000); // 7 days
         List<DataConference> list = listByDateAscending();
         for (DataConference conference: list){
-            if (today.compareTo(conference.getEventDate())<0){
+            if (today.getTime() - conference.getEventDate().getTime() < conferenceLingerTime){
                 return conference;
             }
         }
