@@ -68,7 +68,7 @@ public class SponsorsFragment extends BaseFragment implements SponsorsContract.V
 
     @Override public void onFailure() {
         mSwipeRefreshLayout.setRefreshing(false);
-        Toast.makeText(getActivity(), getString(R.string.failure_refresh_sponsors),
+        Toast.makeText(getActivity(), getString(R.string.failure_load_sponsors),
                 Toast.LENGTH_SHORT).show();
     }
 

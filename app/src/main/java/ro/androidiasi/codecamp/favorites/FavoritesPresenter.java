@@ -1,7 +1,5 @@
 package ro.androidiasi.codecamp.favorites;
 
-import android.view.View;
-
 import org.androidannotations.annotations.EBean;
 
 import java.util.List;
@@ -17,41 +15,21 @@ import ro.androidiasi.codecamp.sessions.SessionsPresenter;
 @EBean
 public class FavoritesPresenter extends SessionsPresenter implements FavoritesContract.Presenter{
 
-    @Override protected void updateAdapter() {
-        this.mRepository.getFavoriteSessionsList(new ILoadCallback<List<DataSession>>() {
-            @Override public void onSuccess(List<DataSession> pObject) {
-                if(mView.isAdded()){
-                    mView.getEmptyListTextView().setVisibility(pObject.size() == 0 ? View.VISIBLE : View.GONE);
-                }
-                mSessionsAdapter.update(Session.fromDataSessionList(pObject));
-            }
-
-            @Override public void onFailure(Exception pE) {
-                if(mView.isAdded()) {
-                    mView.getEmptyListTextView().setVisibility(mSessionsAdapter.getCount() == 0
-                            ? View.VISIBLE
-                            : View.GONE);
-                }
-            }
-        });
+    @Override public void refreshSessions() {
+        this.refreshSessions(false);
     }
 
-    @Override public void onRefresh() {
-        this.mRepository.getFavoriteSessionsList(true, new ILoadCallback<List<DataSession>>() {
+    @Override public void refreshSessions(boolean pForced) {
+        this.mRepository.getFavoriteSessionsList(pForced, new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(List<DataSession> pObject) {
-                mSessionsAdapter.update(Session.fromDataSessionList(pObject));
-                if(mView.isAdded()) {
-                    mView.getEmptyListTextView().setVisibility(pObject.size() == 0 ? View.VISIBLE : View.GONE);
-                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                if(getView() != null && getView().isActive()){
+                    getView().onSuccess(Session.fromDataSessionList(pObject));
                 }
             }
 
             @Override public void onFailure(Exception pException) {
-                if(mView.isAdded()) {
-                    if(mSessionsAdapter.getCount() == 0) {
-                        mView.getEmptyListTextView().setVisibility(View.VISIBLE);
-                    }
-                    mView.getSwipeRefreshLayout().setRefreshing(false);
+                if(getView() != null && getView().isActive()){
+                    getView().onFailure();
                 }
             }
         });

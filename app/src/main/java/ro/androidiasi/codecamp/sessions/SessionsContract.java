@@ -1,36 +1,36 @@
 package ro.androidiasi.codecamp.sessions;
 
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.widget.TextView;
+import java.util.List;
 
 import ro.androidiasi.codecamp.data.source.IAgendaDataSource;
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
+import ro.androidiasi.codecamp.internal.IPresenter;
+import ro.androidiasi.codecamp.internal.IView;
+import ro.androidiasi.codecamp.internal.model.Session;
 
 /**
  * Created by andrei on 08/04/16.
  */
 public interface SessionsContract {
 
-    interface View{
+    interface View extends IView{
 
-        boolean isAdded();
-
-        StickyListHeadersListView getListView();
-
-        TextView getEmptyListTextView();
-
-        SwipeRefreshLayout getSwipeRefreshLayout();
+        boolean isActive();
+        void onLoad();
+        void onSuccess(List<Session> pSessionList);
+        void onFailure();
     }
 
-    interface Presenter{
+    interface Presenter extends IPresenter{
 
-        void afterViews();
-
-        void onEventSessionUpdated();
+        void start();
 
         void setRepository(IAgendaDataSource<Long> pRepository);
 
         void setView(View pView);
+
+        View getView();
+
+        void refreshSessions(boolean pForced);
     }
 
 }

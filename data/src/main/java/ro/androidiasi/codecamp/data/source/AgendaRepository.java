@@ -55,13 +55,15 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     @Override public void getSessionsList(boolean pForced, final ILoadCallback<List<DataSession>> pLoadCallback) {
         if(pForced){
             this.invalidateDataSessions();
+            this.getSessionsFromRemote(pLoadCallback);
+        } else {
+            this.getSessionsList(pLoadCallback);
         }
-        this.getSessionsFromRemote(pLoadCallback);
     }
 
 
-    @Background
-    @Override public void getFavoriteSessionsList(boolean pFroced, final ILoadCallback<List<DataSession>> pLoadCallback) {
+    @Background(serial = "serial")
+    @Override public void getFavoriteSessionsList(boolean pForced, final ILoadCallback<List<DataSession>> pLoadCallback) {
         this.getFavoriteSessionsList(pLoadCallback);
     }
 
@@ -129,7 +131,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
             }
         });    }
 
-    @Background
+    @Background(serial = "serial")
     @Override public void getSessionsList(final ILoadCallback<List<DataSession>> pLoadCallback) {
         if(mMemCacheDataSession != null){
             this.onUiThreadCallOnSuccessCallback(pLoadCallback, mMemCacheDataSession);
@@ -168,7 +170,8 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
         });
     }
 
-    @Background
+
+    @Background(serial = "serial")
     @Override public void getFavoriteSessionsList(final ILoadCallback<List<DataSession>> pLoadCallback) {
         this.getSessionsList(new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(final List<DataSession> pObject) {
@@ -282,6 +285,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     @Override public void getSponsorsList(final ILoadCallback<List<DataSponsor>> pLoadCallback) {
         if(mMemCacheDataSponsors != null){
             this.onUiThreadCallOnSuccessCallback(pLoadCallback, mMemCacheDataSponsors);
+            return;
         }
         mLocalSnappyDataSource.getSponsorsList(new ILoadCallback<List<DataSponsor>>() {
             @Override public void onSuccess(List<DataSponsor> pObject) {

@@ -30,8 +30,8 @@ import ro.androidiasi.codecamp.internal.model.Session;
 public class SessionDetailsPresenter implements SessionDetailsContract.Presenter{
 
     private static final String TAG = "SessionDetailsPresenter";
-    @DrawableRes(R.drawable.ic_action_favorite) Drawable mIsFavoriteIcon;
-    @DrawableRes(R.drawable.ic_action_favorite_outline) Drawable mIsNotFavoriteIcon;
+    @DrawableRes(R.drawable.ic_star_24dp) Drawable mIsFavoriteIcon;
+    @DrawableRes(R.drawable.ic_star_outline_24dp) Drawable mIsNotFavoriteIcon;
 
     @Bean Navigator mNavigator;
     @Bean(CodecamperItemPresenter.class) CodecamperItemContract.Presenter mCodecamperItemPresenter;

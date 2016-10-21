@@ -1,27 +1,30 @@
 package ro.androidiasi.codecamp.favorites;
 
+import android.view.View;
+
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import ro.androidiasi.codecamp.R;
-import ro.androidiasi.codecamp.about.EventRefreshLists;
+import ro.androidiasi.codecamp.internal.model.Session;
 import ro.androidiasi.codecamp.sessiondetail.EventSessionUpdated;
+import ro.androidiasi.codecamp.sessions.BaseSessionsFragment;
 import ro.androidiasi.codecamp.sessions.SessionsContract;
-import ro.androidiasi.codecamp.sessions.SessionsFragment;
 
 /**
  * Created by andrei on 22/04/16.
  */
 @EFragment(R.layout.fragment_sessions_list)
-public class FavoritesFragment extends SessionsFragment implements FavoritesContract.View{
+public class FavoritesFragment extends BaseSessionsFragment implements FavoritesContract.View{
 
     @Bean FavoritesPresenter mFavoritesPresenter;
 
     public static FavoritesFragment newInstance(){
-        return FavoritesFragment_.builder()
-                .build();
+        return FavoritesFragment_.builder().build();
     }
 
     @Override protected SessionsContract.Presenter getPresenter() {
@@ -30,11 +33,20 @@ public class FavoritesFragment extends SessionsFragment implements FavoritesCont
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEventMainThread(EventSessionUpdated pEvent){
-        this.mFavoritesPresenter.onEventSessionUpdated();
+        this.mFavoritesPresenter.refreshSessions(true);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onEventMainThread(EventRefreshLists pEvent){
-        this.mFavoritesPresenter.onRefresh();
+    @Override public void onSuccess(List<Session> pSessionList) {
+        super.onSuccess(pSessionList);
+        updateEmptyListViewVisibility();
+    }
+
+    @Override public void onFailure() {
+        super.onFailure();
+        updateEmptyListViewVisibility();
+    }
+
+    private void updateEmptyListViewVisibility() {
+        mEmptyListTextView.setVisibility(mSessionsAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
     }
 }

@@ -22,5 +22,6 @@
     <string name="pref_key_select_conference">pref_key_select_conference</string>
     <string name="pref_key_list_select_conference">pref_key_list_select_conference</string>
     <string name="tab_name_sponsors">Sponsors</string>
-    <string name="failure_refresh_sponsors">Couldn\'t refresh sposnors feed</string>
+    <string name="failure_load_sponsors">Couldn\'t load sponsors :(</string>
+    <string name="failure_load_sessions">Couldn\'t load Sessions :(</string>
 </resources>
