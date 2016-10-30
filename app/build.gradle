@@ -88,8 +88,7 @@ dependencies {
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
 
-    compile "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
-    compile "com.facebook.fresco:animated-base-support:$rootProject.ext.frescoVersion"
+    compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     compile "se.emilsjolander:stickylistheaders:$rootProject.ext.stickyHeadersVersion"
     compile "org.greenrobot:eventbus:$rootProject.ext.eventBusVersion"
     compile "com.tonicartos:stickygridheaders:$rootProject.ext.stickyHeadersGridVersion"

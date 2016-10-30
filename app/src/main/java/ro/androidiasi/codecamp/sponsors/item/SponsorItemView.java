@@ -1,28 +1,21 @@
 package ro.androidiasi.codecamp.sponsors.item;
 
 import android.content.Context;
-import android.net.Uri;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 
-import com.facebook.drawee.drawable.ScalingUtils;
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EView;
 
 /**
  * Created by andrei.
  */
 @EView
-public class SponsorItemView extends SimpleDraweeView implements SponsorItemContract.View{
+public class SponsorItemView extends ImageView implements SponsorItemContract.View{
 
     private static final int WEBSITE_LOGO_WIDTH = 200;
     private static final int WEBSITE_LOGO_HEIGHT = 90;
-
-    public SponsorItemView(Context context, GenericDraweeHierarchy hierarchy) {
-        super(context, hierarchy);
-    }
 
     public SponsorItemView(Context context) {
         super(context);
@@ -32,17 +25,8 @@ public class SponsorItemView extends SimpleDraweeView implements SponsorItemCont
         super(context, attrs);
     }
 
-    public SponsorItemView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
-    public SponsorItemView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-    
-    @AfterInject void afterMembersInject(){
-        GenericDraweeHierarchy hierarchy = getHierarchy();
-        hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER);
+    public SponsorItemView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -53,6 +37,9 @@ public class SponsorItemView extends SimpleDraweeView implements SponsorItemCont
     }
 
     @Override public void loadLogo(final String pLogoUrl) {
-        setImageURI(Uri.parse(pLogoUrl));
+        Glide.with(getContext())
+                .load(pLogoUrl)
+                .fitCenter()
+                .into(this);
     }
 }

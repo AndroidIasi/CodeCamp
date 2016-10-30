@@ -2,10 +2,9 @@ package ro.androidiasi.codecamp.sessions.item;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -18,7 +17,7 @@ import ro.androidiasi.codecamp.R;
 @EViewGroup(R.layout.item_session)
 public class SessionItemView extends LinearLayout implements SessionItemContract.View {
 
-    @ViewById(R.id.drawee_view) SimpleDraweeView mDraweeView;
+    @ViewById(R.id.drawee_view) ImageView mDraweeView;
     @ViewById(R.id.name) TextView mNameTextView;
     @ViewById(R.id.track)       TextView mTrackTextView;
 
@@ -30,7 +29,7 @@ public class SessionItemView extends LinearLayout implements SessionItemContract
         super(context, attrs);
     }
 
-    @Override public SimpleDraweeView getDraweeView() {
+    @Override public ImageView getDraweeView() {
         return mDraweeView;
     }
 

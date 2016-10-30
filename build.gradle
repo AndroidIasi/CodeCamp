@@ -50,9 +50,9 @@ ext {
     snappydbVersion = '0.5.2'
     kyroVersion = '2.24.0'
     androidAnnotationsVersion = '4.0.0'
-    frescoVersion = '0.14.1'
     stickyHeadersVersion = '2.7.0'
     stickyHeadersGridVersion = '1.0.1'
     eventBusVersion = '3.0.0'
     jacksonVersion = '2.7.3'
+    glideVersion = '3.7.0'
 }

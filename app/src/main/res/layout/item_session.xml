@@ -6,14 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_list_height"
     android:layout_margin="@dimen/recycler_item_margin">
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/drawee_view"
         android:layout_width="@dimen/item_list_height"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/codecamper_item_margin"
-        app:placeholderImageScaleType="centerCrop"
-        app:placeholderImage="@drawable/codecamper"
-        app:roundAsCircle="true"/>
+        android:scaleType="centerCrop"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

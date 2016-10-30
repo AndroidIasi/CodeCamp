@@ -1,8 +1,7 @@
 package ro.androidiasi.codecamp.sessions.item;
 
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import ro.androidiasi.codecamp.internal.IView;
 import ro.androidiasi.codecamp.internal.model.IModel;
@@ -14,7 +13,7 @@ import ro.androidiasi.codecamp.internal.recycler.IListViewItemPresenter;
 public interface SessionItemContract {
 
     interface View extends IView {
-        SimpleDraweeView getDraweeView();
+        ImageView getDraweeView();
         TextView getNameTextView();
         TextView getTrackTextView();
     }

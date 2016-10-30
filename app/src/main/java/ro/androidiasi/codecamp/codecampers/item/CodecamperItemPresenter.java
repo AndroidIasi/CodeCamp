@@ -1,9 +1,15 @@
 package ro.androidiasi.codecamp.codecampers.item;
 
+import android.content.Context;
 import android.net.Uri;
 
-import org.androidannotations.annotations.EBean;
+import com.bumptech.glide.Glide;
 
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
+
+import ro.androidiasi.codecamp.R;
+import ro.androidiasi.codecamp.internal.CircleBitmapImageViewTarget;
 import ro.androidiasi.codecamp.internal.model.Codecamper;
 
 /**
@@ -12,11 +18,19 @@ import ro.androidiasi.codecamp.internal.model.Codecamper;
 @EBean
 public class CodecamperItemPresenter implements CodecamperItemContract.Presenter {
 
-    @Override public void bind(Codecamper pModel, CodecamperItemView pView) {
+    @RootContext Context mContext;
+
+    @Override public void bind(Codecamper pModel, final CodecamperItemView pView) {
         Uri uri = Uri.parse(pModel.getPhotoUrl());
-        pView.getPhotoDraweeView().setImageURI(uri);
         pView.getFullNameTextView().setText(pModel.getFullName());
         pView.getTitleTextView().setText(pModel.getTitle());
         pView.getCompanyTextView().setText(pModel.getCompany());
+        Glide.with(mContext)
+                .load(uri)
+                .asBitmap()
+                .centerCrop()
+                .placeholder(R.drawable.codecamper)
+                .into(new CircleBitmapImageViewTarget(mContext, pView.getPhotoDraweeView()));
     }
+
 }

@@ -10,14 +10,12 @@
     android:gravity="center_vertical"
     android:background="?attr/selectableItemBackground">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/photo"
         android:layout_width="@dimen/item_list_height"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/codecamper_item_margin"
-        app:placeholderImageScaleType="centerCrop"
-        app:placeholderImage="@drawable/codecamper"
-        app:roundAsCircle="true"/>
+        android:scaleType="centerCrop"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

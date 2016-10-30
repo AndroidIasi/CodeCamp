@@ -3,7 +3,6 @@ package ro.androidiasi.codecamp;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
-import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EApplication;
@@ -22,7 +21,6 @@ public class CodecampApp extends Application {
 
     @Override public void onCreate() {
         super.onCreate();
-        Fresco.initialize(this);
         Fabric.with(this, new Crashlytics());
     }
 

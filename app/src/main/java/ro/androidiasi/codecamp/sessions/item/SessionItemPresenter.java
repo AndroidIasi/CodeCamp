@@ -4,10 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import ro.androidiasi.codecamp.R;
+import ro.androidiasi.codecamp.internal.CircleBitmapImageViewTarget;
 import ro.androidiasi.codecamp.internal.model.Session;
 
 /**
@@ -23,9 +26,14 @@ public class SessionItemPresenter implements SessionItemContract.Presenter<Sessi
             pSessionItemView.getDraweeView().setVisibility(View.VISIBLE);
             pSessionItemView.getTrackTextView().setVisibility(View.VISIBLE);
             Uri photoUri = Uri.parse(pSession.getCodecampersList().get(0).getPhotoUrl());
-            pSessionItemView.getDraweeView().setImageURI(photoUri);
+            Glide.with(mContext)
+                    .load(photoUri)
+                    .asBitmap()
+                    .centerCrop()
+                    .placeholder(R.drawable.codecamper)
+                    .into(new CircleBitmapImageViewTarget(mContext,
+                            pSessionItemView.getDraweeView()));
         } else {
-            pSessionItemView.getDraweeView().setImageURI(Uri.EMPTY);
             pSessionItemView.getDraweeView().setVisibility(View.GONE);
             pSessionItemView.getTrackTextView().setVisibility(View.GONE);
         }
