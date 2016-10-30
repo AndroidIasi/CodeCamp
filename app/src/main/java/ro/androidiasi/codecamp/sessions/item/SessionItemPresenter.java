@@ -25,7 +25,7 @@ public class SessionItemPresenter implements SessionItemContract.Presenter<Sessi
             Uri photoUri = Uri.parse(pSession.getCodecampersList().get(0).getPhotoUrl());
             pSessionItemView.getDraweeView().setImageURI(photoUri);
         } else {
-            pSessionItemView.getDraweeView().setImageURI(null);
+            pSessionItemView.getDraweeView().setImageURI(Uri.EMPTY);
             pSessionItemView.getDraweeView().setVisibility(View.GONE);
             pSessionItemView.getTrackTextView().setVisibility(View.GONE);
         }

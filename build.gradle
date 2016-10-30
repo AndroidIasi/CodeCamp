@@ -40,17 +40,17 @@ ext {
     appVersionName = "0.5.2"
     // Sdk and tools
     minSdkVersion = 10
-    targetSdkVersion = 23
-    compileSdkVersion = 23
-    buildToolsVersion = '23.0.3'
+    targetSdkVersion = 24
+    compileSdkVersion = 24
+    buildToolsVersion = '24.0.3'
     crashlyticsVersion = '2.6.5'
 
     // App dependencies
-    supportLibraryVersion = '23.3.0'
+    supportLibraryVersion = '24.2.1'
     snappydbVersion = '0.5.2'
     kyroVersion = '2.24.0'
     androidAnnotationsVersion = '4.0.0'
-    frescoVersion = '0.9.0'
+    frescoVersion = '0.14.1'
     stickyHeadersVersion = '2.7.0'
     stickyHeadersGridVersion = '1.0.1'
     eventBusVersion = '3.0.0'
