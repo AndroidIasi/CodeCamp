@@ -36,17 +36,17 @@ task wrapper(type: Wrapper) {
 // Define versions in a single place
 ext {
     //Application
-    appVersionCode = 9
-    appVersionName = "0.5.2"
+    appVersionCode = 10
+    appVersionName = "0.5.3"
     // Sdk and tools
     minSdkVersion = 10
     targetSdkVersion = 24
     compileSdkVersion = 24
     buildToolsVersion = '24.0.3'
+    supportLibraryVersion = '24.2.1'
     crashlyticsVersion = '2.6.5'
 
-    // App dependencies
-    supportLibraryVersion = '24.2.1'
+    //Libraries
     snappydbVersion = '0.5.2'
     kyroVersion = '2.24.0'
     androidAnnotationsVersion = '4.0.0'
@@ -55,4 +55,9 @@ ext {
     eventBusVersion = '3.0.0'
     jacksonVersion = '2.7.3'
     glideVersion = '3.7.0'
+
+    //Testing
+    junitVersion = '4.12'
+    appiumVersion = '4.0.0'
+    espressoVersion = '2.2.2'
 }

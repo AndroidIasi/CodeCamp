@@ -89,16 +89,16 @@ dependencies {
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
 
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
-    compile "se.emilsjolander:stickylistheaders:$rootProject.ext.stickyHeadersVersion"
-    compile "org.greenrobot:eventbus:$rootProject.ext.eventBusVersion"
-    compile "com.tonicartos:stickygridheaders:$rootProject.ext.stickyHeadersGridVersion"
+    compile "se.emilsjolander:stickylistheaders:$rootProject.stickyHeadersVersion"
+    compile "org.greenrobot:eventbus:$rootProject.eventBusVersion"
+    compile "com.tonicartos:stickygridheaders:$rootProject.stickyHeadersGridVersion"
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'io.appium:java-client:4.0.0'
-    compile("com.crashlytics.sdk.android:crashlytics:$rootProject.ext.crashlyticsVersion@aar") {
+    testCompile "junit:junit:$rootProject.junitVersion"
+    testCompile "io.appium:java-client:$rootProject.appiumVersion"
+    compile("com.crashlytics.sdk.android:crashlytics:$rootProject.crashlyticsVersion@aar") {
         transitive = true;
     }
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 }
