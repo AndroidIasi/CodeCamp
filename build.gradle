@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:2.2.2'
 
         // Plugin to help with annotation processing
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -30,7 +30,7 @@ task clean(type: Delete) {
 
 task wrapper(type: Wrapper) {
     description 'Creates the gradle wrapper.'
-    gradleVersion '2.10'
+    gradleVersion '2.14.1'
 }
 
 // Define versions in a single place
