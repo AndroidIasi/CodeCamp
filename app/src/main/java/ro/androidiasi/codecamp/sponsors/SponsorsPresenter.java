@@ -19,17 +19,17 @@ import ro.androidiasi.codecamp.internal.model.Sponsor;
  * Created by andrei.
  */
 @EBean
-public class SponsorsPresenter implements SponsorsContract.Presenter{
+public class SponsorsPresenter implements SponsorsContract.Presenter {
 
 
     private IAgendaDataSource<Long> mRepository;
     private SponsorsContract.View mView;
 
     @Override public void start() {
-        if(mRepository == null){
+        if (mRepository == null) {
             throw new NullPointerException("Repository is NULL");
         }
-        if(mView == null){
+        if (mView == null) {
             throw new NullPointerException("View is NULL");
         }
         this.refreshSponsors(false);
@@ -56,36 +56,38 @@ public class SponsorsPresenter implements SponsorsContract.Presenter{
                     displayPackageOrder.put(sponsorsList.get(i).getSponsorshipPackage(),
                             sponsorsList.get(i).getSponsorshipPackageDisplayOrder());
                 }
-                TreeMap<String, List<Sponsor>> groupByPackageTree = new TreeMap<>(new Comparator<String>() {
-                    @Override public int compare(String lhs, String rhs) {
-                        return displayPackageOrder.get(lhs) - displayPackageOrder.get(rhs);
-                    }
-                });
+                TreeMap<String, List<Sponsor>> groupByPackageTree =
+                        new TreeMap<>(new Comparator<String>() {
+                            @Override public int compare(String lhs, String rhs) {
+                                return displayPackageOrder.get(lhs) - displayPackageOrder.get(rhs);
+                            }
+                        });
                 for (int i = 0; i < sponsorsList.size(); i++) {
                     String key = sponsorsList.get(i).getSponsorshipPackage();
                     List<Sponsor> mapSponsors = groupByPackageTree.get(key);
-                    if(mapSponsors == null){
+                    if (mapSponsors == null) {
                         groupByPackageTree.put(key, new ArrayList<Sponsor>());
                     }
                     groupByPackageTree.get(key).add(sponsorsList.get(i));
                 }
                 List<Sponsor> result = new ArrayList<>();
-                for(String key : groupByPackageTree.keySet()){
-                    Collections.sort(groupByPackageTree.get(key), new Comparator<Sponsor>() {
+                for (Map.Entry<String, List<Sponsor>> entry : groupByPackageTree.entrySet()) {
+                    Comparator<Sponsor> comparator = new Comparator<Sponsor>() {
                         @Override public int compare(Sponsor lhs, Sponsor rhs) {
-                            return lhs.getDisplayOrder()-rhs.getDisplayOrder();
+                            return lhs.getDisplayOrder() - rhs.getDisplayOrder();
                         }
-                    });
-                    result.addAll(groupByPackageTree.get(key));
+                    };
+                    Collections.sort(groupByPackageTree.get(entry.getKey()), comparator);
+                    result.addAll(groupByPackageTree.get(entry.getKey()));
                 }
 
-                if(getView() != null){
+                if (getView() != null) {
                     getView().updateSponsors(result);
                 }
             }
 
             @Override public void onFailure(Exception pException) {
-                if(getView() != null){
+                if (getView() != null) {
                     getView().onFailure();
                 }
             }

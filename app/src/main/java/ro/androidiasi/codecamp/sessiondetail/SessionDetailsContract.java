@@ -15,7 +15,7 @@ import ro.androidiasi.codecamp.internal.model.Session;
  * Created by andrei on 18/04/16.
  */
 public interface SessionDetailsContract {
-    public interface View extends IView{
+    public interface View extends IView {
 
         void afterViews();
 
@@ -34,7 +34,7 @@ public interface SessionDetailsContract {
         TextView getTitleTextView();
     }
 
-    public interface Presenter extends IPresenter{
+    public interface Presenter extends IPresenter {
 
         void afterViews();
 

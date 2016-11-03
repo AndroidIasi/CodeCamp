@@ -27,11 +27,15 @@ public class Conference extends AbstractModel {
         return mStringId;
     }
 
-    public static Conference fromDataConference(DataConference pDataConference){
-        return new Conference(pDataConference.toString().hashCode(), pDataConference.toString(), pDataConference.getName());
+    public static Conference fromDataConference(DataConference pDataConference) {
+        return new Conference(
+                pDataConference.toString().hashCode(),
+                pDataConference.toString(),
+                pDataConference.getName());
     }
 
-    public static List<Conference> fromDataConferenceList(List<DataConference> pDataConferenceList){
+    public static List<Conference> fromDataConferenceList(List<DataConference>
+                                                                  pDataConferenceList) {
         List<Conference> conferenceList = new ArrayList<>();
         for (int i = 0; i < pDataConferenceList.size(); i++) {
             conferenceList.add(fromDataConference(pDataConferenceList.get(i)));

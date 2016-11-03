@@ -12,19 +12,19 @@ import ro.androidiasi.codecamp.internal.model.IModel;
  * Created by andrei on 10/04/16.
  */
 public abstract class BaseListViewAdapter<
-        Model extends IModel,
-        View extends android.view.View,
-        Presenter extends IListViewItemPresenter<Model, View>>
+        ModelType extends IModel,
+        ViewType extends android.view.View,
+        PresenterType extends IListViewItemPresenter<ModelType, ViewType>>
         extends BaseAdapter {
 
-    private List<Model> mItems = new ArrayList<>();
+    private List<ModelType> mItems = new ArrayList<>();
 
 
     @Override public int getCount() {
         return mItems.size();
     }
 
-    @Override public Model getItem(int position) {
+    @Override public ModelType getItem(int position) {
         return mItems.get(position);
     }
 
@@ -33,26 +33,27 @@ public abstract class BaseListViewAdapter<
     }
 
     @SuppressWarnings("unchecked")
-    @Override public android.view.View getView(int position, android.view.View convertView, ViewGroup parent) {
-        View view = (View) convertView;
-        Model model =  this.getItem(position);
-        if(view == null){
+    @Override public android.view.View getView(int position, android.view.View convertView,
+                                               ViewGroup parent) {
+        ViewType view = (ViewType) convertView;
+        ModelType model =  this.getItem(position);
+        if (view == null) {
             view = getItemView(parent);
         }
         this.getPresenter().bind(model, view);
         return view;
     }
 
-    public void update(List<Model> pItems){
+    public void update(List<ModelType> pItems) {
         this.update(mItems, pItems);
     }
 
-    public <TModel> void update(List<TModel> pDestination, List<TModel> pItems){
+    public <ModelType> void update(List<ModelType> pDestination, List<ModelType> pItems) {
         pDestination.clear();
         pDestination.addAll(pItems);
         this.notifyDataSetChanged();
     }
 
-    protected abstract View getItemView(ViewGroup parent);
-    protected abstract Presenter getPresenter();
+    protected abstract ViewType getItemView(ViewGroup parent);
+    protected abstract PresenterType getPresenter();
 }

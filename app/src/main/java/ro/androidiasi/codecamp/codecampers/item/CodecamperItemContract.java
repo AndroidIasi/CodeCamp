@@ -11,7 +11,7 @@ import ro.androidiasi.codecamp.internal.recycler.IListViewItemPresenter;
  * Created by andrei on 18/04/16.
  */
 public interface CodecamperItemContract {
-    interface View extends IView{
+    interface View extends IView {
 
         ImageView getPhotoDraweeView();
 
@@ -21,7 +21,7 @@ public interface CodecamperItemContract {
 
         TextView getCompanyTextView();
     }
-    interface Presenter extends IListViewItemPresenter<Codecamper, CodecamperItemView>{
+    interface Presenter extends IListViewItemPresenter<Codecamper, CodecamperItemView> {
 
     }
 }

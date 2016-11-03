@@ -66,7 +66,7 @@ public class DataSponsor extends AbstractDataModel {
         sponsorshipPackageDisplayOrder = pSponsorshipPackageDisplayOrder;
     }
 
-    public static DataSponsor fromSponsor(Sponsor pSponsor, SponsorshipPackage pSponsorshipPackage){
+    public static DataSponsor fromSponsor(Sponsor pSponsor, SponsorshipPackage pSponsorshipPackage) {
         DataSponsor result = new DataSponsor();
         result.setName(pSponsor.name);
         result.setLogoUrl(pSponsor.logoUrl);
@@ -78,7 +78,7 @@ public class DataSponsor extends AbstractDataModel {
     }
 
     public static List<DataSponsor> fromSponsorsList(List<Sponsor> pSponsorList,
-                                                     List<SponsorshipPackage> pSponsorshipPackageList){
+                                                     List<SponsorshipPackage> pSponsorshipPackageList) {
         List<DataSponsor> result = new ArrayList<>();
         for (int i = 0; pSponsorList!= null && i < pSponsorList.size(); i++) {
             SponsorshipPackage sponsorshipPackageForSponsor =
@@ -89,9 +89,9 @@ public class DataSponsor extends AbstractDataModel {
     }
 
     private static SponsorshipPackage getSponsorshipPackageForSponsor(Sponsor pSponsor,
-                                                                      List<SponsorshipPackage> pSponsorshipPackageList){
+                                                                      List<SponsorshipPackage> pSponsorshipPackageList) {
         for (int i = 0; i < pSponsorshipPackageList.size(); i++) {
-            if(pSponsor.sponsorshipPackage.equals(pSponsorshipPackageList.get(i).name)){
+            if (pSponsor.sponsorshipPackage.equals(pSponsorshipPackageList.get(i).name)) {
                 return pSponsorshipPackageList.get(i);
             }
         }

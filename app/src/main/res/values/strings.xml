@@ -24,4 +24,6 @@
     <string name="tab_name_sponsors">Sponsors</string>
     <string name="failure_load_sponsors">Couldn\'t load sponsors :(</string>
     <string name="failure_load_sessions">Couldn\'t load Sessions :(</string>
+    <string name="sessions_added_to_favorites">Session added to Favorites</string>
+    <string name="sessions_removed_from_favorites">Session removed from Favorites</string>
 </resources>

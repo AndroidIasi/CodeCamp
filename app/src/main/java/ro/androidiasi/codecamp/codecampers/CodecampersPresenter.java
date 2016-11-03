@@ -17,18 +17,19 @@ import ro.androidiasi.codecamp.internal.model.Codecamper;
  * Created by andrei on 19/04/16.
  */
 @EBean
-public class CodecampersPresenter implements CodecampersContract.Presenter, SwipeRefreshLayout.OnRefreshListener {
+public class CodecampersPresenter implements CodecampersContract.Presenter,
+        SwipeRefreshLayout.OnRefreshListener {
 
     @Bean CodecampersAdapter mCodecampersAdapter;
 
     private IAgendaDataSource<Long> mRepository;
     private CodecampersContract.View mView;
 
-    @Override public void afterViews(){
-        if(mView == null){
+    @Override public void afterViews() {
+        if (mView == null) {
             throw new NullPointerException("View is NULL! Please set the View first!");
         }
-        if(mRepository == null){
+        if (mRepository == null) {
             throw new NullPointerException("Repository is NULL! Please set the Repository first!");
         }
         this.mView.getListView().setAdapter(mCodecampersAdapter);
@@ -61,13 +62,13 @@ public class CodecampersPresenter implements CodecampersContract.Presenter, Swip
         this.mRepository.getCodecampersList(true, new ILoadCallback<List<DataCodecamper>>() {
             @Override public void onSuccess(List<DataCodecamper> pObject) {
                 mCodecampersAdapter.update(Codecamper.fromDataCodecamperList(pObject));
-                if(mView.isAdded()) {
+                if (mView.isAdded()) {
                     mView.getSwipeRefreshLayout().setRefreshing(false);
                 }
             }
 
             @Override public void onFailure(Exception pException) {
-                if(mView.isAdded()) {
+                if (mView.isAdded()) {
                     mView.getSwipeRefreshLayout().setRefreshing(false);
                 }
             }

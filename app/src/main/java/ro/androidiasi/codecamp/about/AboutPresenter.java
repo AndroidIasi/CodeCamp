@@ -1,9 +1,6 @@
 package ro.androidiasi.codecamp.about;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;

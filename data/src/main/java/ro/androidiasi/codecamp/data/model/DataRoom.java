@@ -16,7 +16,7 @@ public class DataRoom extends AbstractDataModel {
     private String mName;
     private String mDescription;
 
-    public DataRoom(){
+    public DataRoom() {
 
     }
 
@@ -39,7 +39,7 @@ public class DataRoom extends AbstractDataModel {
         return mName;
     }
 
-    public static DataRoom fromTrack(Track pTrack){
+    public static DataRoom fromTrack(Track pTrack) {
         return new DataRoom(
                 pTrack.name.hashCode(),
                 pTrack.name,
@@ -48,7 +48,7 @@ public class DataRoom extends AbstractDataModel {
         );
     }
 
-    public static List<DataRoom> fromTracksList(List<Track> pTracks){
+    public static List<DataRoom> fromTracksList(List<Track> pTracks) {
         List<DataRoom> dataRoomsList = new ArrayList<>();
         for (int i = 0; i < pTracks.size(); i++) {
             dataRoomsList.add(fromTrack(pTracks.get(i)));

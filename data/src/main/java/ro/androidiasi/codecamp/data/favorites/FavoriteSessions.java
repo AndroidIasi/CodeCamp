@@ -22,20 +22,20 @@ public class FavoriteSessions {
 
     private HashMap<String, Boolean> mValuesMap;
 
-    public FavoriteSessions(){
+    public FavoriteSessions() {
         this.mValuesMap = new HashMap<>();
     }
 
-    @AfterInject public void afterMembersInject(){
+    @AfterInject public void afterMembersInject() {
         this.updateFromPreferences();
     }
 
-    public <Id> Boolean isFavorite(Id pId){
+    public <Id> Boolean isFavorite(Id pId) {
         Boolean existingValue = this.mValuesMap.get(pId.toString());
         return existingValue == null ? Boolean.FALSE : existingValue;
     }
 
-    public <Id> Boolean put(Id pId, Boolean pIsFavorite){
+    public <Id> Boolean put(Id pId, Boolean pIsFavorite) {
         Boolean oldValue = this.mValuesMap.put(pId.toString(), pIsFavorite);
         this.save();
         return oldValue;
@@ -43,15 +43,15 @@ public class FavoriteSessions {
 
     public void save() {
         SharedPreferences.Editor editor = this.mContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
-        for(Map.Entry entry : mValuesMap.entrySet()){
+        for(Map.Entry entry : mValuesMap.entrySet()) {
             editor.putString(entry.getKey().toString(), entry.getValue().toString());
         }
         editor.apply();
     }
 
-    public void updateFromPreferences(){
+    public void updateFromPreferences() {
         SharedPreferences sharedPreferences = this.mContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        for(Map.Entry entry : sharedPreferences.getAll().entrySet()){
+        for(Map.Entry entry : sharedPreferences.getAll().entrySet()) {
             this.mValuesMap.put(entry.getKey().toString(), Boolean.parseBoolean(entry.getValue().toString()));
         }
     }

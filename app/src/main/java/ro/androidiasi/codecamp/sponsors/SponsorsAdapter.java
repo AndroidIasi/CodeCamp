@@ -24,7 +24,7 @@ import ro.androidiasi.codecamp.sponsors.item.SponsorItemView_;
  */
 @EBean
 public class SponsorsAdapter extends BaseListViewAdapter<Sponsor, SponsorItemView,
-        SponsorItemPresenter> implements StickyGridHeadersSimpleAdapter{
+        SponsorItemPresenter> implements StickyGridHeadersSimpleAdapter {
 
     @Bean SponsorItemPresenter mSponsorItemPresenter;
     @Bean SponsorHeaderPresenter mSponsorHeaderPresenter;
@@ -41,7 +41,7 @@ public class SponsorsAdapter extends BaseListViewAdapter<Sponsor, SponsorItemVie
 
     @Override public View getHeaderView(int position, View convertView, ViewGroup parent) {
         SponsorHeaderView view = (SponsorHeaderView) convertView;
-        if(view == null){
+        if (view == null) {
             view = SponsorHeaderView_.build(mContext);
         }
         this.mSponsorHeaderPresenter.bind(getItem(position), view);

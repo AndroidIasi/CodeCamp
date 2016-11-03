@@ -11,7 +11,7 @@ import ro.androidiasi.codecamp.internal.recycler.IListViewItemPresenter;
  */
 public class SessionHeaderContract {
 
-    public interface View extends IView{
+    public interface View extends IView {
         TextView getTimeTextView();
     }
 

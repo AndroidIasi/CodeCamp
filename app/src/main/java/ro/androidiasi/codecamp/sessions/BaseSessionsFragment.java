@@ -81,12 +81,12 @@ public abstract class BaseSessionsFragment extends BaseFragment implements
         Toast.makeText(getActivity(), R.string.failure_load_sessions, Toast.LENGTH_SHORT).show();
     }
 
-    @ItemClick(R.id.list_view) public void onSessionItemClicked(Session pSession){
+    @ItemClick(R.id.list_view) public void onSessionItemClicked(Session pSession) {
         this.getNavigator().goToSessionDetails(pSession);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onEventMainThread(EventRefreshLists pEvent){
+    public void onEventMainThread(EventRefreshLists pEvent) {
         this.getPresenter().refreshSessions(true);
     }
 

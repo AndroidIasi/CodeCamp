@@ -19,11 +19,11 @@ import ro.androidiasi.codecamp.sessions.SessionsContract;
  * Created by andrei on 22/04/16.
  */
 @EFragment(R.layout.fragment_sessions_list)
-public class FavoritesFragment extends BaseSessionsFragment implements FavoritesContract.View{
+public class FavoritesFragment extends BaseSessionsFragment implements FavoritesContract.View {
 
     @Bean FavoritesPresenter mFavoritesPresenter;
 
-    public static FavoritesFragment newInstance(){
+    public static FavoritesFragment newInstance() {
         return FavoritesFragment_.builder().build();
     }
 
@@ -32,7 +32,7 @@ public class FavoritesFragment extends BaseSessionsFragment implements Favorites
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onEventMainThread(EventSessionUpdated pEvent){
+    public void onEventMainThread(EventSessionUpdated pEvent) {
         this.mFavoritesPresenter.refreshSessions(true);
     }
 
@@ -47,6 +47,7 @@ public class FavoritesFragment extends BaseSessionsFragment implements Favorites
     }
 
     private void updateEmptyListViewVisibility() {
-        mEmptyListTextView.setVisibility(mSessionsAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
+        int visibility = mSessionsAdapter.getCount() == 0 ? View.VISIBLE : View.GONE;
+        mEmptyListTextView.setVisibility(visibility);
     }
 }

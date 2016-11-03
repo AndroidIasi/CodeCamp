@@ -15,7 +15,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 import ro.androidiasi.codecamp.BaseFragment;
-import ro.androidiasi.codecamp.Navigator;
 import ro.androidiasi.codecamp.R;
 import ro.androidiasi.codecamp.about.EventRefreshLists;
 import ro.androidiasi.codecamp.internal.model.Sponsor;
@@ -25,9 +24,8 @@ import ro.androidiasi.codecamp.internal.model.Sponsor;
  */
 @EFragment(R.layout.fragment_sponsors_list)
 public class SponsorsFragment extends BaseFragment implements SponsorsContract.View,
-        SwipeRefreshLayout.OnRefreshListener{
+        SwipeRefreshLayout.OnRefreshListener {
 
-    @Bean Navigator mNavigator;
     @Bean(SponsorsPresenter.class) SponsorsContract.Presenter mPresenter;
     @Bean SponsorsAdapter mSponsorsAdapter;
 
@@ -76,13 +74,13 @@ public class SponsorsFragment extends BaseFragment implements SponsorsContract.V
         mPresenter.refreshSponsors(true);
     }
 
-    @ItemClick(R.id.grid) void onSponsorClicked(int pPosition){
+    @ItemClick(R.id.grid) void onSponsorClicked(int pPosition) {
         String url = mSponsorsAdapter.getItem(pPosition).getWebsiteUrl();
         this.mNavigator.goToWebPage(url);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onEventMainThread(EventRefreshLists pEvent){
+    public void onEventMainThread(EventRefreshLists pEvent) {
         this.onRefresh();
     }
 }

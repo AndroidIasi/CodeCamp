@@ -4,14 +4,10 @@ package ro.androidiasi.codecamp.data.source.remote;
  * Created by andrei on 21/04/16.
  */
 
-import android.content.Context;
-
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -30,7 +26,7 @@ public class ConnectAPIRemoteDataSource extends BaseRemoteDataSource{
             URL codecampJsonURL = new URL(mConference.getConnectJsonURL());
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(
-                            codecampJsonURL.openStream()));
+                            codecampJsonURL.openStream(), "UTF-8"));
             String inputLine;
             while ((inputLine = in.readLine()) != null)
                 json.append(inputLine);

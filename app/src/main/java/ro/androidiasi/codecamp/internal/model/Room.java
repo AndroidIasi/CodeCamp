@@ -24,7 +24,7 @@ public final class Room extends AbstractModel {
         return mDescription;
     }
 
-    public static Room fromDataRoom(DataRoom pDataRoom){
+    public static Room fromDataRoom(DataRoom pDataRoom) {
         return new Room(
                 pDataRoom.getId(),
                 pDataRoom.getName(),

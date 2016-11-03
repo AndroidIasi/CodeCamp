@@ -39,13 +39,13 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     private List<DataSession> mMemCacheDataSession;
     private List<DataSponsor> mMemCacheDataSponsors;
 
-    @AfterInject public void afterMembersInject(){
+    @AfterInject public void afterMembersInject() {
         this.setLatestConference();
     }
 
     @Background
     @Override public void getRoomsList(boolean pForced, final ILoadCallback<List<DataRoom>> pLoadCallback) {
-        if(pForced){
+        if (pForced) {
             this.invalidateDataRoomsList();
         }
         this.getRoomsFromRemote(pLoadCallback);
@@ -53,7 +53,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     @Background
     @Override public void getSessionsList(boolean pForced, final ILoadCallback<List<DataSession>> pLoadCallback) {
-        if(pForced){
+        if (pForced) {
             this.invalidateDataSessions();
             this.getSessionsFromRemote(pLoadCallback);
         } else {
@@ -69,7 +69,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     @Background
     @Override public void getTimeFramesList(boolean pForced, final ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
-        if(pForced){
+        if (pForced) {
             this.inavlidateTimeFrameList();
         }
         this.getTimeFramesFromRemote(pLoadCallback);
@@ -77,7 +77,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     @Background
     @Override public void getCodecampersList(boolean pForced, final ILoadCallback<List<DataCodecamper>> pLoadCallback) {
-        if(pForced){
+        if (pForced) {
             this.invalidateCodecampersList();
         }
         this.getCodecampersFromRemote(pLoadCallback);
@@ -85,7 +85,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     @Background
     @Override
     public void getSponsorsList(boolean pForced, ILoadCallback<List<DataSponsor>> pLoadCallback) {
-        if(pForced){
+        if (pForced) {
             this.invalidateDataSponsors();
             this.getSponsorsFromRemote(pLoadCallback);
         } else {
@@ -95,13 +95,13 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     @Background
     @Override public void getRoomsList(final ILoadCallback<List<DataRoom>> pLoadCallback) {
-        if(mMemCacheDataRooms != null){
+        if (mMemCacheDataRooms != null) {
             this.onUiThreadCallOnSuccessCallback(pLoadCallback, mMemCacheDataRooms);
             return;
         }
         this.mLocalSnappyDataSource.getRoomsList(new ILoadCallback<List<DataRoom>>() {
             @Override public void onSuccess(List<DataRoom> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -112,7 +112,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
             @Override public void onFailure(Exception pException) {
                 mFileRemoteDataSource.getRoomsList(new ILoadCallback<List<DataRoom>>() {
                     @Override public void onSuccess(List<DataRoom> pObject) {
-                        if(pObject == null){
+                        if (pObject == null) {
                             this.onFailure(new DataNotFoundException());
                             return;
                         }
@@ -133,13 +133,13 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     @Background(serial = "serial")
     @Override public void getSessionsList(final ILoadCallback<List<DataSession>> pLoadCallback) {
-        if(mMemCacheDataSession != null){
+        if (mMemCacheDataSession != null) {
             this.onUiThreadCallOnSuccessCallback(pLoadCallback, mMemCacheDataSession);
             return;
         }
         this.mLocalSnappyDataSource.getSessionsList(new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(List<DataSession> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -150,7 +150,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
             @Override public void onFailure(Exception pException) {
                 mFileRemoteDataSource.getSessionsList(new ILoadCallback<List<DataSession>>() {
                     @Override public void onSuccess(List<DataSession> pObject) {
-                        if(pObject == null){
+                        if (pObject == null) {
                             this.onFailure(new DataNotFoundException());
                             return;
                         }
@@ -175,7 +175,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     @Override public void getFavoriteSessionsList(final ILoadCallback<List<DataSession>> pLoadCallback) {
         this.getSessionsList(new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(final List<DataSession> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -184,7 +184,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
                     final int finalI = i;
                     mLocalSnappyDataSource.isSessionFavorite(pObject.get(i).getId(), new ILoadCallback<Boolean>() {
                         @Override public void onSuccess(Boolean pIsFavorite) {
-                            if(pIsFavorite) {
+                            if (pIsFavorite) {
                                 favoriteSessions.add(pObject.get(finalI));
                             }
                         }
@@ -205,13 +205,13 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     @Background
     @Override public void getTimeFramesList(final ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
-        if(mMemCacheTimeFrame != null){
+        if (mMemCacheTimeFrame != null) {
             this.onUiThreadCallOnSuccessCallback(pLoadCallback, mMemCacheTimeFrame);
             return;
         }
         this.mLocalSnappyDataSource.getTimeFramesList(new ILoadCallback<List<DataTimeFrame>>() {
             @Override public void onSuccess(List<DataTimeFrame> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -222,7 +222,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
             @Override public void onFailure(Exception pException) {
                 mFileRemoteDataSource.getTimeFramesList(new ILoadCallback<List<DataTimeFrame>>() {
                     @Override public void onSuccess(List<DataTimeFrame> pObject) {
-                        if(pObject == null){
+                        if (pObject == null) {
                             this.onFailure(new DataNotFoundException());
                             return;
                         }
@@ -244,13 +244,13 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     @Background
     @Override public void getCodecampersList(final ILoadCallback<List<DataCodecamper>> pLoadCallback) {
-        if(mMemCacheDataCodecampers != null){
+        if (mMemCacheDataCodecampers != null) {
             this.onUiThreadCallOnSuccessCallback(pLoadCallback, mMemCacheDataCodecampers);
             return;
         }
         this.mLocalSnappyDataSource.getCodecampersList(new ILoadCallback<List<DataCodecamper>>() {
             @Override public void onSuccess(List<DataCodecamper> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -261,7 +261,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
             @Override public void onFailure(Exception pException) {
                 mFileRemoteDataSource.getCodecampersList(new ILoadCallback<List<DataCodecamper>>() {
                     @Override public void onSuccess(List<DataCodecamper> pObject) {
-                        if(pObject == null){
+                        if (pObject == null) {
                             this.onFailure(new DataNotFoundException());
                             return;
                         }
@@ -283,13 +283,13 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
 
     @Background
     @Override public void getSponsorsList(final ILoadCallback<List<DataSponsor>> pLoadCallback) {
-        if(mMemCacheDataSponsors != null){
+        if (mMemCacheDataSponsors != null) {
             this.onUiThreadCallOnSuccessCallback(pLoadCallback, mMemCacheDataSponsors);
             return;
         }
         mLocalSnappyDataSource.getSponsorsList(new ILoadCallback<List<DataSponsor>>() {
             @Override public void onSuccess(List<DataSponsor> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -300,7 +300,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
             @Override public void onFailure(Exception pException) {
                 mFileRemoteDataSource.getSponsorsList(new ILoadCallback<List<DataSponsor>>() {
                     @Override public void onSuccess(List<DataSponsor> pObject) {
-                        if(pObject == null){
+                        if (pObject == null) {
                             this.onFailure(new DataNotFoundException());
                             return;
                         }
@@ -323,7 +323,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     private void getRoomsFromRemote(final ILoadCallback<List<DataRoom>> pLoadCallback) {
         mWebViewRemoteDataSource.getRoomsList(new ILoadCallback<List<DataRoom>>() {
             @Override public void onSuccess(List<DataRoom> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -342,7 +342,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     private void getSessionsFromRemote(final ILoadCallback<List<DataSession>> pLoadCallback) {
         mWebViewRemoteDataSource.getSessionsList(new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(List<DataSession> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -361,7 +361,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     private void getTimeFramesFromRemote(final ILoadCallback<List<DataTimeFrame>> pLoadCallback) {
         mWebViewRemoteDataSource.getTimeFramesList(new ILoadCallback<List<DataTimeFrame>>() {
             @Override public void onSuccess(List<DataTimeFrame> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -380,7 +380,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
     private void getCodecampersFromRemote(final ILoadCallback<List<DataCodecamper>> pLoadCallback) {
         mWebViewRemoteDataSource.getCodecampersList(new ILoadCallback<List<DataCodecamper>>() {
             @Override public void onSuccess(List<DataCodecamper> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -396,10 +396,10 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
         });
     }
 
-    private void getSponsorsFromRemote(final ILoadCallback<List<DataSponsor>> pLoadCallback){
+    private void getSponsorsFromRemote(final ILoadCallback<List<DataSponsor>> pLoadCallback) {
         mWebViewRemoteDataSource.getSponsorsList(new ILoadCallback<List<DataSponsor>>() {
             @Override public void onSuccess(List<DataSponsor> pObject) {
-                if(pObject == null){
+                if (pObject == null) {
                     this.onFailure(new DataNotFoundException());
                     return;
                 }
@@ -480,7 +480,7 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
         pLoadCallback.onFailure(pException);
     }
 
-    public void setLatestConference(){
+    public void setLatestConference() {
         this.setConference(DataConference.getLatestEvent());
     }
 
@@ -489,27 +489,27 @@ public class AgendaRepository implements IAgendaDataSource<Long> {
         this.mLocalSnappyDataSource.invalidateDataRooms();
     }
 
-    private void inavlidateTimeFrameList(){
+    private void inavlidateTimeFrameList() {
         this.mMemCacheTimeFrame = null;
         this.mLocalSnappyDataSource.invalidateDataTimeFrames();
     }
 
-    private void invalidateCodecampersList(){
+    private void invalidateCodecampersList() {
         this.mMemCacheDataCodecampers = null;
         this.mLocalSnappyDataSource.invalidateDataCodecampers();
     }
 
-    private void invalidateDataSessions(){
+    private void invalidateDataSessions() {
         this.mMemCacheDataSession = null;
         this.mLocalSnappyDataSource.invalidateDataSessions();
     }
 
-    private void invalidateDataSponsors(){
+    private void invalidateDataSponsors() {
         this.mMemCacheDataSponsors = null;
         this.mLocalSnappyDataSource.invalidateDataSponsors();
     }
 
-    @Override public void invalidate(){
+    @Override public void invalidate() {
         this.mMemCacheDataRooms = null;
         this.mMemCacheTimeFrame = null;
         this.mMemCacheDataCodecampers = null;

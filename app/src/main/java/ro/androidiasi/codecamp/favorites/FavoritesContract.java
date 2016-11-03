@@ -7,11 +7,11 @@ import ro.androidiasi.codecamp.sessions.SessionsContract;
  */
 public interface FavoritesContract {
 
-    interface View extends SessionsContract.View{
+    interface View extends SessionsContract.View {
 
     }
 
-    interface Presenter extends SessionsContract.Presenter{
+    interface Presenter extends SessionsContract.Presenter {
 
     }
 }

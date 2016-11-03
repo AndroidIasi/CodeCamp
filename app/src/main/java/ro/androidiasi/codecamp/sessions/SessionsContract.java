@@ -12,7 +12,7 @@ import ro.androidiasi.codecamp.internal.model.Session;
  */
 public interface SessionsContract {
 
-    interface View extends IView{
+    interface View extends IView {
 
         boolean isActive();
         void onLoad();
@@ -20,7 +20,7 @@ public interface SessionsContract {
         void onFailure();
     }
 
-    interface Presenter extends IPresenter{
+    interface Presenter extends IPresenter {
 
         void start();
 

@@ -18,7 +18,8 @@ public final class Session extends AbstractModel {
 
     private final boolean mFavorite;
 
-    public Session(Long pId, List<Codecamper> pCodecampersList, Room pRoom, String pName, String pDescription, TimeFrame pTimeFrame, boolean pFavorite) {
+    public Session(Long pId, List<Codecamper> pCodecampersList, Room pRoom, String pName,
+                   String pDescription, TimeFrame pTimeFrame, boolean pFavorite) {
         super(pId);
         mCodecampersList = pCodecampersList;
         mRoom = pRoom;
@@ -53,7 +54,7 @@ public final class Session extends AbstractModel {
         return mFavorite;
     }
 
-    public static Session fromDataSession(DataSession pDataSession){
+    public static Session fromDataSession(DataSession pDataSession) {
         return new Session(
                 pDataSession.getId(),
                 Codecamper.fromDataCodecamperList(pDataSession.getDataCodecampersList()),
@@ -65,7 +66,7 @@ public final class Session extends AbstractModel {
         );
     }
 
-    public static List<Session> fromDataSessionList(List<DataSession> pDataSessions){
+    public static List<Session> fromDataSessionList(List<DataSession> pDataSessions) {
         List<Session> sessions = new ArrayList<>();
         for (int i = 0; i < pDataSessions.size(); i++) {
             Session session = Session.fromDataSession(pDataSessions.get(i));

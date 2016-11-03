@@ -56,7 +56,7 @@ public class SnappyDatabase implements IDatabase{
         }
     }
 
-    @Override public void saveDataRoomsList(List<DataRoom> pDataRoomList){
+    @Override public void saveDataRoomsList(List<DataRoom> pDataRoomList) {
         this.putList(KEY_ARRAY_ROOMS, pDataRoomList);
     }
 
@@ -64,7 +64,7 @@ public class SnappyDatabase implements IDatabase{
         return this.getList(KEY_ARRAY_ROOMS, DataRoom.class);
     }
 
-    @Override public void deleteDataRooms(){
+    @Override public void deleteDataRooms() {
         synchronized (SnappyDatabase_.class) {
             try {
                 this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_ROOMS);
@@ -74,7 +74,7 @@ public class SnappyDatabase implements IDatabase{
         }
     }
 
-    @Override public void saveDataTimeFrames(List<DataTimeFrame> pTimeFrameList){
+    @Override public void saveDataTimeFrames(List<DataTimeFrame> pTimeFrameList) {
         this.putList(KEY_ARRAY_TIME_FRAMES, pTimeFrameList);
     }
 
@@ -82,7 +82,7 @@ public class SnappyDatabase implements IDatabase{
         return this.getList(KEY_ARRAY_TIME_FRAMES, DataTimeFrame.class);
     }
 
-    @Override public void deleteDataTimeFrames(){
+    @Override public void deleteDataTimeFrames() {
         synchronized (SnappyDatabase_.class) {
             try {
                 this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_TIME_FRAMES);
@@ -92,7 +92,7 @@ public class SnappyDatabase implements IDatabase{
         }
     }
 
-    @Override public void saveDataCodecampers(List<DataCodecamper> pCodecamperList){
+    @Override public void saveDataCodecampers(List<DataCodecamper> pCodecamperList) {
         this.putList(KEY_ARRAY_CODECAMPERS, pCodecamperList);
     }
 
@@ -100,7 +100,7 @@ public class SnappyDatabase implements IDatabase{
         return this.getList(KEY_ARRAY_CODECAMPERS, DataCodecamper.class);
     }
 
-    @Override public void deleteDataCodecampers(){
+    @Override public void deleteDataCodecampers() {
         synchronized (SnappyDatabase_.class) {
             try {
                 this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_CODECAMPERS);
@@ -110,7 +110,7 @@ public class SnappyDatabase implements IDatabase{
         }
     }
 
-    @Override public void saveDataSessions(List<DataSession> pDataSessions){
+    @Override public void saveDataSessions(List<DataSession> pDataSessions) {
         this.putList(KEY_ARRAY_SESSIONS, pDataSessions);
     }
 
@@ -119,10 +119,10 @@ public class SnappyDatabase implements IDatabase{
     }
 
     @Override public void deleteDataSponsors() {
-        synchronized (SnappyDatabase_.class){
+        synchronized (SnappyDatabase_.class) {
             try {
                 this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_SPONSORS);
-            } catch (SnappydbException pE){
+            } catch (SnappydbException pE) {
                 Log.e(TAG, "deleteDataSponsors: ", pE);
             }
         }
@@ -136,7 +136,7 @@ public class SnappyDatabase implements IDatabase{
         return this.getList(KEY_ARRAY_SESSIONS, DataSession.class);
     }
 
-    @Override public void deleteDataSessions(){
+    @Override public void deleteDataSessions() {
         synchronized (SnappyDatabase_.class) {
             try {
                 this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_SESSIONS);
@@ -146,19 +146,19 @@ public class SnappyDatabase implements IDatabase{
         }
     }
 
-    @Override public boolean dataRoomsExist(){
+    @Override public boolean dataRoomsExist() {
         return this.dataExists(KEY_ARRAY_ROOMS);
     }
 
-    @Override public boolean dataTimeFramesExist(){
+    @Override public boolean dataTimeFramesExist() {
         return this.dataExists(KEY_ARRAY_TIME_FRAMES);
     }
 
-    @Override public boolean dataCodecampersExist(){
+    @Override public boolean dataCodecampersExist() {
         return this.dataExists(KEY_ARRAY_CODECAMPERS);
     }
 
-    @Override public boolean dataSessionsExist(){
+    @Override public boolean dataSessionsExist() {
         return this.dataExists(KEY_ARRAY_SESSIONS);
     }
 
@@ -169,7 +169,7 @@ public class SnappyDatabase implements IDatabase{
 
     private void closeCurrentDatabase() {
         try {
-            if(mSnappyDBInstance != null && mSnappyDBInstance.isOpen()){
+            if (mSnappyDBInstance != null && mSnappyDBInstance.isOpen()) {
                 mSnappyDBInstance.close();
             }
         } catch (SnappydbException pE) {
@@ -187,7 +187,7 @@ public class SnappyDatabase implements IDatabase{
         }
     }
 
-    private<Model> void putList(String pKey, List<Model> pModelList){
+    private<Model> void putList(String pKey, List<Model> pModelList) {
         synchronized (SnappyDatabase_.class) {
             try {
                 this.checkForNonNull(mSnappyDBInstance).put(pKey, pModelList.toArray());
@@ -208,7 +208,7 @@ public class SnappyDatabase implements IDatabase{
         }
     }
 
-    private boolean dataExists(String pKey){
+    private boolean dataExists(String pKey) {
         synchronized (SnappyDatabase_.class) {
             try {
                 return this.checkForNonNull(mSnappyDBInstance).exists(pKey);
@@ -220,7 +220,7 @@ public class SnappyDatabase implements IDatabase{
     }
 
     private DB checkForNonNull(DB pSnappyDatabase) throws SnappydbException {
-        if(pSnappyDatabase == null){
+        if (pSnappyDatabase == null) {
             throw new UnsupportedSnappyDb();
         } else {
             return pSnappyDatabase;

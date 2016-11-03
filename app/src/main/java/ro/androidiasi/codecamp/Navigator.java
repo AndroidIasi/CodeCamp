@@ -23,7 +23,7 @@ public class Navigator {
 
     @RootContext Context mContext;
 
-    public void goToMainActivity(){
+    public void goToMainActivity() {
         MainActivity.start(mContext);
     }
 

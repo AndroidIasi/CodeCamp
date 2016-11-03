@@ -11,7 +11,7 @@ import ro.androidiasi.codecamp.internal.IView;
  */
 public interface CodecampersContract {
 
-    interface View extends IView{
+    interface View extends IView {
 
         boolean isAdded();
 
@@ -20,7 +20,7 @@ public interface CodecampersContract {
         SwipeRefreshLayout getSwipeRefreshLayout();
     }
 
-    interface Presenter extends IPresenter{
+    interface Presenter extends IPresenter {
 
         void afterViews();
     }

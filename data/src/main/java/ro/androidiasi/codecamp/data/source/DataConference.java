@@ -26,14 +26,14 @@ public enum DataConference {
     private final String mDataJsonFile;
     private final String mConnectJsonURL;
 
-    DataConference(String pName, String pEventDate, String pDataJsonFile, String pConnectJsonURL){
+    DataConference(String pName, String pEventDate, String pDataJsonFile, String pConnectJsonURL) {
         mName = pName;
         mEventDate = this.getDateFromString(pEventDate);
         mDataJsonFile = pDataJsonFile;
         mConnectJsonURL = pConnectJsonURL;
     }
 
-    private Date getDateFromString(String pStringDate){
+    private Date getDateFromString(String pStringDate) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {
             return dateFormat.parse(pStringDate);
@@ -52,15 +52,15 @@ public enum DataConference {
     }
 
     public Date getEventDate() {
-        return mEventDate;
+        return ((Date) mEventDate.clone());
     }
 
     public String getName() {
         return mName;
     }
 
-    public static DataConference getFromString(String pValue){
-        if(pValue != null) {
+    public static DataConference getFromString(String pValue) {
+        if (pValue != null) {
             for (int i = 0; i < DataConference.values().length; i++) {
                 if (pValue.toUpperCase().equals(DataConference.values()[i].toString())) {
                     return DataConference.values()[i];
@@ -70,12 +70,12 @@ public enum DataConference {
         return getLatestEvent();
     }
 
-    public static DataConference getLatestEvent(){
+    public static DataConference getLatestEvent() {
         Date today = new Date();
         long conferenceLingerTime = 7L * (24*60*60*1000); // 7 days
         List<DataConference> list = listByDateAscending();
-        for (DataConference conference: list){
-            if (today.getTime() - conference.getEventDate().getTime() < conferenceLingerTime){
+        for (DataConference conference: list) {
+            if (today.getTime() - conference.getEventDate().getTime() < conferenceLingerTime) {
                 return conference;
             }
         }
@@ -83,7 +83,7 @@ public enum DataConference {
         return list.get(0);
     }
 
-    public static List<DataConference> listByDateAscending(){
+    public static List<DataConference> listByDateAscending() {
         List<DataConference> list = Arrays.asList(DataConference.values());
         Collections.sort(list, new Comparator<DataConference>() {
             @Override public int compare(DataConference lhs, DataConference rhs) {

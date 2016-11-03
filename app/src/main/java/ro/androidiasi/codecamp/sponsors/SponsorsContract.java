@@ -12,14 +12,14 @@ import ro.androidiasi.codecamp.internal.model.Sponsor;
  */
 
 public interface SponsorsContract {
-    interface View extends IView{
+    interface View extends IView {
 
         void updateSponsors(List<Sponsor> pResult);
 
         void onFailure();
     }
 
-    interface Presenter extends IPresenter{
+    interface Presenter extends IPresenter {
         void start();
 
         void setRepository(IAgendaDataSource<Long> pRepository);

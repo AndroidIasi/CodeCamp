@@ -26,20 +26,20 @@ public abstract class BaseFragment extends Fragment implements IEnhancedView {
     @Bean public CodecampBus mCodecampBus;
 
     @AfterInject
-    @Override public final void afterMembersInject(){
+    @Override public final void afterMembersInject() {
         this.afterInject();
     }
 
     @AfterViews
-    @Override public final void afterViewsInject(){
+    @Override public final void afterViewsInject() {
         this.afterViews();
     }
 
     @CallSuper
-    @Override public void afterInject(){}
+    @Override public void afterInject() { }
 
     @CallSuper
-    @Override public void afterViews(){}
+    @Override public void afterViews() { }
 
     @Override public void onStart() {
         super.onStart();
@@ -52,12 +52,12 @@ public abstract class BaseFragment extends Fragment implements IEnhancedView {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onEventMainThread(Object pObject){}
+    public void onEventMainThread(Object pObject) { }
 
     public Navigator getNavigator() {
         return mNavigator;
     }
-    public IAgendaDataSource<Long> getRepository(){
+    public IAgendaDataSource<Long> getRepository() {
         return mCodecampApp.getRepository();
     }
 }

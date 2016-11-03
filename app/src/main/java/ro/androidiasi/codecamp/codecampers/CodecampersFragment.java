@@ -1,5 +1,6 @@
 package ro.androidiasi.codecamp.codecampers;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
 
@@ -26,7 +27,7 @@ public class CodecampersFragment extends BaseFragment implements CodecampersCont
     @ViewById(R.id.swipe_to_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @ViewById(R.id.list_view) ListView mListView;
 
-    public static CodecampersFragment newInstance(){
+    public static CodecampersFragment newInstance() {
         return CodecampersFragment_.builder().build();
     }
 
@@ -45,17 +46,18 @@ public class CodecampersFragment extends BaseFragment implements CodecampersCont
         return mSwipeRefreshLayout;
     }
 
-    @ItemClick(R.id.list_view) public void onCodecamperListItemClicked(Codecamper pCodecamper){
-        this.getNavigator().goToCodecamperDetails(getActivity().getSupportFragmentManager(), pCodecamper);
+    @ItemClick(R.id.list_view) public void onCodecamperListItemClicked(Codecamper pCodecamper) {
+        FragmentManager supportFragmentManager = getActivity().getSupportFragmentManager();
+        this.getNavigator().goToCodecamperDetails(supportFragmentManager, pCodecamper);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onEventMainThread(EventStopSwipeToRefresh pEvent){
+    public void onEventMainThread(EventStopSwipeToRefresh pEvent) {
         this.mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onEventMainThread(EventRefreshLists pEvent){
+    public void onEventMainThread(EventRefreshLists pEvent) {
         this.mCodecampersPresenter.onRefresh();
     }
 }

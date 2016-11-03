@@ -73,7 +73,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         try {
             List<DataSponsor> dataSponsors = this.mDatabase.getDataSponsors();
             this.onSuccess(pLoadCallback, dataSponsors);
-        } catch (SnappydbException pE){
+        } catch (SnappydbException pE) {
             this.onFailure(pLoadCallback, pE);
         }
     }
@@ -147,19 +147,19 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         return null;
     }
 
-    public void storeDataRooms(List<DataRoom> pDataRoomList){
+    public void storeDataRooms(List<DataRoom> pDataRoomList) {
         this.mDatabase.saveDataRoomsList(pDataRoomList);
     }
 
-    public void storeDataTimeFrames(List<DataTimeFrame> pTimeFrameList){
+    public void storeDataTimeFrames(List<DataTimeFrame> pTimeFrameList) {
         this.mDatabase.saveDataTimeFrames(pTimeFrameList);
     }
 
-    public void storeDataCodecampers(List<DataCodecamper> pDataCodecamperList){
+    public void storeDataCodecampers(List<DataCodecamper> pDataCodecamperList) {
         this.mDatabase.saveDataCodecampers(pDataCodecamperList);
     }
 
-    public void storeDataSessions(List<DataSession> pDataSessionList){
+    public void storeDataSessions(List<DataSession> pDataSessionList) {
         this.mDatabase.saveDataSessions(pDataSessionList);
     }
 
@@ -171,7 +171,7 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         pLoadCallback.onSuccess(pFavorite);
     }
 
-    private void onFailure(ILoadCallback pLoadCallback, Exception pException){
+    private void onFailure(ILoadCallback pLoadCallback, Exception pException) {
         Log.e(TAG, "onFailure: ", pException);
         pLoadCallback.onFailure(pException);
     }
@@ -188,20 +188,20 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         this.mDatabase.deleteDataRooms();
     }
 
-    public void invalidateDataTimeFrames(){
+    public void invalidateDataTimeFrames() {
         this.mDatabase.deleteDataTimeFrames();
     }
 
-    public void invalidateDataCodecampers(){
+    public void invalidateDataCodecampers() {
         this.mDatabase.deleteDataCodecampers();
     }
 
-    public void invalidateDataSessions(){
+    public void invalidateDataSessions() {
         this.mDatabase.deleteDataSessions();
     }
 
 
-    public void invalidateDataSponsors(){
+    public void invalidateDataSponsors() {
         this.mDatabase.deleteDataSponsors();
     }
 }

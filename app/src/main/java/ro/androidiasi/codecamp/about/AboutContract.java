@@ -14,7 +14,7 @@ public interface AboutContract {
         TextView getVersionTextView();
     }
 
-    interface Presenter extends IPresenter{
+    interface Presenter extends IPresenter {
         void setView(View pView);
 
         void afterViews();

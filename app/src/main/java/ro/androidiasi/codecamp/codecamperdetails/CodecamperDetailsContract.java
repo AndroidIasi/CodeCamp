@@ -7,10 +7,10 @@ import ro.androidiasi.codecamp.internal.IView;
  * Created by andrei on 20/04/16.
  */
 public interface CodecamperDetailsContract {
-    interface View extends IView{
+    interface View extends IView {
 
     }
-    interface Presenter extends IPresenter{
+    interface Presenter extends IPresenter {
 
     }
 }

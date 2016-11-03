@@ -39,16 +39,16 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
     private ILoadCallback<List<DataCodecamper>> mDataCodecamperListCallback;
     private ILoadCallback<List<DataSponsor>> mDataSponsorsListCallback;
 
-    @AfterInject public void afterMembersInject(){
+    @AfterInject public void afterMembersInject() {
         this.mObjectMapper = new ObjectMapper();
         this.afterInject();
     }
 
-    public void afterInject(){};
+    public void afterInject() {};
 
     @CallSuper
     @Override public void startCodecampJsonRequest() throws DataUnavailable {
-        if(mConference == null){
+        if (mConference == null) {
             throw new NullPointerException("DataConference is NULL! Please set DataConference first!");
         }
     }
@@ -164,24 +164,24 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
         } catch (IOException pE) {
             this.onFailure(pE);
         }
-        if(dataCodecamp != null){
-            if(mDataSessionListCallback != null){
+        if (dataCodecamp != null) {
+            if (mDataSessionListCallback != null) {
                 mDataSessionListCallback.onSuccess(dataCodecamp.getDataSessions());
                 this.mDataSessionListCallback = null;
             }
-            if(mDataRoomListCallback != null){
+            if (mDataRoomListCallback != null) {
                 this.mDataRoomListCallback.onSuccess(dataCodecamp.getDataRooms());
                 this.mDataRoomListCallback = null;
             }
-            if(mDataTimeFrameListCallback != null){
+            if (mDataTimeFrameListCallback != null) {
                 this.mDataTimeFrameListCallback.onSuccess(dataCodecamp.getTimeFrames());
                 this.mDataTimeFrameListCallback = null;
             }
-            if(mDataCodecamperListCallback != null) {
+            if (mDataCodecamperListCallback != null) {
                 this.mDataCodecamperListCallback.onSuccess(dataCodecamp.getDataCodecampers());
                 this.mDataCodecamperListCallback = null;
             }
-            if(mDataSponsorsListCallback != null){
+            if (mDataSponsorsListCallback != null) {
                 this.mDataSponsorsListCallback.onSuccess(dataCodecamp.getDataSponsors());
                 this.mDataSponsorsListCallback = null;
             }
@@ -190,23 +190,23 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
 
     @Override public void onFailure(Exception pException) {
         Log.e(TAG, "onFailure: ", pException);
-        if(mDataSessionListCallback != null){
+        if (mDataSessionListCallback != null) {
             mDataSessionListCallback.onFailure(pException);
             this.mDataSessionListCallback = null;
         }
-        if(mDataRoomListCallback != null){
+        if (mDataRoomListCallback != null) {
             this.mDataRoomListCallback.onFailure(pException);
             this.mDataRoomListCallback = null;
         }
-        if(mDataTimeFrameListCallback != null){
+        if (mDataTimeFrameListCallback != null) {
             this.mDataTimeFrameListCallback.onFailure(pException);
             this.mDataTimeFrameListCallback = null;
         }
-        if(mDataCodecamperListCallback != null) {
+        if (mDataCodecamperListCallback != null) {
             this.mDataCodecamperListCallback.onFailure(pException);
             this.mDataCodecamperListCallback = null;
         }
-        if(mDataSponsorsListCallback != null){
+        if (mDataSponsorsListCallback != null) {
             this.mDataSponsorsListCallback.onFailure(pException);
             this.mDataSponsorsListCallback = null;
         }

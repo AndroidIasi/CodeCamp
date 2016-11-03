@@ -17,12 +17,13 @@ import ro.androidiasi.codecamp.internal.model.Session;
  * Created by andrei on 10/04/16.
  */
 @EBean
-public class SessionItemPresenter implements SessionItemContract.Presenter<Session, SessionItemView> {
+public class SessionItemPresenter
+        implements SessionItemContract.Presenter<Session, SessionItemView> {
 
     @RootContext Context mContext;
 
     @Override public void bind(Session pSession, SessionItemView pSessionItemView) {
-        if(pSession.getCodecampersList().size() > 0) {
+        if (pSession.getCodecampersList().size() > 0) {
             pSessionItemView.getDraweeView().setVisibility(View.VISIBLE);
             pSessionItemView.getTrackTextView().setVisibility(View.VISIBLE);
             Uri photoUri = Uri.parse(pSession.getCodecampersList().get(0).getPhotoUrl());

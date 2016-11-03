@@ -17,7 +17,7 @@ import ro.androidiasi.codecamp.R;
 import ro.androidiasi.codecamp.internal.model.Session;
 
 @EActivity(R.layout.activity_session_details)
-public class SessionDetailsActivity extends BaseActivity implements SessionDetailsContract.View{
+public class SessionDetailsActivity extends BaseActivity implements SessionDetailsContract.View {
 
     @Bean(SessionDetailsPresenter.class) SessionDetailsContract.Presenter mSessionDetailsPresenter;
     @Extra Session mSession;

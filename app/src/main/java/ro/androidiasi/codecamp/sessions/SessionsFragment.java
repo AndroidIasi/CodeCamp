@@ -9,11 +9,11 @@ import ro.androidiasi.codecamp.R;
  * Created by andrei on 08/04/16.
  */
 @EFragment(R.layout.fragment_sessions_list)
-public class SessionsFragment extends BaseSessionsFragment implements SessionsContract.View{
+public class SessionsFragment extends BaseSessionsFragment implements SessionsContract.View {
 
     @Bean public SessionsPresenter mSessionsPresenter;
 
-    public static SessionsFragment newInstance(){
+    public static SessionsFragment newInstance() {
         return SessionsFragment_.builder().build();
     }
 

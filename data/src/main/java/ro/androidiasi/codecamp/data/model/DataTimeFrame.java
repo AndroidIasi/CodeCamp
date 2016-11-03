@@ -14,7 +14,7 @@ public class DataTimeFrame extends AbstractDataModel {
     private String mStartTime;
     private String mEndTime;
 
-    public DataTimeFrame(){
+    public DataTimeFrame() {
 
     }
 
@@ -37,7 +37,7 @@ public class DataTimeFrame extends AbstractDataModel {
         return mEndTime;
     }
 
-    public static DataTimeFrame fromTimeSlot(TimeSlot pTimeSlot){
+    public static DataTimeFrame fromTimeSlot(TimeSlot pTimeSlot) {
         return new DataTimeFrame(
                 pTimeSlot.startTime.hashCode(),
                 pTimeSlot.startTime,
@@ -46,7 +46,7 @@ public class DataTimeFrame extends AbstractDataModel {
         );
     }
 
-    public static List<DataTimeFrame> fromTimeSlotsList(List<TimeSlot> pTimeSlotList){
+    public static List<DataTimeFrame> fromTimeSlotsList(List<TimeSlot> pTimeSlotList) {
         List<DataTimeFrame> dataTimeFramesList = new ArrayList<>();
         for (int i = 0; i < pTimeSlotList.size(); i++) {
             dataTimeFramesList.add(fromTimeSlot(pTimeSlotList.get(i)));

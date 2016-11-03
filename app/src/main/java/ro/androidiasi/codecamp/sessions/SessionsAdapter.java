@@ -22,7 +22,8 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * Created by andrei on 10/04/16.
  */
 @EBean
-public class SessionsAdapter extends BaseListViewAdapter<Session, SessionItemView, SessionItemPresenter>
+public class SessionsAdapter
+        extends BaseListViewAdapter<Session, SessionItemView, SessionItemPresenter>
         implements StickyListHeadersAdapter {
 
     @RootContext Context mContext;
@@ -39,7 +40,7 @@ public class SessionsAdapter extends BaseListViewAdapter<Session, SessionItemVie
 
     @Override public View getHeaderView(int position, View convertView, ViewGroup parent) {
         SessionHeaderView view = (SessionHeaderView) convertView;
-        if(view == null){
+        if (view == null) {
             view = SessionHeaderView_.build(mContext);
         }
         this.mSessionHeaderPresenter.bind(getItem(position), view);

@@ -15,7 +15,7 @@ public class DataCodecamp extends AbstractDataModel {
     private List<DataSession> mDataSessions;
     private List<DataSponsor> mDataSponsors;
 
-    public DataCodecamp(){
+    public DataCodecamp() {
 
     }
 
@@ -50,7 +50,7 @@ public class DataCodecamp extends AbstractDataModel {
         return mDataSponsors;
     }
 
-    public static DataCodecamp fromCrawlerCodecamp(CodecampNew pCodecamp){
+    public static DataCodecamp fromCrawlerCodecamp(CodecampNew pCodecamp) {
         List<DataCodecamper> dataCodecampers = DataCodecamper.fromSpeakersList(pCodecamp.speakers);
         List<DataRoom> dataRooms = DataRoom.fromTracksList(pCodecamp.schedules.get(0).tracks);
         List<DataTimeFrame> dataTimeFrames = DataTimeFrame.fromTimeSlotsList(pCodecamp.schedules.get(0).timeSlots);

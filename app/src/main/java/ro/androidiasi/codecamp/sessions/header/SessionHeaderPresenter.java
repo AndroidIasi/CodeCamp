@@ -9,9 +9,9 @@ import ro.androidiasi.codecamp.internal.model.Session;
  * Created by andrei on 18/04/16.
  */
 @EBean
-public class SessionHeaderPresenter implements SessionHeaderContract.Presenter{
+public class SessionHeaderPresenter implements SessionHeaderContract.Presenter {
 
-    @AfterInject public void afterMembersInject(){}
+    @AfterInject public void afterMembersInject() { }
 
     @Override public void bind(Session pModel, SessionHeaderView pView) {
         String result = String.format("%s - %s",
@@ -20,7 +20,7 @@ public class SessionHeaderPresenter implements SessionHeaderContract.Presenter{
         pView.getTimeTextView().setText(result);
     }
 
-    private String formatTime(String pStartTime){
-        return pStartTime.replace(".{3}$","");
+    private String formatTime(String pStartTime) {
+        return pStartTime.replace(".{3}$", "");
     }
 }

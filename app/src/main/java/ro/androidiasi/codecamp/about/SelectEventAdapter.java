@@ -17,7 +17,8 @@ import ro.androidiasi.codecamp.internal.recycler.BaseListViewAdapter;
  * Created by andrei on 05/05/16.
  */
 @EBean
-public class SelectEventAdapter extends BaseListViewAdapter<Conference, SelectEventView, SelectEventPresenter>{
+public class SelectEventAdapter
+        extends BaseListViewAdapter<Conference, SelectEventView, SelectEventPresenter> {
 
     @Bean SelectEventPresenter mSelectEventPresenter;
     @RootContext Context mContext;

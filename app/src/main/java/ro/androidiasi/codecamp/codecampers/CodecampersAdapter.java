@@ -17,7 +17,8 @@ import ro.androidiasi.codecamp.internal.recycler.BaseListViewAdapter;
  * Created by andrei on 19/04/16.
  */
 @EBean
-public class CodecampersAdapter extends BaseListViewAdapter<Codecamper, CodecamperItemView, CodecamperItemPresenter> {
+public class CodecampersAdapter
+        extends BaseListViewAdapter<Codecamper, CodecamperItemView, CodecamperItemPresenter> {
 
     @Bean CodecamperItemPresenter mCodecamperItemPresenter;
     @RootContext Context mContext;

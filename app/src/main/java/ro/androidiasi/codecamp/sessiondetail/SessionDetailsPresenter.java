@@ -1,6 +1,7 @@
 package ro.androidiasi.codecamp.sessiondetail;
 
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -27,7 +28,7 @@ import ro.androidiasi.codecamp.internal.model.Session;
  * Created by andrei on 18/04/16.
  */
 @EBean
-public class SessionDetailsPresenter implements SessionDetailsContract.Presenter{
+public class SessionDetailsPresenter implements SessionDetailsContract.Presenter {
 
     private static final String TAG = "SessionDetailsPresenter";
     @DrawableRes(R.drawable.ic_star_24dp) Drawable mIsFavoriteIcon;
@@ -44,10 +45,10 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
     private boolean mIsSessionFavorite;
 
     @Override public void afterViews() {
-        if(mSession == null){
+        if (mSession == null) {
             throw new NullPointerException("Session is NULL! Please set Session first!");
         }
-        if(mRepository == null){
+        if (mRepository == null) {
             throw new NullPointerException("Repository is NULL! Please set the Repository first!");
         }
         this.prepareToolBar();
@@ -77,11 +78,13 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
     private void prepareCodecampers() {
         for (int i = 0; i < mSession.getCodecampersList().size(); i++) {
             final Codecamper codecamper = mSession.getCodecampersList().get(i);
-            CodecamperItemView codecamperItemView = CodecamperItemView_.build(mSessionDetailsActivity);
+            CodecamperItemView codecamperItemView =
+                    CodecamperItemView_.build(mSessionDetailsActivity);
             codecamperItemView.setClickable(true);
             codecamperItemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
-                    mNavigator.goToCodecamperDetails(mSessionDetailsActivity.getSupportFragmentManager(), codecamper);
+                    FragmentManager fm = mSessionDetailsActivity.getSupportFragmentManager();
+                    mNavigator.goToCodecamperDetails(fm, codecamper);
                 }
             });
             this.mSessionDetailsActivity.getCodecampersContainerView().addView(codecamperItemView);
@@ -118,24 +121,32 @@ public class SessionDetailsPresenter implements SessionDetailsContract.Presenter
         this.mSession = pSession;
     }
 
-    private void onFavoritesFabClicked(){
-        this.mRepository.setSessionFavorite(mSession.getId(), !mIsSessionFavorite, new ILoadCallback<Boolean>() {
+    private void onFavoritesFabClicked() {
+        ILoadCallback<Boolean> loadCallback = new ILoadCallback<Boolean>() {
             @Override public void onSuccess(Boolean pObject) {
                 mIsSessionFavorite = pObject;
                 Drawable fabDrawable = pObject ? mIsFavoriteIcon : mIsNotFavoriteIcon;
                 mSessionDetailsActivity.getFab().setImageDrawable(fabDrawable);
                 mCodecampBus.postSticky(new EventSessionUpdated());
-                String message = pObject ? "Session added to Favorites" : "Session removed from Favorites";
+                String sessionRemovedMessage
+                        = mSessionDetailsActivity.getString(
+                        R.string.sessions_removed_from_favorites);
+                String sessionAddedMessage
+                        = mSessionDetailsActivity.getString(R.string.sessions_added_to_favorites);
+                String message = pObject ? sessionAddedMessage : sessionRemovedMessage;
                 Toast.makeText(mSessionDetailsActivity, message, Toast.LENGTH_SHORT).show();
             }
 
             @Override public void onFailure(Exception pE) {
                 Log.e(TAG, "onFailure: ", pE);
             }
-        });
+        };
+        this.mRepository.setSessionFavorite(mSession.getId(), !mIsSessionFavorite,
+                loadCallback);
     }
 
-    @UiThread public void onUiThreadBindCodecamperWithView(Codecamper pCodecamper, CodecamperItemView pCodecamperItemView){
+    @UiThread public void onUiThreadBindCodecamperWithView(Codecamper pCodecamper,
+                                                           CodecamperItemView pCodecamperItemView) {
         this.mCodecamperItemPresenter.bind(pCodecamper, pCodecamperItemView);
     }
 

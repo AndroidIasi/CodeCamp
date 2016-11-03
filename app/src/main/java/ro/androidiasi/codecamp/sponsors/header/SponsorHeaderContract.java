@@ -9,11 +9,11 @@ import ro.androidiasi.codecamp.internal.model.Sponsor;
  */
 
 public interface SponsorHeaderContract {
-    interface View extends IView{
+    interface View extends IView {
         void setText(String pText);
     }
 
-    interface Presenter extends IPresenter{
+    interface Presenter extends IPresenter {
         void bind(Sponsor pSponsor, View pView);
     }
 }

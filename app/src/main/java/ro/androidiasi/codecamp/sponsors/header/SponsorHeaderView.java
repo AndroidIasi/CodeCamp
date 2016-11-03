@@ -12,7 +12,7 @@ import ro.androidiasi.codecamp.sessions.header.SessionHeaderView;
  * Created by andrei.
  */
 @EViewGroup(R.layout.item_session_header)
-public class SponsorHeaderView extends SessionHeaderView implements SponsorHeaderContract.View{
+public class SponsorHeaderView extends SessionHeaderView implements SponsorHeaderContract.View {
 
     public SponsorHeaderView(Context context) {
         super(context);

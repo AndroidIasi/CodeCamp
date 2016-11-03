@@ -16,7 +16,7 @@ public class DataCodecamper extends AbstractDataModel {
     private String mDescription;
     private String mPhotoUrl;
 
-    public DataCodecamper(){
+    public DataCodecamper() {
 
     }
 
@@ -49,7 +49,7 @@ public class DataCodecamper extends AbstractDataModel {
         return mPhotoUrl;
     }
 
-    public static DataCodecamper fromSpeaker(Speaker pSpeaker){
+    public static DataCodecamper fromSpeaker(Speaker pSpeaker) {
         return new DataCodecamper(
                 pSpeaker.photoUrl.hashCode(),//nasty workaround, doesn't have a reliable ID
                 pSpeaker.name,
@@ -60,7 +60,7 @@ public class DataCodecamper extends AbstractDataModel {
         );
     }
 
-    public static List<DataCodecamper> fromSpeakersList(List<Speaker> pSpeakers){
+    public static List<DataCodecamper> fromSpeakersList(List<Speaker> pSpeakers) {
         List<DataCodecamper> dataCodecamperList = new ArrayList<>();
         for (int i = 0; i < pSpeakers.size(); i++) {
             dataCodecamperList.add(fromSpeaker(pSpeakers.get(i)));

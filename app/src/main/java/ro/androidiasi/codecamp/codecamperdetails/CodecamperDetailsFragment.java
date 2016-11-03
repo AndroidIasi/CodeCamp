@@ -17,7 +17,8 @@ import ro.androidiasi.codecamp.internal.model.Codecamper;
  * Created by andrei on 20/04/16.
  */
 @EFragment
-public class CodecamperDetailsFragment extends DialogFragment implements CodecamperDetailsContract.View{
+public class CodecamperDetailsFragment extends DialogFragment
+        implements CodecamperDetailsContract.View {
 
     @FragmentArg Codecamper mCodecamper;
 

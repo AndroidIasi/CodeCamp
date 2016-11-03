@@ -32,16 +32,14 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
 
     private boolean mIgnoreFirstSelection = true;
     private List<Conference> mConferenceList;
-    private Conference mCurrentConference;
 
-    public static AboutFragment newInstance(){
+    public static AboutFragment newInstance() {
         return AboutFragment_.builder().build();
     }
 
     @Override public void afterInject() {
         super.afterInject();
         List<DataConference> dataConferenceList = DataConference.listByDateAscending();
-        mCurrentConference = Conference.fromDataConference(getRepository().getConference());
         mConferenceList = Conference.fromDataConferenceList(dataConferenceList);
         this.mSelectEventAdapter.update(mConferenceList);
     }
@@ -53,38 +51,39 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
         this.mSpinner.setAdapter(mSelectEventAdapter);
         for (int i = 0; i < mConferenceList.size(); i++) {
             Conference conference = mConferenceList.get(i);
-            if(conference.getStringId().equals(getRepository().getConference().toString())){
+            if (conference.getStringId().equals(getRepository().getConference().toString())) {
                 this.mSpinner.setSelection(i);
             }
         }
     }
 
-    @Click(R.id.github_button) public void onGitHubButtonClicked(){
+    @Click(R.id.github_button) public void onGitHubButtonClicked() {
         this.mAboutPresenter.onThisAppIsOpenSourceClicked();
     }
 
-    @ItemSelect(R.id.spinner) public void onSpinnerItemClicked(boolean pSelected, Conference pConference){
-        if(!mIgnoreFirstSelection) {
+    @ItemSelect(R.id.spinner) public void onSpinnerItemClicked(boolean pSelected,
+                                                               Conference pConference) {
+        if (!mIgnoreFirstSelection) {
             this.onBackgroundChangeConference(pConference);
         }
         mIgnoreFirstSelection = false;
     }
 
     @Background public void onBackgroundChangeConference(Conference pConference) {
-        if(this.isAdded()) {
-            DataConference selectedConference = DataConference.getFromString(pConference.getStringId());
+        if (this.isAdded()) {
+            String conferenceId = pConference.getStringId();
+            DataConference selectedConference = DataConference.getFromString(conferenceId);
             DataConference currentConference = this.getRepository().getConference();
             if (!selectedConference.equals(currentConference)) {
                 this.getRepository().setConference(selectedConference);
                 this.getRepository().invalidate();
-                this.mCurrentConference = pConference;
                 this.mCodecampBus.post(new EventRefreshLists());
                 this.onUiThreadShowChangingConferenceToast();
             }
         }
     }
 
-    @UiThread public void onUiThreadShowChangingConferenceToast(){
+    @UiThread public void onUiThreadShowChangingConferenceToast() {
         Toast.makeText(getActivity(), "Loading, please wait...", Toast.LENGTH_LONG).show();
     }
 

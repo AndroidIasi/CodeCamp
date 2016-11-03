@@ -19,10 +19,10 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     protected SessionsContract.View mView;
 
     @Override public void start() {
-        if(mView == null){
+        if (mView == null) {
             throw new NullPointerException("View is NULL! Please set the view first!");
         }
-        if(mRepository == null){
+        if (mRepository == null) {
             throw new NullPointerException("Repository is NULL! Please set the Repository first!");
         }
         refreshSessions();
@@ -31,13 +31,13 @@ public class SessionsPresenter implements SessionsContract.Presenter {
     public void refreshSessions() {
         this.mRepository.getSessionsList(new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(List<DataSession> pObject) {
-                if(getView() != null){
+                if (getView() != null) {
                     getView().onSuccess(Session.fromDataSessionList(pObject));
                 }
             }
 
             @Override public void onFailure(Exception pException) {
-                if(getView() != null){
+                if (getView() != null) {
                     getView().onFailure();
                 }
             }
@@ -56,13 +56,13 @@ public class SessionsPresenter implements SessionsContract.Presenter {
         getView().onLoad();
         this.mRepository.getSessionsList(pForced, new ILoadCallback<List<DataSession>>() {
             @Override public void onSuccess(List<DataSession> pObject) {
-                if(getView() != null){
+                if (getView() != null) {
                     getView().onSuccess(Session.fromDataSessionList(pObject));
                 }
             }
 
             @Override public void onFailure(Exception pException) {
-                if(getView() != null){
+                if (getView() != null) {
                     getView().onFailure();
                 }
             }

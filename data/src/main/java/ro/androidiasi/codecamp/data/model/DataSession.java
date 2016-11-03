@@ -19,7 +19,7 @@ public class DataSession extends AbstractDataModel {
 
     private boolean mFavorite;
 
-    public DataSession(){
+    public DataSession() {
 
     }
 

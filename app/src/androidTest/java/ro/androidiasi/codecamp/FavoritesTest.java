@@ -31,7 +31,8 @@ import static org.hamcrest.Matchers.containsString;
 public class FavoritesTest {
 
     @Rule
-    public ActivityTestRule<MainActivity_> mActivityTestRule = new ActivityTestRule<>(MainActivity_.class);
+    public ActivityTestRule<MainActivity_> mActivityTestRule =
+            new ActivityTestRule<>(MainActivity_.class);
 
     @Before
     public void clearFavorite() throws Exception {

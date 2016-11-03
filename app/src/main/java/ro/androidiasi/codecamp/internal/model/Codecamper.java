@@ -16,7 +16,8 @@ public final class Codecamper extends AbstractModel {
     private final String mDescription;
     private final String mPhotoUrl;
 
-    public Codecamper(long pId, String pFullName, String pTitle, String pCompany, String pDescription, String pPhotoUrl) {
+    public Codecamper(long pId, String pFullName, String pTitle,
+                      String pCompany, String pDescription, String pPhotoUrl) {
         super(pId);
         mFullName = pFullName;
         mTitle = pTitle;
@@ -45,7 +46,7 @@ public final class Codecamper extends AbstractModel {
         return mPhotoUrl;
     }
 
-    public static Codecamper fromDataCodecamper(DataCodecamper pDataCodecamper){
+    public static Codecamper fromDataCodecamper(DataCodecamper pDataCodecamper) {
         return new Codecamper(
                 pDataCodecamper.getId(),
                 pDataCodecamper.getFullName(),
@@ -56,7 +57,8 @@ public final class Codecamper extends AbstractModel {
         );
     }
 
-    public static List<Codecamper> fromDataCodecamperList(List<DataCodecamper> pDataCodecampersList){
+    public static List<Codecamper> fromDataCodecamperList(List<DataCodecamper>
+                                                                  pDataCodecampersList) {
         List<Codecamper> codecampersList = new ArrayList<>();
         for (int i = 0; i < pDataCodecampersList.size(); i++) {
             Codecamper codecamper = Codecamper.fromDataCodecamper(pDataCodecampersList.get(i));

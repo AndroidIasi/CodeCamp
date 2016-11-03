@@ -9,63 +9,63 @@ import ro.androidiasi.codecamp.data.model.DataSponsor;
  * Created by andrei.
  */
 
-public class Sponsor implements IModel{
-    private String name;
-    private String logoUrl;
-    private String websiteUrl;
-    private String sponsorshipPackage;
-    private int displayOrder;
-    private int sponsorshipPackageDisplayOrder;
+public class Sponsor implements IModel {
+    private String mName;
+    private String mLogoUrl;
+    private String mWebsiteUrl;
+    private String mSponsorshipPackage;
+    private int mDisplayOrder;
+    private int mSponsorshipPackageDisplayOrder;
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String pName) {
-        name = pName;
+        mName = pName;
     }
 
     public String getLogoUrl() {
-        return logoUrl;
+        return mLogoUrl;
     }
 
     public void setLogoUrl(String pLogoUrl) {
-        logoUrl = pLogoUrl;
+        mLogoUrl = pLogoUrl;
     }
 
     public String getWebsiteUrl() {
-        return websiteUrl;
+        return mWebsiteUrl;
     }
 
     public void setWebsiteUrl(String pWebsiteUrl) {
-        websiteUrl = pWebsiteUrl;
+        mWebsiteUrl = pWebsiteUrl;
     }
 
     public String getSponsorshipPackage() {
-        return sponsorshipPackage;
+        return mSponsorshipPackage;
     }
 
     public void setSponsorshipPackage(String pSponsorshipPackage) {
-        sponsorshipPackage = pSponsorshipPackage;
+        mSponsorshipPackage = pSponsorshipPackage;
     }
 
     public int getDisplayOrder() {
-        return displayOrder;
+        return mDisplayOrder;
     }
 
     public void setDisplayOrder(int pDisplayOrder) {
-        displayOrder = pDisplayOrder;
+        mDisplayOrder = pDisplayOrder;
     }
 
     public int getSponsorshipPackageDisplayOrder() {
-        return sponsorshipPackageDisplayOrder;
+        return mSponsorshipPackageDisplayOrder;
     }
 
     public void setSponsorshipPackageDisplayOrder(int pSponsorshipPackageDisplayOrder) {
-        sponsorshipPackageDisplayOrder = pSponsorshipPackageDisplayOrder;
+        mSponsorshipPackageDisplayOrder = pSponsorshipPackageDisplayOrder;
     }
 
-    public static Sponsor fromDataSponsor(DataSponsor pDataSponsor){
+    public static Sponsor fromDataSponsor(DataSponsor pDataSponsor) {
         Sponsor result = new Sponsor();
         result.setName(pDataSponsor.getName());
         result.setLogoUrl(pDataSponsor.getLogoUrl());
@@ -76,9 +76,9 @@ public class Sponsor implements IModel{
         return result;
     }
 
-    public static List<Sponsor> fromDataSponsorsList(List<DataSponsor> pDataSponsorList){
+    public static List<Sponsor> fromDataSponsorsList(List<DataSponsor> pDataSponsorList) {
         List<Sponsor> result = new ArrayList<>();
-        for (int i = 0; pDataSponsorList!= null && i < pDataSponsorList.size(); i++) {
+        for (int i = 0; pDataSponsorList != null && i < pDataSponsorList.size(); i++) {
             result.add(fromDataSponsor(pDataSponsorList.get(i)));
         }
         return result;

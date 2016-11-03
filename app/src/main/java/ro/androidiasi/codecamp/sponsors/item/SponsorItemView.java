@@ -12,7 +12,7 @@ import org.androidannotations.annotations.EView;
  * Created by andrei.
  */
 @EView
-public class SponsorItemView extends ImageView implements SponsorItemContract.View{
+public class SponsorItemView extends ImageView implements SponsorItemContract.View {
 
     private static final int WEBSITE_LOGO_WIDTH = 200;
     private static final int WEBSITE_LOGO_HEIGHT = 90;

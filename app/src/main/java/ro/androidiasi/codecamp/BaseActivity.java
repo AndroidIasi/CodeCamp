@@ -27,32 +27,32 @@ public abstract class BaseActivity extends AppCompatActivity implements IEnhance
     @Bean public CodecampBus mCodecampBus;
 
     @AfterExtras
-    @Override public final void afterExtrasInject(){
+    @Override public final void afterExtrasInject() {
         this.afterExtras();
     }
 
     @AfterInject
-    @Override public final void afterMembersInject(){
+    @Override public final void afterMembersInject() {
         this.afterInject();
     }
 
     @AfterViews
-    @Override public final void afterViewsInject(){
+    @Override public final void afterViewsInject() {
         this.afterViews();
     }
 
     @CallSuper
-    @Override public void afterExtras(){
+    @Override public void afterExtras() {
         //empty
     }
 
     @CallSuper
-    @Override public void afterInject(){
+    @Override public void afterInject() {
         //empty
     }
 
     @CallSuper
-    @Override public void afterViews(){
+    @Override public void afterViews() {
         //empty
     }
 
@@ -66,13 +66,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IEnhance
         this.mCodecampBus.unregister(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true) public void onEventMainThread(Object pObject){}
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEventMainThread(Object pObject) { }
 
     public Navigator getNavigator() {
         return mNavigator;
     }
 
-    public IAgendaDataSource<Long> getRepository(){
+    public IAgendaDataSource<Long> getRepository() {
         return this.mCodecampApp.getRepository();
     }
 

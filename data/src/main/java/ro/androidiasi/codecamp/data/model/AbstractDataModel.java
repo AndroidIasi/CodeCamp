@@ -10,7 +10,7 @@ public abstract class AbstractDataModel implements IDataModel<Long> {
         mId = pId;
     }
 
-    public AbstractDataModel(){
+    public AbstractDataModel() {
         this.mId = -1L;
     }
 

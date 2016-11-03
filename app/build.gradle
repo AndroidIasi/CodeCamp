@@ -12,6 +12,7 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
+apply from: '../quality/quality.gradle'
 apply plugin: 'io.fabric'
 apply plugin: 'android-apt'
 

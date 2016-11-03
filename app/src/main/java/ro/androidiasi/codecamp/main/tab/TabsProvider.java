@@ -27,7 +27,7 @@ public class TabsProvider {
 
     private List<IMainTab> mTabsList = new ArrayList<>();
 
-    @AfterInject public void afterMembersInject(){
+    @AfterInject public void afterMembersInject() {
         this.mTabsList.add(new IMainTab() {
             @Override public String getName() {
                 return mContext.getString(R.string.tab_1_name);
