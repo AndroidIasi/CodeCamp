@@ -21,7 +21,7 @@ The following code analysis tools are set up on this project:
 ./gradlew findbugs
 ```
 
-* [Checkstyle](http://checkstyle.sourceforge.net/): It ensures that the code style follows a certain checkStyle See our [checkstyle config file](quality/checkstyle/checkstyle-config.xml).
+* [Checkstyle](http://checkstyle.sourceforge.net/): It ensures that the code style follows [Ribot's Android code guidelines](https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md#2-code-guidelines) See our [checkstyle config file](quality/checkstyle/checkstyle-config.xml).
 
 ```
 ./gradlew checkstyle
@@ -29,5 +29,6 @@ The following code analysis tools are set up on this project:
 
 * Flow
 ```
---> CheckStyle --> FindBugs --> PMD --> (To be continued --> Android Lint --> UnitTests) --> ✔️
+--> CheckStyle --> FindBugs --> PMD --> (To be continued --> Android Lint --> UnitTests --> Functional Test) --> ✔️
 ```
+Special thanks to Ribot for the [android-boilerplate project](https://github.com/ribot/android-boilerplate)
