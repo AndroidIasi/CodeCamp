@@ -31,6 +31,8 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
     @ViewById(R.id.spinner) AppCompatSpinner mSpinner;
 
     private boolean mIgnoreFirstSelection = true;
+    private List<Conference> mConferenceList;
+    private Conference mCurrentConference;
 
     public static AboutFragment newInstance(){
         return AboutFragment_.builder().build();
@@ -39,8 +41,9 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
     @Override public void afterInject() {
         super.afterInject();
         List<DataConference> dataConferenceList = DataConference.listByDateAscending();
-        List<Conference> conferenceList = Conference.fromDataConferenceList(dataConferenceList);
-        this.mSelectEventAdapter.update(conferenceList);
+        mCurrentConference = Conference.fromDataConference(getRepository().getConference());
+        mConferenceList = Conference.fromDataConferenceList(dataConferenceList);
+        this.mSelectEventAdapter.update(mConferenceList);
     }
 
     @Override public void afterViews() {
@@ -48,6 +51,12 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
         this.mAboutPresenter.setView(this);
         this.mAboutPresenter.afterViews();
         this.mSpinner.setAdapter(mSelectEventAdapter);
+        for (int i = 0; i < mConferenceList.size(); i++) {
+            Conference conference = mConferenceList.get(i);
+            if(conference.getStringId().equals(getRepository().getConference().toString())){
+                this.mSpinner.setSelection(i);
+            }
+        }
     }
 
     @Click(R.id.github_button) public void onGitHubButtonClicked(){
@@ -68,6 +77,7 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
             if (!selectedConference.equals(currentConference)) {
                 this.getRepository().setConference(selectedConference);
                 this.getRepository().invalidate();
+                this.mCurrentConference = pConference;
                 this.mCodecampBus.post(new EventRefreshLists());
                 this.onUiThreadShowChangingConferenceToast();
             }
