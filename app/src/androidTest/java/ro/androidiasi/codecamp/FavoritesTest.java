@@ -36,7 +36,7 @@ public class FavoritesTest {
     @Before
     public void clearFavorite() throws Exception {
         new SnappyDB.Builder(mActivityTestRule.getActivity())
-                .name(DataConference.IASI.toString())
+                .name(DataConference.getLatestEvent().toString())
                 .build()
                 .del(String.valueOf("08:00:00null".hashCode()));
     }
