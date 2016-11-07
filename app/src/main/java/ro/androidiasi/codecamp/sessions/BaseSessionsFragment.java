@@ -54,11 +54,14 @@ public abstract class BaseSessionsFragment extends BaseFragment implements
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
                 int topRowVerticalPosition =
-                        (mListView == null || mListView.getChildCount() == 0) ?
-                                0 : mListView.getChildAt(0).getTop();
-                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+                        (mListView == null || mListView.getChildCount() == 0)
+                        ? 0
+                        : mListView.getChildAt(0).getTop();
+                boolean enabled = firstVisibleItem == 0 && topRowVerticalPosition >= 0;
+                mSwipeRefreshLayout.setEnabled(enabled);
             }
         });
         initPresenter();
