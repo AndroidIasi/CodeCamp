@@ -36,8 +36,8 @@ task wrapper(type: Wrapper) {
 // Define versions in a single place
 ext {
     //Application
-    appVersionCode = 10
-    appVersionName = "0.5.3"
+    appVersionCode = 11
+    appVersionName = "0.5.4"
     // Sdk and tools
     minSdkVersion = 10
     targetSdkVersion = 24
