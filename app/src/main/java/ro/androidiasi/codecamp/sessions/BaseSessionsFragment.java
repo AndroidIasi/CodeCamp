@@ -2,6 +2,7 @@ package ro.androidiasi.codecamp.sessions;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.widget.AbsListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import ro.androidiasi.codecamp.BaseFragment;
 import ro.androidiasi.codecamp.R;
 import ro.androidiasi.codecamp.about.EventRefreshLists;
+import ro.androidiasi.codecamp.internal.ScrollChildSwipeRefreshLayout;
 import ro.androidiasi.codecamp.internal.model.Session;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -29,7 +31,7 @@ public abstract class BaseSessionsFragment extends BaseFragment implements
 
     @Bean public SessionsAdapter mSessionsAdapter;
 
-    @ViewById(R.id.swipe_to_refresh) public SwipeRefreshLayout mSwipeRefreshLayout;
+    @ViewById(R.id.swipe_to_refresh) public ScrollChildSwipeRefreshLayout mSwipeRefreshLayout;
     @ViewById(R.id.list_view) public StickyListHeadersListView mListView;
     @ViewById(R.id.empty_list_text) public TextView mEmptyListTextView;
 
@@ -44,6 +46,21 @@ public abstract class BaseSessionsFragment extends BaseFragment implements
                 R.color.holo_orange_light,
                 R.color.holo_red_light);
         this.mSwipeRefreshLayout.setOnRefreshListener(this);
+        this.mSwipeRefreshLayout.setScrollUpChild(mListView);
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition =
+                        (mListView == null || mListView.getChildCount() == 0) ?
+                                0 : mListView.getChildAt(0).getTop();
+                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
         initPresenter();
     }
 
