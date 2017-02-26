@@ -50,16 +50,8 @@ public class CodecampersPresenter implements CodecampersContract.Presenter,
         this.mView.getSwipeRefreshLayout().setOnRefreshListener(this);
     }
 
-    public void setView(CodecampersContract.View pView) {
-        mView = pView;
-    }
-
-    public void setRepository(IAgendaDataSource<Long> pRepository) {
-        mRepository = pRepository;
-    }
-
-    @Override public void onRefresh() {
-        this.mRepository.getCodecampersList(true, new ILoadCallback<List<DataCodecamper>>() {
+    @Override public void refreshData(boolean force) {
+        this.mRepository.getCodecampersList(force, new ILoadCallback<List<DataCodecamper>>() {
             @Override public void onSuccess(List<DataCodecamper> pObject) {
                 mCodecampersAdapter.update(Codecamper.fromDataCodecamperList(pObject));
                 if (mView.isAdded()) {
@@ -74,4 +66,18 @@ public class CodecampersPresenter implements CodecampersContract.Presenter,
             }
         });
     }
+
+    public void setView(CodecampersContract.View pView) {
+        mView = pView;
+    }
+
+    public void setRepository(IAgendaDataSource<Long> pRepository) {
+        mRepository = pRepository;
+    }
+
+    @Override public void onRefresh() {
+        refreshData(true);
+    }
+
+
 }

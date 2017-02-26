@@ -34,6 +34,7 @@ public class SnappyDatabase implements IDatabase{
     private static final String KEY_ARRAY_CODECAMPERS = "key_array_codecampers";
     private static final String KEY_ARRAY_SESSIONS = "key_array_sessions";
     private static final String KEY_ARRAY_SPONSORS = "key_array_sponsors";
+    private static final String KEY_ARRAY_CONFERENCES = "key_array_conferences";
 
     private DB mSnappyDBInstance;
 
@@ -142,6 +143,24 @@ public class SnappyDatabase implements IDatabase{
                 this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_SESSIONS);
             } catch (SnappydbException pE) {
                 Log.e(TAG, "deleteDataSessions: ", pE);
+            }
+        }
+    }
+
+    @Override public void saveDataConferences(List<DataConference> pDataConferences) {
+        this.putList(KEY_ARRAY_CONFERENCES, pDataConferences);
+    }
+
+    @Override public List<DataConference> getDataConferences() throws SnappydbException {
+        return this.getList(KEY_ARRAY_CONFERENCES, DataConference.class);
+    }
+
+    @Override public void deleteDataConferences() {
+        synchronized (SnappyDatabase_.class) {
+            try {
+                this.checkForNonNull(mSnappyDBInstance).del(KEY_ARRAY_CONFERENCES);
+            } catch (SnappydbException pE) {
+                Log.e(TAG, "deleteDataConferences: ", pE);
             }
         }
     }

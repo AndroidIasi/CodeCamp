@@ -16,7 +16,6 @@ import java.util.List;
 
 import ro.androidiasi.codecamp.BaseFragment;
 import ro.androidiasi.codecamp.R;
-import ro.androidiasi.codecamp.data.source.DataConference;
 import ro.androidiasi.codecamp.internal.model.Conference;
 
 /**
@@ -30,7 +29,7 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
     @ViewById(R.id.version) TextView mVersionTextView;
     @ViewById(R.id.spinner) AppCompatSpinner mSpinner;
 
-    private boolean mIgnoreFirstSelection = true;
+    private boolean mIgnoreSelection = true;
     private List<Conference> mConferenceList;
 
     public static AboutFragment newInstance() {
@@ -39,22 +38,13 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
 
     @Override public void afterInject() {
         super.afterInject();
-        List<DataConference> dataConferenceList = DataConference.listByDateAscending();
-        mConferenceList = Conference.fromDataConferenceList(dataConferenceList);
-        this.mSelectEventAdapter.update(mConferenceList);
     }
 
     @Override public void afterViews() {
         super.afterViews();
+        this.mAboutPresenter.setRepository(getRepository());
         this.mAboutPresenter.setView(this);
         this.mAboutPresenter.afterViews();
-        this.mSpinner.setAdapter(mSelectEventAdapter);
-        for (int i = 0; i < mConferenceList.size(); i++) {
-            Conference conference = mConferenceList.get(i);
-            if (conference.getStringId().equals(getRepository().getConference().toString())) {
-                this.mSpinner.setSelection(i);
-            }
-        }
     }
 
     @Click(R.id.github_button) public void onGitHubButtonClicked() {
@@ -63,23 +53,14 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
 
     @ItemSelect(R.id.spinner) public void onSpinnerItemClicked(boolean pSelected,
                                                                Conference pConference) {
-        if (!mIgnoreFirstSelection) {
+        if (!mIgnoreSelection) {
             this.onBackgroundChangeConference(pConference);
         }
-        mIgnoreFirstSelection = false;
     }
 
     @Background public void onBackgroundChangeConference(Conference pConference) {
         if (this.isAdded()) {
-            String conferenceId = pConference.getStringId();
-            DataConference selectedConference = DataConference.getFromString(conferenceId);
-            DataConference currentConference = this.getRepository().getConference();
-            if (!selectedConference.equals(currentConference)) {
-                this.getRepository().setConference(selectedConference);
-                this.getRepository().invalidate();
-                this.mCodecampBus.post(new EventRefreshLists());
-                this.onUiThreadShowChangingConferenceToast();
-            }
+            mAboutPresenter.onConferenceSelected(pConference);
         }
     }
 
@@ -89,5 +70,24 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
 
     @Override public TextView getVersionTextView() {
         return this.mVersionTextView;
+    }
+
+    @Override public void onConferencesRetrieved(List<Conference> data) {
+        mConferenceList = data;
+        this.mSpinner.setAdapter(mSelectEventAdapter);
+        this.mSelectEventAdapter.update(mConferenceList);
+        for (int i = 0; i < mConferenceList.size(); i++) {
+            Conference conference = mConferenceList.get(i);
+            if (conference.getStringId().equals(getRepository().getConference().getId())) {
+                mIgnoreSelection = true;
+                this.mSpinner.setSelection(i);
+                mIgnoreSelection = false;
+            }
+        }
+    }
+
+    @Override public void notifyChangingConference() {
+        this.mCodecampBus.post(new EventRefreshLists());
+        this.onUiThreadShowChangingConferenceToast();
     }
 }

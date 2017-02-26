@@ -46,6 +46,11 @@ public class CodecampersFragment extends BaseFragment implements CodecampersCont
         return mSwipeRefreshLayout;
     }
 
+    @Override public void onResume() {
+        super.onResume();
+        this.mCodecampersPresenter.refreshData(false);
+    }
+
     @ItemClick(R.id.list_view) public void onCodecamperListItemClicked(Codecamper pCodecamper) {
         FragmentManager supportFragmentManager = getActivity().getSupportFragmentManager();
         this.getNavigator().goToCodecamperDetails(supportFragmentManager, pCodecamper);

@@ -23,6 +23,8 @@ public interface CodecampersContract {
     interface Presenter extends IPresenter {
 
         void afterViews();
+
+        void refreshData(boolean force);
     }
 
 }

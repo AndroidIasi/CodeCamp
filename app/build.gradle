@@ -39,10 +39,10 @@ android {
     }
     signingConfigs{
         release {
-            storeFile file(RELEASE_KEYSTORE_PATH)
-            storePassword RELEASE_KEYSTORE_PASSWORD
-            keyAlias RELEASE_KEYSTORE_ALIAS
-            keyPassword RELEASE_KEYSTORE_KEY_PASSWORD
+//            storeFile file(RELEASE_KEYSTORE_PATH)
+//            storePassword RELEASE_KEYSTORE_PASSWORD
+//            keyAlias RELEASE_KEYSTORE_ALIAS
+//            keyPassword RELEASE_KEYSTORE_KEY_PASSWORD
         }
     }
     productFlavors{

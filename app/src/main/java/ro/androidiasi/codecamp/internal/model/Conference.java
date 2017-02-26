@@ -29,8 +29,8 @@ public class Conference extends AbstractModel {
 
     public static Conference fromDataConference(DataConference pDataConference) {
         return new Conference(
-                pDataConference.toString().hashCode(),
-                pDataConference.toString(),
+                pDataConference.getId().hashCode(),
+                pDataConference.getId(),
                 pDataConference.getName());
     }
 

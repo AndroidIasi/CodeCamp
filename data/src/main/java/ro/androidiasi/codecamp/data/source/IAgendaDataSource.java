@@ -19,6 +19,7 @@ public interface IAgendaDataSource<Id> {
     void getTimeFramesList(boolean pForced, ILoadCallback<List<DataTimeFrame>> pLoadCallback);
     void getCodecampersList(boolean pForced, ILoadCallback<List<DataCodecamper>> pLoadCallback);
     void getSponsorsList(boolean pForced, ILoadCallback<List<DataSponsor>> pLoadCallback);
+    void getConferencesList(boolean pForced, ILoadCallback<List<DataConference>> pLoadCallback);
 
     void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback);
     void getSessionsList(ILoadCallback<List<DataSession>> pLoadCallback);
@@ -26,6 +27,7 @@ public interface IAgendaDataSource<Id> {
     void getTimeFramesList(ILoadCallback<List<DataTimeFrame>> pLoadCallback);
     void getCodecampersList(ILoadCallback<List<DataCodecamper>> pLoadCallback);
     void getSponsorsList(ILoadCallback<List<DataSponsor>> pLoadCallback);
+    void getConferencesList(ILoadCallback<List<DataConference>> pLoadCallback);
 
     void getRoom(Id pId, ILoadCallback<DataRoom> pLoadCallback);
     void getSession(Id pId, ILoadCallback<DataSession> pLoadCallback);

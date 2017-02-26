@@ -1,5 +1,6 @@
 package ro.androidiasi.codecamp.data.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.crawler.CodecampNew;
@@ -52,10 +53,19 @@ public class DataCodecamp extends AbstractDataModel {
 
     public static DataCodecamp fromCrawlerCodecamp(CodecampNew pCodecamp) {
         List<DataCodecamper> dataCodecampers = DataCodecamper.fromSpeakersList(pCodecamp.speakers);
-        List<DataRoom> dataRooms = DataRoom.fromTracksList(pCodecamp.schedules.get(0).tracks);
-        List<DataTimeFrame> dataTimeFrames = DataTimeFrame.fromTimeSlotsList(pCodecamp.schedules.get(0).timeSlots);
-        List<DataSession> dataSessions = DataSession.fromSessionList(pCodecamp.schedules.get(0).sessions,
-                dataCodecampers, dataRooms, dataTimeFrames);
+        List<DataRoom> dataRooms;
+        List<DataTimeFrame> dataTimeFrames;
+        List<DataSession> dataSessions;
+        if (pCodecamp.schedules.isEmpty()){
+            dataRooms = new ArrayList<>();
+            dataTimeFrames = new ArrayList<>();
+            dataSessions = new ArrayList<>();
+        } else {
+            dataRooms = DataRoom.fromTracksList(pCodecamp.schedules.get(0).tracks);
+            dataTimeFrames = DataTimeFrame.fromTimeSlotsList(pCodecamp.schedules.get(0).timeSlots);
+            dataSessions = DataSession.fromSessionList(pCodecamp.schedules.get(0).sessions,
+                    dataCodecampers, dataRooms, dataTimeFrames);
+        }
         List<DataSponsor> dataSponsorList = DataSponsor.fromSponsorsList(pCodecamp.sponsors, pCodecamp.sponsorshipPackages);
         return new DataCodecamp(-1L, dataRooms, dataTimeFrames, dataCodecampers, dataSessions, dataSponsorList);
     }
