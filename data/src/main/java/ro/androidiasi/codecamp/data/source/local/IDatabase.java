@@ -50,6 +50,12 @@ public interface IDatabase {
 
     void deleteDataSessions();
 
+    void saveDataConferences(List<DataConference> pDataConferences);
+
+    List<DataConference> getDataConferences() throws SnappydbException;
+
+    void deleteDataConferences();
+
     boolean dataRoomsExist();
 
     boolean dataTimeFramesExist();

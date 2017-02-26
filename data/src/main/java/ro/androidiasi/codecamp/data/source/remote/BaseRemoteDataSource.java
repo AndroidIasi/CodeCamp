@@ -9,9 +9,12 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ro.androidiasi.codecamp.data.crawler.CodecampNew;
+import ro.androidiasi.codecamp.data.crawler.Conference;
 import ro.androidiasi.codecamp.data.model.DataCodecamp;
 import ro.androidiasi.codecamp.data.model.DataCodecamper;
 import ro.androidiasi.codecamp.data.model.DataRoom;
@@ -38,6 +41,7 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
     private ILoadCallback<List<DataTimeFrame>> mDataTimeFrameListCallback;
     private ILoadCallback<List<DataCodecamper>> mDataCodecamperListCallback;
     private ILoadCallback<List<DataSponsor>> mDataSponsorsListCallback;
+    private ILoadCallback<List<DataConference>> mDataConferencesListCallback;
 
     @AfterInject public void afterMembersInject() {
         this.mObjectMapper = new ObjectMapper();
@@ -83,6 +87,24 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
         this.requestData(pLoadCallback);
     }
 
+    @Override
+    public void getConferencesList(boolean pForced, ILoadCallback<List<DataConference>> pLoadCallback) {
+        this.mDataConferencesListCallback = pLoadCallback;
+        try {
+            this.startConferencesRequest(new ILoadCallback<List<DataConference>>() {
+                @Override public void onSuccess(List<DataConference> pObject) {
+                    mDataConferencesListCallback.onSuccess(pObject);
+                }
+
+                @Override public void onFailure(Exception pException) {
+                    mDataConferencesListCallback.onFailure(pException);
+                }
+            });
+        } catch (DataUnavailable pDataUnavailable) {
+            Log.e(TAG, "getConferencesList: ", pDataUnavailable);
+        }
+    }
+
     @Override public void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback) {
         this.getRoomsList(false, pLoadCallback);
     }
@@ -105,6 +127,10 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
 
     @Override public void getSponsorsList(ILoadCallback<List<DataSponsor>> pLoadCallback) {
        getSponsorsList(false,  pLoadCallback);
+    }
+
+    @Override public void getConferencesList(ILoadCallback<List<DataConference>> pLoadCallback) {
+        this.getConferencesList(false, pLoadCallback);
     }
 
     @Override public void getRoom(Long pLong, ILoadCallback<DataRoom> pLoadCallback) {
@@ -134,6 +160,15 @@ public abstract class BaseRemoteDataSource implements IRemoteClient, IAgendaData
     private DataCodecamp getDataCodecampFromJson(String pDataJson) throws IOException {
         CodecampNew codecamp = this.mObjectMapper.readValue(pDataJson, CodecampNew.class);
         return DataCodecamp.fromCrawlerCodecamp(codecamp);
+    }
+
+    public List<DataConference> getDataConferencesFromJson(String pDataJson) throws IOException {
+        Conference[] conferences = this.mObjectMapper.readValue(pDataJson, Conference[].class);
+        List<DataConference> result = new ArrayList<>();
+        for (Conference conference : conferences) {
+            result.add(DataConference.fromCrawlerConference(conference));
+        }
+        return result;
     }
 
     private<Model> void requestData(ILoadCallback<Model> pLoadCallback) {//this does not look good :)

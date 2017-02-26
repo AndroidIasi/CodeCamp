@@ -78,6 +78,16 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         }
     }
 
+    @Override
+    public void getConferencesList(boolean pForced, ILoadCallback<List<DataConference>> pLoadCallback) {
+        try {
+            List<DataConference> dataConferences = this.mDatabase.getDataConferences();
+            this.onSuccess(pLoadCallback, dataConferences);
+        } catch (SnappydbException pE) {
+            this.onFailure(pLoadCallback, pE);
+        }
+    }
+
     @Override public void getRoomsList(ILoadCallback<List<DataRoom>> pLoadCallback) {
         this.getRoomsList(false, pLoadCallback);
     }
@@ -100,6 +110,10 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
 
     @Override public void getSponsorsList(ILoadCallback<List<DataSponsor>> pLoadCallback) {
         this.getSponsorsList(false, pLoadCallback);
+    }
+
+    @Override public void getConferencesList(ILoadCallback<List<DataConference>> pLoadCallback) {
+        this.getConferencesList(false, pLoadCallback);
     }
 
     @Override public void getRoom(Long pLong, ILoadCallback<DataRoom> pLoadCallback) {
@@ -167,6 +181,10 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
         this.mDatabase.saveDataSponsors(pDataSponsorList);
     }
 
+    public void storeDataConferences(List<DataConference> pDataConferenceList) {
+        this.mDatabase.saveDataConferences(pDataConferenceList);
+    }
+
     private<Model> void onSuccess(ILoadCallback<Model> pLoadCallback, Model pFavorite) {
         pLoadCallback.onSuccess(pFavorite);
     }
@@ -203,5 +221,9 @@ public class AgendaLocalSnappyDataSource implements IAgendaDataSource<Long> {
 
     public void invalidateDataSponsors() {
         this.mDatabase.deleteDataSponsors();
+    }
+
+    public void invalidateDataConferences() {
+        this.mDatabase.deleteDataConferences();
     }
 }

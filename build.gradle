@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.2.3'
 
         // Plugin to help with annotation processing
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -40,10 +40,10 @@ ext {
     appVersionName = "0.5.4"
     // Sdk and tools
     minSdkVersion = 10
-    targetSdkVersion = 24
-    compileSdkVersion = 24
-    buildToolsVersion = '24.0.3'
-    supportLibraryVersion = '24.2.1'
+    targetSdkVersion = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.2'
+    supportLibraryVersion = '25.2.0'
     crashlyticsVersion = '2.6.5'
 
     //Libraries
